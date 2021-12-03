@@ -9,3 +9,6 @@
   font-family: iranSans;
   direction: rtl;
 }
+.Toastify__toast-icon{
+  display: none !important;
+}
