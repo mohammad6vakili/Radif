@@ -1,0 +1,11 @@
+@font-face {
+  font-family: iranSans;
+  src: url(/src/Assets/Font/IRANSansWeb.ttf);
+}
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: iranSans;
+  direction: rtl;
+}
