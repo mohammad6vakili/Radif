@@ -21,7 +21,7 @@ const store = createStore(rootReducer , applyMiddleware(thunk));
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <ToastContainer rtl autoClose={20000} pauseOnFocusLoss={false}/>
+      <ToastContainer rtl autoClose={6000} pauseOnFocusLoss={false}/>
       <App />
     </Provider>
   </BrowserRouter>,

@@ -1,7 +1,6 @@
 const Colors = {
-    royalBlue:"#001D53",
-    secondary:"#dedede",
-    aqua:"#00ECEC",
-    danger:"#C41414",
+    green:"#5CBA94",
+    lightGreen:"#EFF8F4",
+    black:"#475569"
 }
 export default Colors;
