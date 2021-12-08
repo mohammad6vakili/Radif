@@ -56,3 +56,15 @@
 .Toastify__toast-icon{
   display: none !important;
 }
+.react-code-input{
+  direction: ltr;
+  text-align: center !important;
+  margin: 15px 0 !important;
+}
+.react-code-input>input{
+  padding: 0 !important;
+  text-align: center !important;
+  border-radius: 10px !important;
+  width: 40px !important;
+  height: 45px !important;
+}
