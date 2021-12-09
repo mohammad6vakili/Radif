@@ -1,0 +1,23 @@
+.profile-page-name{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    align-items: center;
+}
+.profile-tab-btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.profile-tab-btn>button{
+    width: 40%;
+    font-size: 10px;
+    background-color: #dadada6c;
+}
+.profile-tab-selected{
+    background-color: #5CBA94 !important;
+    color: white !important;
+}

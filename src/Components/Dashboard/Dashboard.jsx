@@ -4,9 +4,9 @@ import { Modal} from 'antd';
 import { Switch , Route} from 'react-router-dom';
 import { useSelector , useDispatch } from 'react-redux';
 import userAvatar from "../../Assets/Images/user-avatar.png";
-import { setHamburger, setNotif } from '../../Store/Action';
+import {setHamburger} from '../../Store/Action';
+import {useHistory} from 'react-router-dom';
 import Colors from "../../Helper/Colors";
-import hamTopBg from "../../Assets/Images/ham-top-bg.svg";
 import iconOne from "../../Assets/Images/ham-icon-one.svg";
 import iconTwo from "../../Assets/Images/ham-icon-two.svg";
 import iconThree from "../../Assets/Images/ham-icon-three.svg";
@@ -17,13 +17,15 @@ import iconSeven from "../../Assets/Images/ham-icon-seven.svg";
 import iconEight from "../../Assets/Images/ham-icon-eight.svg";
 import iconNine from "../../Assets/Images/ham-icon-nine.svg";
 import Home from "../../Pages/Dashboard/Home";
+import Messages from '../../Pages/Global/Messages';
+import Profile from '../../Pages/Dashboard/Profile';
 
 
 
 const Dashboard=()=>{
+    const history=useHistory();
     const dispatch=useDispatch();
     const hamburger = useSelector(state=>state.Reducer.hamburger);
-    const notif = useSelector(state=>state.Reducer.notif);
 
     return(
         <div className="dashboard">
@@ -75,7 +77,7 @@ const Dashboard=()=>{
                             <img src={iconSeven} alt="menu" />
                             <span>درباره ما</span>
                         </div>
-                        <div>
+                        <div onClick={()=>{history.push("/dashboard/profile");dispatch(setHamburger(false))}}>
                             <img src={iconEight} alt="menu" />
                             <span>تنظیمات</span>
                         </div>
@@ -86,28 +88,10 @@ const Dashboard=()=>{
                     </div>
                 </div>
             </Modal>
-            <Modal
-                closable={false}
-                visible={notif}
-                onCancel={()=>dispatch(setNotif(false))}
-                style={{top:0}}
-                className="notif-modal"
-                footer={[]}
-            >
-                <div style={{textAlign:"center",fontSize:"18px",padding:"4px 0",color:Colors.black}}>اعلانات</div>
-                <div className="notif-body">
-                    <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</div>
-                    <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</div>
-                    <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</div>
-                    <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</div>
-                    <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</div>
-                    <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</div>
-                    <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</div>
-                    <div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها</div>
-                </div>
-            </Modal>
             <Switch>
                 <Route path="/dashboard/home" component={Home} />
+                <Route path="/dashboard/messages" component={Messages} />
+                <Route path="/dashboard/profile" component={Profile} />
             </Switch>
         </div>
     )

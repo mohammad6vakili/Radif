@@ -42,6 +42,10 @@
   align-items: center;
   justify-content: flex-start;
   padding:0 10px;
+  scrollbar-width: none !important;
+}
+.dashboard-page::-webkit-scrollbar{
+  display: none !important;
 }
 .bottom-btn-box{
   width: 100% !important;
