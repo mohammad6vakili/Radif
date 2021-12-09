@@ -50,7 +50,7 @@ const Login =()=>{
 
     const sendCode=(e)=>{
         if(e.length===5){
-            history.push("/home");
+            history.push("/dashboard/home");
             toast.success("خوش آمدید",{
                 position: toast.POSITION.BOTTOM_LEFT
             });

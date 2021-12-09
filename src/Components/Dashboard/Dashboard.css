@@ -1,0 +1,152 @@
+.dashboard-page-header {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboard-page-header > div {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.12);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+.dashboard-page-header > div > img {
+  width: 23px;
+  height: 23px;
+}
+.dashboard-page-header > div > span {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-color: #5cba94;
+  position: absolute;
+  right: -5px;
+  top: -5px;
+}
+.hamburger-modal {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  width: 250px !important;
+  background: white !important;
+  border-radius: 40px 0px 0px 40px !important;
+  margin-right: 0px !important;
+  height: 100vh;
+}
+.hamburger-body {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none !important;
+}
+.hamburger-body > div {
+  padding: 0 10px !important;
+}
+.hamburger-body::-webkit-scrollbar {
+  display: none !important;
+}
+.hamburger-header {
+  width: 100%;
+  height: 18%;
+  background-image: url(/src/Assets/Images/ham-top-bg.svg);
+  border-radius: 40px 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.hamburger-header > div,
+.hamburger-header > img {
+  margin-bottom: 15px;
+}
+.hamburger-header > img {
+  width: 60px;
+  height: 60px;
+}
+.hamburger-header > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.hamburger-links {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-top: 5px !important;
+  overflow-y: auto;
+  scrollbar-width: none !important;
+}
+.hamburger-links::-webkit-scrollbar {
+  display: none !important;
+}
+.hamburger-links > div {
+  width: 100%;
+  min-height: 40px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #334155;
+  cursor: pointer;
+  position: relative;
+}
+.hamburger-links > div > span {
+  margin-right: 10px;
+}
+.hamburger-links > div > div {
+  background-color: red;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  right: -5px;
+  top: 5px;
+}
+.hamburger-links-badge {
+  margin-right: 5px !important;
+  font-size: 12px;
+  color: #334155b2;
+}
+.notif-modal {
+  max-width: 420px !important;
+  margin-top: 0 !important;
+  width: 100% !important;
+  background-color: white !important;
+  border-radius: 0 0 20px 20px;
+  height: 50vh;
+}
+.notif-body {
+  max-width: 420px;
+  width: 100% !important;
+  height:42vh;
+  border-radius: 0 0 20px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scrollbar-width: none !important;
+}
+.notif-body::-webkit-scrollbar {
+  display: none !important;
+}
+.notif-body > div {
+  width: 90%;
+  background-color: white;
+  border-radius: 10px;
+  min-height: 30%;
+  margin: 10px 0;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.616);
+  font-size: 12px;
+  padding: 5px;
+}

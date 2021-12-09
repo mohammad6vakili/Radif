@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import thunk from "redux-thunk";
 import {createStore, combineReducers, applyMiddleware} from "redux";
-import {Reducer} from "./Store/Reducer";
+import Reducer from "./Store/Reducer";
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';

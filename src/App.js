@@ -4,7 +4,7 @@ import {useHistory , Switch , Route} from "react-router-dom";
 import { toast } from 'react-toastify';
 import Pending from './Pages/Global/Pending';
 import Login from './Components/Auth/Login';
-import Home from "./Components/Home/Home";
+import Dashboard from "./Components/Dashboard/Dashboard";
 
 
 const App=()=>{
@@ -19,7 +19,7 @@ const App=()=>{
             localStorage.setItem("lat",position.coords.latitude.toFixed(6));
             localStorage.setItem("long",position.coords.longitude.toFixed(6));
             setLoading(false);
-            history.push("/login");
+            history.push("/dashboard/home");
         }
         function handler(error){
             switch(error.code) {
@@ -57,7 +57,7 @@ const App=()=>{
           <div>
             <Switch>
               <Route path="/login" component={Login} />
-              <Route path="/home" component={Home} />
+              <Route path="/dashboard" component={Dashboard} />
             </Switch>
           </div>
         }

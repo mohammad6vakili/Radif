@@ -20,7 +20,7 @@
 .app-container{
   width: 420px;
   height: 100vh;
-  background-color: white !important;
+  background-color: #EFF8F4 !important;
   overflow: hidden !important;
 }
 .page-wrap{
@@ -32,6 +32,16 @@
   justify-content: center;
   padding:0 0 60px 0;
   overflow-y: auto;
+}
+.dashboard-page{
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding:0 10px;
 }
 .bottom-btn-box{
   width: 100% !important;
@@ -67,4 +77,17 @@
   border-radius: 10px !important;
   width: 40px !important;
   height: 45px !important;
+}
+.ant-modal-header , .ant-modal-footer{
+  display: none;
+}
+.ant-modal-body{
+  padding: 0 !important;
+}
+.ant-modal-content{
+  background-color: unset !important;
+  box-shadow: unset !important;
+}
+.ant-modal{
+  max-width: unset !important;
 }
