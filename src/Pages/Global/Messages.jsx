@@ -37,6 +37,94 @@ const Messages=()=>{
                         <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم</div>
                     </div>
                 </div>
+                <div onClick={()=>history.push("/dashboard/messages/message")}>
+                    <img src={bankLogo} alt="bank logo" />
+                    <div>
+                        <div style={{display:"flex",alignItems:"center"}}>
+                            <span style={{fontSize:"16px"}}>بانک شهر - شعبه شریعتی</span>
+                            <div className='messages-items-badge'>۳</div>
+                            <span style={{color:"rgb(51, 65, 85)"}}>امروز</span>
+                        </div>
+                        <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم</div>
+                    </div>
+                </div>
+                <div onClick={()=>history.push("/dashboard/messages/message")}>
+                    <img src={bankLogo} alt="bank logo" />
+                    <div>
+                        <div style={{display:"flex",alignItems:"center"}}>
+                            <span style={{fontSize:"16px"}}>بانک شهر - شعبه شریعتی</span>
+                            <div className='messages-items-badge'>۳</div>
+                            <span style={{color:"rgb(51, 65, 85)"}}>امروز</span>
+                        </div>
+                        <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم</div>
+                    </div>
+                </div>
+                <div onClick={()=>history.push("/dashboard/messages/message")}>
+                    <img src={bankLogo} alt="bank logo" />
+                    <div>
+                        <div style={{display:"flex",alignItems:"center"}}>
+                            <span style={{fontSize:"16px"}}>بانک شهر - شعبه شریعتی</span>
+                            <div className='messages-items-badge'>۳</div>
+                            <span style={{color:"rgb(51, 65, 85)"}}>امروز</span>
+                        </div>
+                        <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم</div>
+                    </div>
+                </div>
+                <div onClick={()=>history.push("/dashboard/messages/message")}>
+                    <img src={bankLogo} alt="bank logo" />
+                    <div>
+                        <div style={{display:"flex",alignItems:"center"}}>
+                            <span style={{fontSize:"16px"}}>بانک شهر - شعبه شریعتی</span>
+                            <div className='messages-items-badge'>۳</div>
+                            <span style={{color:"rgb(51, 65, 85)"}}>امروز</span>
+                        </div>
+                        <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم</div>
+                    </div>
+                </div>
+                <div onClick={()=>history.push("/dashboard/messages/message")}>
+                    <img src={bankLogo} alt="bank logo" />
+                    <div>
+                        <div style={{display:"flex",alignItems:"center"}}>
+                            <span style={{fontSize:"16px"}}>بانک شهر - شعبه شریعتی</span>
+                            <div className='messages-items-badge'>۳</div>
+                            <span style={{color:"rgb(51, 65, 85)"}}>امروز</span>
+                        </div>
+                        <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم</div>
+                    </div>
+                </div>
+                <div onClick={()=>history.push("/dashboard/messages/message")}>
+                    <img src={bankLogo} alt="bank logo" />
+                    <div>
+                        <div style={{display:"flex",alignItems:"center"}}>
+                            <span style={{fontSize:"16px"}}>بانک شهر - شعبه شریعتی</span>
+                            <div className='messages-items-badge'>۳</div>
+                            <span style={{color:"rgb(51, 65, 85)"}}>امروز</span>
+                        </div>
+                        <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم</div>
+                    </div>
+                </div>
+                <div onClick={()=>history.push("/dashboard/messages/message")}>
+                    <img src={bankLogo} alt="bank logo" />
+                    <div>
+                        <div style={{display:"flex",alignItems:"center"}}>
+                            <span style={{fontSize:"16px"}}>بانک شهر - شعبه شریعتی</span>
+                            <div className='messages-items-badge'>۳</div>
+                            <span style={{color:"rgb(51, 65, 85)"}}>امروز</span>
+                        </div>
+                        <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم</div>
+                    </div>
+                </div>
+                <div onClick={()=>history.push("/dashboard/messages/message")}>
+                    <img src={bankLogo} alt="bank logo" />
+                    <div>
+                        <div style={{display:"flex",alignItems:"center"}}>
+                            <span style={{fontSize:"16px"}}>بانک شهر - شعبه شریعتی</span>
+                            <div className='messages-items-badge'>۳</div>
+                            <span style={{color:"rgb(51, 65, 85)"}}>امروز</span>
+                        </div>
+                        <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم</div>
+                    </div>
+                </div>
             </div>
         </div>
     )

@@ -30,7 +30,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding:0 0 60px 0;
   overflow-y: auto;
 }
 .dashboard-page{
@@ -49,23 +48,30 @@
   display: none !important;
 }
 .bottom-btn-box{
+  max-width: 410px;
   width: 100% !important;
-  position:absolute;
-  bottom: 15px;
-  left: 0;
   display: flex;
+  margin-top: auto !important;
   flex-direction: row !important;
+  padding-bottom: 10px;
   justify-content: center !important;
   right: 0;
-  margin: 0 !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
 }
 .green-btn{
   background-color:#5CBA94 !important;
   color: white !important;
   border: 10px!important;
 }
+.border-dark-btn{
+  background-color: #EFF8F4 !important;
+  color: #334155 !important;
+  border: 1px solid #64748B !important;
+}
 .submit-btn{
   width: 90%;
+  border-radius: 10px !important;
   height: 40px !important;
 }
 .Toastify__toast-icon{

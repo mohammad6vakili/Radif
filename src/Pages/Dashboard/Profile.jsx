@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import "./Profile.css";
 import { useDispatch } from 'react-redux';
+import { Button , Switch} from 'antd';
 import { useHistory } from 'react-router-dom';
 import { setNotif } from '../../Store/Action';
 import Colors from "../../Helper/Colors";
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
 import profileExit from "../../Assets/Images/profile-exit.svg";
-import { Button } from 'antd';
+import editIcon from "../../Assets/Images/edit-profile-icon.svg";
 
 
 
@@ -49,6 +50,84 @@ const Profile=()=>{
                     تنظیمات حساب کاربری
                 </Button>
             </div>
+            {tab===0 &&
+                <>
+                <div className='profile-infos'>
+                    <div>
+                        <span>نام</span>
+                        <span>محمد علی</span>
+                    </div>
+                    <div>
+                        <span>نام خانوادگی</span>
+                        <span>وکیلی دوست</span>
+                    </div>
+                    <div>
+                        <span>کدملی</span>
+                        <span>4311320167</span>
+                    </div>
+                    <div>
+                        <span>تاریخ تولد</span>
+                        <span>۱۳۴۴/۰۴/۰۴</span>
+                    </div>
+                    <div>
+                        <span>جنسیت</span>
+                        <span>مرد</span>
+                    </div>
+                    <div>
+                        <span>شماره همراه</span>
+                        <span>۰۹۳۹۰۶۲۴۰۴۹</span>
+                    </div>
+                    <div>
+                        <span>آدرس ایمیل</span>
+                        <span>mohammad6vakili@gmail.com</span>
+                    </div>
+                    <div>
+                        <span>شماره تماس</span>
+                        <span>۰۲۱-۲۲۳۳۴۴۴۵۵</span>
+                    </div>
+                </div>
+                <div className='bottom-btn-box'>
+                    <Button 
+                        className="border-dark-btn submit-btn"
+                    >
+                        <img style={{marginLeft:"5px"}} src={editIcon} alt="edit" />
+                        ویرایش اطلاعات کاربری 
+                    </Button>
+                </div>
+                </>
+            }
+            {tab===1 &&
+                <div className='profile-setting'>
+                    <div style={{width:"100%",textAlign:"right",fontSize:"14px"}}>اطلاع رسانی</div>
+                    <div className='profile-setting-item'>
+                        <span>دریافت پیامک یادآوری نوبت</span>
+                        <Switch size="small" defaultChecked />
+                    </div>
+                    <div className='profile-setting-item'>
+                        <span>دریافت پیامک تراکنش ها</span>
+                        <Switch size="small" defaultChecked />
+                    </div>
+                    <div className='profile-setting-item'>
+                        <span>دریافت ایمیل</span>
+                        <Switch size="small" />
+                    </div>
+                    <div className='profile-setting-item'>
+                        <span>دریافت خبرنامه</span>
+                        <Switch size="small" />
+                    </div>
+                    <div className='profile-setting-seperate'></div>
+                    <div style={{width:"100%",textAlign:"right",fontSize:"14px"}}>نقشه</div>
+                    <div className='profile-setting-item'>
+                        <span>دسترسی خودکار به موقعیت مکانی</span>
+                        <Switch size="small" defaultChecked />
+                    </div>
+                    <div className='profile-setting-seperate'></div>
+                    <div className='profile-setting-item'>
+                        <span>زبان برنامه</span>
+                        <span style={{color:Colors.green}}>فارسی</span>
+                    </div>
+                </div>
+            }
         </div>
     )
 }

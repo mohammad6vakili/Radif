@@ -20,7 +20,7 @@ const Home=()=>{
 
     return(
         <div className="home dashboard-page">
-            <div className="dashboard-page-header">
+            <div className="dashboard-page-header" style={{zIndex:"unset"}}>
                 <div onClick={()=>dispatch(setHamburger(true))}>
                     <img src={hamIcon} alt="menu"/>
                 </div>

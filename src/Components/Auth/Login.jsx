@@ -66,7 +66,7 @@ const Login =()=>{
             {step===0 &&
                 <>
                     <img src={vectorOne} alt="login" />
-                    <div style={{marginTop:"20vh"}}>
+                    <div>
                         <span>شماره موبایل</span>
                         <Input
                             value={mobile}
@@ -100,7 +100,7 @@ const Login =()=>{
                     {isCount ?
                         <>
                             <span 
-                                style={{marginTop:"32vh",width:"150px",fontSize:"16px",textAlign:"center",zIndex:"999",color:Colors.black}}
+                                style={{marginTop:"2vh",width:"150px",fontSize:"16px",textAlign:"center",zIndex:"999",color:Colors.black}}
                             >
                                 کد ۵ رقمی به شماره همراه {FormatHelper.toPersianString(mobile)} ارسال شد
                             </span>
