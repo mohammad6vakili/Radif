@@ -18,6 +18,7 @@ import iconEight from "../../Assets/Images/ham-icon-eight.svg";
 import iconNine from "../../Assets/Images/ham-icon-nine.svg";
 import Home from "../../Pages/Dashboard/Home";
 import Messages from '../../Pages/Global/Messages';
+import Message from '../../Pages/Global/Message';
 import Profile from '../../Pages/Dashboard/Profile';
 
 
@@ -90,7 +91,8 @@ const Dashboard=()=>{
             </Modal>
             <Switch>
                 <Route path="/dashboard/home" component={Home} />
-                <Route path="/dashboard/messages" component={Messages} />
+                <Route path="/dashboard/messages" exact component={Messages} />
+                <Route path="/dashboard/messages/message" component={Message} />
                 <Route path="/dashboard/profile" component={Profile} />
             </Switch>
         </div>

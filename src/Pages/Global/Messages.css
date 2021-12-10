@@ -1,0 +1,42 @@
+.messages-items{
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+.messages-items>div{
+    width: 100%;
+    padding: 10px 5px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(212, 212, 212, 0.712);
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.messages-items>div:hover{
+    border-bottom: 1px solid rgba(112, 112, 112, 0.747) !important;
+    transition-duration: .2s;
+}
+.messages-items>div>div{
+    width: 85%;
+    height: 100%;
+    display: flex;
+    font-size: 12px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.messages-items-badge{
+    border-radius: 50%;
+    background-color: #5CBA94;
+    color: white;
+    width: 17px !important;
+    height: 17px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    margin-left: auto;
+}
