@@ -6,7 +6,7 @@
   top:0;
   background-color: #EFF8F4;
   display: flex;
-  z-index: 999999;
+  z-index: 99;
   align-items: center;
   justify-content: space-between;
 }

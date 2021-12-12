@@ -89,6 +89,7 @@ const Profile=()=>{
                 <div className='bottom-btn-box'>
                     <Button 
                         className="border-dark-btn submit-btn"
+                        onClick={()=>history.push("/dashboard/profile/edit")}
                     >
                         <img style={{marginLeft:"5px"}} src={editIcon} alt="edit" />
                         ویرایش اطلاعات کاربری 

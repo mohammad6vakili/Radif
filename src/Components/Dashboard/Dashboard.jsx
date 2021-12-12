@@ -20,6 +20,7 @@ import Home from "../../Pages/Dashboard/Home";
 import Messages from '../../Pages/Global/Messages';
 import Message from '../../Pages/Global/Message';
 import Profile from '../../Pages/Dashboard/Profile';
+import EditProfile from "../../Pages/Dashboard/EditProfile";
 
 
 
@@ -93,7 +94,8 @@ const Dashboard=()=>{
                 <Route path="/dashboard/home" component={Home} />
                 <Route path="/dashboard/messages" exact component={Messages} />
                 <Route path="/dashboard/messages/message" component={Message} />
-                <Route path="/dashboard/profile" component={Profile} />
+                <Route path="/dashboard/profile" exact component={Profile} />
+                <Route path="/dashboard/profile/edit" component={EditProfile} />
             </Switch>
         </div>
     )

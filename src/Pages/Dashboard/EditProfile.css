@@ -1,0 +1,9 @@
+.edit-profile-input {
+  border-radius: 10px !important;
+  background-color: transparent !important;
+  border: 1px solid rgb(189, 189, 189) !important;
+  height: 40px;
+}
+.date-picker-modal{
+    bottom: 0 !important;
+}

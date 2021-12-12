@@ -102,3 +102,6 @@
 .ant-modal{
   max-width: unset !important;
 }
+.ant-modal-wrap{
+  z-index: 999999999999999999;
+}
