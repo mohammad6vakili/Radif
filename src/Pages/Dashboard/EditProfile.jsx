@@ -4,15 +4,22 @@ import { useHistory } from 'react-router-dom';
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import { Calendar } from "react-modern-calendar-datepicker";
+import DatePicker from "react-modern-calendar-datepicker";
 import {Button,Input,Radio,Modal} from 'antd';
+import {toast} from "react-toastify";
 
 
 const EditProfile=()=>{
 
     const history=useHistory();
-    const [dateModal , setDateModal]=useState(false);
     const [date , setDate]=useState(null);
+
+    const updateProfile=()=>{
+        history.push("/dashboard/profile");
+        toast.success("تغییرات با موفقیت ذخیره شد",{
+            position: toast.POSITION.BOTTOM_LEFT
+        });
+    }
 
     return(
         <div className='edit-profile dashboard-page'>
@@ -74,22 +81,13 @@ const EditProfile=()=>{
                     </div>
                     <div>
                         <span>تاریخ تولد</span>
-                        <Input onFocus={()=>setDateModal(true)} />
-                        <Modal
-                            closable={false}
-                            visible={dateModal}
-                            onCancel={()=>setDateModal(false)}
-                            style={{bottom:0}}
-                            className='date-picker-modal'
-                            footer={[]}
-                        >
-                            <Calendar
+                            <DatePicker
                                 value={date}
+                                inputPlaceholder={" "}
                                 onChange={setDate}
                                 shouldHighlightWeekends
                                 locale="fa"
                             />
-                        </Modal>
                     </div>
                     <div>
                         <span>آدرس ایمیل</span>
@@ -102,9 +100,9 @@ const EditProfile=()=>{
                 <div className='bottom-btn-box'>
                     <Button 
                         className="green-btn submit-btn"
-                        onClick={()=>history.push("/dashboard/profile/edit")}
+                        onClick={updateProfile}
                     >
-                        ویرایش اطلاعات کاربری 
+                        ذخیره
                     </Button>
                 </div>
         </div>
