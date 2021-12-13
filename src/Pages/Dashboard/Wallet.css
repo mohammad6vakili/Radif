@@ -1,0 +1,17 @@
+.wallet>div{
+    width: 100%;
+}
+.wallet>img{
+    height: 45vh;
+}
+.wallet-suggest-price{
+    display: flex;
+    margin:20px 0;
+    align-items: center;
+    justify-content: center;
+}
+.wallet-suggest-price>button{
+    background-color: #f1f1f1d3;
+    margin: 0 5px;
+    border-radius: 6px !important;
+}

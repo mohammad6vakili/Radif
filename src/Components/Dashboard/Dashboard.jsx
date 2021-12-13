@@ -21,6 +21,8 @@ import Messages from '../../Pages/Global/Messages';
 import Message from '../../Pages/Global/Message';
 import Profile from '../../Pages/Dashboard/Profile';
 import EditProfile from "../../Pages/Dashboard/EditProfile";
+import Wallet from '../../Pages/Dashboard/Wallet';
+import Transactions from '../../Pages/Dashboard/Transactions';
 
 
 
@@ -52,7 +54,7 @@ const Dashboard=()=>{
                             <img src={iconOne} alt="menu" />
                             <span>نوبت های من</span>
                         </div>
-                        <div>
+                        <div onClick={()=>{history.push("/dashboard/wallet");dispatch(setHamburger(false))}}>
                             <img src={iconTwo} alt="menu" />
                             <span>کیف پول</span>
                             <span className="hamburger-links-badge">(۱۲۰,۰۰۰ ریال موجودی)</span>
@@ -63,7 +65,7 @@ const Dashboard=()=>{
                             <div></div>
                             <span className="hamburger-links-badge">(۲ پیام جدید)</span>
                         </div>
-                        <div>
+                        <div onClick={()=>{history.push("/dashboard/transactions");dispatch(setHamburger(false))}}>
                             <img src={iconFour} alt="menu" />
                             <span>لیست پرداخت ها</span>
                         </div>
@@ -96,6 +98,8 @@ const Dashboard=()=>{
                 <Route path="/dashboard/messages/message" component={Message} />
                 <Route path="/dashboard/profile" exact component={Profile} />
                 <Route path="/dashboard/profile/edit" component={EditProfile} />
+                <Route path="/dashboard/wallet" component={Wallet} />
+                <Route path="/dashboard/transactions" component={Transactions} />
             </Switch>
         </div>
     )

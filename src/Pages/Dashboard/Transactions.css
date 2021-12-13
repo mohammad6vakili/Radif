@@ -1,0 +1,32 @@
+.trans-item-wrapper {
+  width: 100%;
+  height: 87vh;
+  overflow-y: auto;
+  scrollbar-width: none !important;
+}
+.trans-item-wrapper::-webkit-scrollbar {
+  display: none !important;
+}
+.trans-item-wrapper > div {
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding: 5px;
+}
+.trans-item-wrapper > div > div {
+  width: 100%;
+}
+.trans-item-wrapper>div>div>div>img{
+    margin-left: 5px !important;
+}
+.trans-dec{
+    background-color: #FDEAF2 !important;
+    border: 1px solid #F8ABCB !important;
+    color: #ED2E7E;
+}
+.trans-inc{
+    background-color: #dcecde !important;
+    border: 1px solid #b1d3b3 !important;
+    color: #4CAF50;
+}

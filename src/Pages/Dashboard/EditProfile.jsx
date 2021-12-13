@@ -98,7 +98,7 @@ const EditProfile=()=>{
                     </div>
                 </div>
                 <div className='bottom-btn-box'>
-                    <Button 
+                    <Button
                         className="green-btn submit-btn"
                         onClick={updateProfile}
                     >
