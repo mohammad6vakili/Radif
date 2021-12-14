@@ -23,6 +23,7 @@ import Profile from '../../Pages/Dashboard/Profile';
 import EditProfile from "../../Pages/Dashboard/EditProfile";
 import Wallet from '../../Pages/Dashboard/Wallet';
 import Transactions from '../../Pages/Dashboard/Transactions';
+import About from '../../Pages/Dashboard/About';
 
 
 
@@ -59,7 +60,7 @@ const Dashboard=()=>{
                             <span>کیف پول</span>
                             <span className="hamburger-links-badge">(۱۲۰,۰۰۰ ریال موجودی)</span>
                         </div>
-                        <div>
+                        <div onClick={()=>{history.push("/dashboard/messages");dispatch(setHamburger(false))}}>
                             <img src={iconThree} alt="menu" />
                             <span>پیام ها</span>
                             <div></div>
@@ -77,7 +78,7 @@ const Dashboard=()=>{
                             <img src={iconSix} alt="menu" />
                             <span>دریافت هدیه</span>
                         </div>
-                        <div>
+                        <div onClick={()=>{history.push("/dashboard/about");dispatch(setHamburger(false))}}>
                             <img src={iconSeven} alt="menu" />
                             <span>درباره ما</span>
                         </div>
@@ -100,6 +101,7 @@ const Dashboard=()=>{
                 <Route path="/dashboard/profile/edit" component={EditProfile} />
                 <Route path="/dashboard/wallet" component={Wallet} />
                 <Route path="/dashboard/transactions" component={Transactions} />
+                <Route path="/dashboard/about" component={About} />
             </Switch>
         </div>
     )
