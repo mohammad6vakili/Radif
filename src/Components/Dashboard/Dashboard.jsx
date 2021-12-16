@@ -24,6 +24,9 @@ import EditProfile from "../../Pages/Dashboard/EditProfile";
 import Wallet from '../../Pages/Dashboard/Wallet';
 import Transactions from '../../Pages/Dashboard/Transactions';
 import About from '../../Pages/Dashboard/About';
+import Gift from '../../Pages/Dashboard/Gift';
+import Support from '../../Pages/Dashboard/Support';
+import Ticket from '../../Pages/Dashboard/Ticket';
 
 
 
@@ -70,11 +73,11 @@ const Dashboard=()=>{
                             <img src={iconFour} alt="menu" />
                             <span>لیست پرداخت ها</span>
                         </div>
-                        <div>
+                        <div onClick={()=>{history.push("/dashboard/support");dispatch(setHamburger(false))}}>
                             <img src={iconFive} alt="menu" />
                             <span>پشتیبانی</span>
                         </div>
-                        <div>
+                        <div onClick={()=>{history.push("/dashboard/gift");dispatch(setHamburger(false))}}>
                             <img src={iconSix} alt="menu" />
                             <span>دریافت هدیه</span>
                         </div>
@@ -102,6 +105,9 @@ const Dashboard=()=>{
                 <Route path="/dashboard/wallet" component={Wallet} />
                 <Route path="/dashboard/transactions" component={Transactions} />
                 <Route path="/dashboard/about" component={About} />
+                <Route path="/dashboard/gift" component={Gift} />
+                <Route path="/dashboard/support" exact component={Support} />
+                <Route path="/dashboard/support/ticket" component={Ticket} />
             </Switch>
         </div>
     )

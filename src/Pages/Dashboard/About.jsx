@@ -38,7 +38,7 @@ const About=()=>{
                 در صف های طولانی انتظار می رود یکی از عوامل مهم زنجیره ای بیماری های ویروسی همچون کرونا ، کاهش قابل توجهی پیدا کند و 
                 باعث ارتقا سلامت مردم شریف ایران شود .
             </div>
-            <img src={aboutVector} alt="about" />
+            <img style={{marginTop:"auto"}} src={aboutVector} alt="about" />
         </div>
     )
 }

@@ -1,0 +1,14 @@
+.support-box {
+  width: 100%;
+  min-height: 60px;
+  cursor: pointer;
+  margin: 10px 0;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

@@ -105,3 +105,12 @@
 .ant-modal-wrap{
   z-index: 999999999999999999;
 }
+.ant-input-textarea{
+  position: relative;
+}
+.ant-input-textarea-show-count::after{
+  position:absolute;
+  left: 0;
+  bottom: -25px;
+  direction: ltr;
+}
