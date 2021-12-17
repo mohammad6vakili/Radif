@@ -30,6 +30,7 @@ const Home=()=>{
                 </div>
             </div>
             <img 
+                onClick={()=>history.push("/dashboard/process/select")}
                 style={{width:"100%",cursor:"pointer"}}
                 src={bankBanner}
                 alt="banks" 

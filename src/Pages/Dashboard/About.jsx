@@ -1,5 +1,4 @@
 import React from 'react';
-import "./About.css";
 import { useHistory } from 'react-router-dom';
 import Colors from "../../Helper/Colors";
 import backBtn from "../../Assets/Images/back-btn.svg";

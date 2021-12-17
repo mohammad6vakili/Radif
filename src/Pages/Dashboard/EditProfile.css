@@ -1,3 +1,6 @@
+.profile-infos{
+  position: relative;
+}
 .edit-profile-input {
   border-radius: 10px !important;
   background-color: transparent !important;

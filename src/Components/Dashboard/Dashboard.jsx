@@ -27,6 +27,7 @@ import About from '../../Pages/Dashboard/About';
 import Gift from '../../Pages/Dashboard/Gift';
 import Support from '../../Pages/Dashboard/Support';
 import Ticket from '../../Pages/Dashboard/Ticket';
+import SelectOrg from '../../Pages/Process/SelectOrg';
 
 
 
@@ -108,6 +109,7 @@ const Dashboard=()=>{
                 <Route path="/dashboard/gift" component={Gift} />
                 <Route path="/dashboard/support" exact component={Support} />
                 <Route path="/dashboard/support/ticket" component={Ticket} />
+                <Route path="/dashboard/process/select" component={SelectOrg} />
             </Switch>
         </div>
     )

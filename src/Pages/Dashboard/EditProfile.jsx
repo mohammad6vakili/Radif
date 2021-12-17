@@ -7,6 +7,7 @@ import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import {Calendar} from "react-modern-calendar-datepicker";
 import FormatHelper from "../../Helper/FormatHelper";
 import {Button,Input,Radio,Modal} from 'antd';
+import Colors from "../../Helper/Colors";
 import {toast} from "react-toastify";
 
 
@@ -41,30 +42,6 @@ const EditProfile=()=>{
                     <span></span>
                 </div>
             </div>
-            <Modal 
-                visible={calModal}
-                closable={false}
-                onOk={()=>setCalModal(false)}
-                className='calendar-modal'
-                onCancel={()=>setCalModal(false)}
-                style={{width:"100%",background:"white",display:"flex",justifyContent:"center",padding:"5px",maxWidth:"420px"}}
-                footer={[]}
-            >
-                <Calendar
-                    value={calDate}
-                    onChange={(val)=>setCalDate(val)}
-                    shouldHighlightWeekends
-                    locale="fa"
-                    calendarClassName="responsive-calendar"
-                />
-                <Button
-                    style={{marginTop:"20px"}}
-                    onClick={selectDateSubmit}
-                    className="green-btn submit-btn"
-                >
-                    تایید
-                </Button>
-            </Modal>
             <div className='profile-infos'>
                     <div style={{opacity:".6"}}>
                         <span>نام <span style={{color:"red",fontWeight:"700"}}>*</span></span>
@@ -138,6 +115,32 @@ const EditProfile=()=>{
                         ذخیره
                     </Button>
                 </div>
+                <Modal 
+                    visible={calModal}
+                    closable={false}
+                    onOk={()=>setCalModal(false)}
+                    wrapClassName="calendar-wrape-modal"
+                    className='calendar-modal'
+                    onCancel={()=>setCalModal(false)}
+                    bodyStyle={{display:"flex",flexDirection:"column",alignItems:"center"}}
+                    style={{width:"100%",background:"white",display:"flex",justifyContent:"center",padding:"5px",maxWidth:"420px"}}
+                    footer={[]}
+                >
+                    <Calendar
+                        value={calDate}
+                        onChange={(val)=>setCalDate(val)}
+                        shouldHighlightWeekends
+                        colorPrimary={Colors.green}
+                        locale="fa"
+                        calendarClassName="responsive-calendar"
+                    />
+                    <Button
+                        onClick={selectDateSubmit}
+                        className="green-btn submit-btn"
+                    >
+                        تایید
+                    </Button>
+                </Modal>
         </div>
     )
 }

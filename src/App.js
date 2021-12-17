@@ -1,5 +1,6 @@
 import React, { useEffect , useState } from 'react';
 import './App.css';
+import "./Helper/NotifStyle.css"
 import {useHistory , Switch , Route} from "react-router-dom";
 import { toast } from 'react-toastify';
 import Pending from './Pages/Global/Pending';

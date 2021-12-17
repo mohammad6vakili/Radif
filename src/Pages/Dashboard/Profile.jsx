@@ -3,7 +3,6 @@ import "./Profile.css";
 import { useDispatch } from 'react-redux';
 import { Button , Switch} from 'antd';
 import { useHistory } from 'react-router-dom';
-import { setNotif } from '../../Store/Action';
 import Colors from "../../Helper/Colors";
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
