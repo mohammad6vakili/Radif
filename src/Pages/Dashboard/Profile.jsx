@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./Profile.css";
 import { useDispatch } from 'react-redux';
-import { Button , Switch} from 'antd';
+import { Button , Switch , Modal , Input} from 'antd';
 import { useHistory } from 'react-router-dom';
 import Colors from "../../Helper/Colors";
 import backBtn from "../../Assets/Images/back-btn.svg";
@@ -15,6 +15,23 @@ const Profile=()=>{
     const history=useHistory();
     const dispatch=useDispatch();
     const [tab , setTab]=useState(0);
+    const [getMail , setGetMail]=useState(false);
+    const [getNews , setGetNews]=useState(false);
+    const [mailModal , setMailModal]=useState(false);
+    const [newsModal , setNewsModal]=useState(false);
+    const [logModal , setLogModal]=useState(false);
+
+    const changeMail=(e)=>{
+        e.preventDefault();
+        setMailModal(false)
+        setGetMail(true);
+    }
+
+    const changeNews=(e)=>{
+        e.preventDefault();
+        setNewsModal(false)
+        setGetNews(true);
+    }
 
     return(
         <div className='profile dashboard-page'>
@@ -27,9 +44,33 @@ const Profile=()=>{
                     <span></span>
                 </div>
             </div>
+            <Modal 
+                visible={logModal}
+                closable={false}
+                onOk={()=>setLogModal(false)}
+                wrapClassName="calendar-wrape-modal"
+                className='calendar-modal profile-logout-modal'
+                onCancel={()=>setLogModal(false)}
+                bodyStyle={{display:"flex",flexDirection:"column",alignItems:"center"}}
+                style={{width:"100%",background:"white",display:"flex",justifyContent:"center",padding:"5px",maxWidth:"420px"}}
+                footer={[]}
+            >
+                <div className='get-mail-modal-body'>
+                    <div style={{width:"100%",textAlign:"center",margin:"10px 0 20px 0",fontSize:"12px",color:Colors.secondary}}>
+                        برای خروج از برنامه مطمئن هستید؟
+                    </div>
+                    <div className='profile-log-modal-btns'>
+                        <Button>بی خیال !</Button>
+                        <Button onClick={()=>history.push("/login")} className='green-btn'>خروج از حساب کاربری</Button>
+                    </div>
+                </div>
+            </Modal>
             <div className='profile-page-name'>
                 <span style={{color:Colors.secondary}}>حساب کاربری</span>
-                <span style={{cursor:"pointer"}}>
+                <span 
+                    onClick={()=>setLogModal(true)} 
+                    style={{cursor:"pointer"}}
+                >
                     <img style={{marginLeft:"5px"}} src={profileExit} alt="exit" />خروج از حساب کاربری
                 </span>
             </div>
@@ -109,11 +150,19 @@ const Profile=()=>{
                     </div>
                     <div className='profile-setting-item'>
                         <span>دریافت ایمیل</span>
-                        <Switch size="small" />
+                        <Switch 
+                            checked={getMail===true} 
+                            onClick={()=>getMail===false ? setMailModal(true) : setGetMail(false)} 
+                            size="small" 
+                        />
                     </div>
                     <div className='profile-setting-item'>
                         <span>دریافت خبرنامه</span>
-                        <Switch size="small" />
+                        <Switch 
+                            checked={getNews===true} 
+                            onClick={()=>getNews===false ? setNewsModal(true) : setGetNews(false)} 
+                            size="small" 
+                        />
                     </div>
                     <div className='profile-setting-seperate'></div>
                     <div style={{width:"100%",textAlign:"right",fontSize:"14px"}}>نقشه</div>
@@ -126,6 +175,72 @@ const Profile=()=>{
                         <span>زبان برنامه</span>
                         <span style={{color:Colors.green}}>فارسی</span>
                     </div>
+                    <Modal 
+                        visible={mailModal}
+                        closable={false}
+                        onOk={()=>setMailModal(false)}
+                        wrapClassName="calendar-wrape-modal"
+                        className='calendar-modal get-mail-modal'
+                        onCancel={()=>setMailModal(false)}
+                        bodyStyle={{display:"flex",flexDirection:"column",alignItems:"center"}}
+                        style={{width:"100%",background:"white",display:"flex",justifyContent:"center",padding:"5px",maxWidth:"420px"}}
+                        footer={[]}
+                    >
+                        <div className='get-mail-modal-body'>
+                            <div style={{width:"100%",textAlign:"center",margin:"10px 0 20px 0",fontSize:"12px",color:Colors.secondary}}>
+                                برای دریافت ایمیل و خبرنامه ، آدرس ایمیل خود را وارد کنید
+                            </div>
+                            <div style={{width:"100%",textAlign:"right",margin:"10px 0 4px 0",fontSize:"12px",color:Colors.secondary}}>پست الکترونیکی</div>
+                            <form onSubmit={changeMail}>
+                                <Input 
+                                    placeHolder="test@gmail.com"
+                                    className='edit-profile-input'
+                                    required
+                                    type={"email"}
+                                    style={{textAlign:"left",marginBottom:"20px"}}
+                                />
+                                <Button
+                                    className="green-btn submit-btn"
+                                    htmlType='submit'
+                                >
+                                    ثبت آدرس ایمیل
+                                </Button>
+                            </form>
+                        </div>
+                    </Modal>
+                    <Modal 
+                        visible={newsModal}
+                        closable={false}
+                        onOk={()=>setNewsModal(false)}
+                        wrapClassName="calendar-wrape-modal"
+                        className='calendar-modal get-mail-modal'
+                        onCancel={()=>setNewsModal(false)}
+                        bodyStyle={{display:"flex",flexDirection:"column",alignItems:"center"}}
+                        style={{width:"100%",background:"white",display:"flex",justifyContent:"center",padding:"5px",maxWidth:"420px"}}
+                        footer={[]}
+                    >
+                        <div className='get-mail-modal-body'>
+                            <div style={{width:"100%",textAlign:"center",margin:"10px 0 20px 0",fontSize:"12px",color:Colors.secondary}}>
+                                برای دریافت ایمیل و خبرنامه ، آدرس ایمیل خود را وارد کنید
+                            </div>
+                            <div style={{width:"100%",textAlign:"right",margin:"10px 0 4px 0",fontSize:"12px",color:Colors.secondary}}>پست الکترونیکی</div>
+                            <form onSubmit={changeNews}>
+                                <Input 
+                                    placeHolder="test@gmail.com"
+                                    required
+                                    className='edit-profile-input'
+                                    type={"email"}
+                                    style={{textAlign:"left",marginBottom:"20px"}}
+                                />
+                                <Button
+                                    className="green-btn submit-btn"
+                                    htmlType='submit'
+                                >
+                                    ثبت آدرس ایمیل
+                                </Button>
+                            </form>
+                        </div>
+                    </Modal>
                 </div>
             }
         </div>

@@ -75,7 +75,7 @@ const Login =()=>{
                             placeholder="شماره موبایل باید 11 رقم باشد" 
                         />
                     </div>
-                    <div>
+                    <div style={{marginTop:"15px"}}>
                         <span>کد ملی</span>
                         <Input
                             value={nationalNumber}

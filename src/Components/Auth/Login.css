@@ -6,9 +6,9 @@
     height: 40vh;
 }
 .login>div{
-    width: 90%;
+    width: 100%;
     min-width: 300px;
-    margin: 10px;
+    margin: 5px 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
