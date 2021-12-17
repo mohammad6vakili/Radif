@@ -1,0 +1,33 @@
+.my-process-list {
+  width: 100%;
+  height: 85vh;
+}
+.my-process-list > div {
+  width: 100%;
+  min-height: 130px;
+  margin-bottom: 15px;
+  background-color: #e2e8f0;
+  border-radius: 10px;
+  position: relative;
+}
+.my-process-item-setting-button{
+    position:absolute;
+    left: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+.my-process-item-setting-label{
+    position:absolute;
+    left: 0;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.my-process-item-setting-label>span{
+    position:absolute;
+    font-size: 11px;
+    top: 25%;
+    color: white;
+    font-weight: 700;
+}

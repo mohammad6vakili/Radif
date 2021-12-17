@@ -27,7 +27,9 @@ import About from '../../Pages/Dashboard/About';
 import Gift from '../../Pages/Dashboard/Gift';
 import Support from '../../Pages/Dashboard/Support';
 import Ticket from '../../Pages/Dashboard/Ticket';
+import MyProcess from '../../Pages/Dashboard/MyProcess';
 import SelectOrg from '../../Pages/Process/SelectOrg';
+
 
 
 
@@ -55,7 +57,7 @@ const Dashboard=()=>{
                         </div>
                     </div>
                     <div className="hamburger-links">
-                        <div>
+                        <div onClick={()=>{history.push("/dashboard/myProcess");dispatch(setHamburger(false))}}>
                             <img src={iconOne} alt="menu" />
                             <span>نوبت های من</span>
                         </div>
@@ -101,6 +103,7 @@ const Dashboard=()=>{
                 <Route path="/dashboard/home" component={Home} />
                 <Route path="/dashboard/messages" exact component={Messages} />
                 <Route path="/dashboard/messages/message" component={Message} />
+                <Route path="/dashboard/myProcess" component={MyProcess} />
                 <Route path="/dashboard/profile" exact component={Profile} />
                 <Route path="/dashboard/profile/edit" component={EditProfile} />
                 <Route path="/dashboard/wallet" component={Wallet} />
