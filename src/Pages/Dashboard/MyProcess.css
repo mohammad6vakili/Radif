@@ -19,7 +19,7 @@
 }
 .my-process-item-setting-label {
   position: absolute;
-  left:-3px;
+  left: -3px;
   bottom: 10px;
   height: 30px;
   display: flex;
@@ -29,7 +29,7 @@
 .my-process-item-setting-label > span {
   position: absolute;
   font-size: 11px;
-  top: 25%;
+  top: 35%;
   color: white;
   font-weight: 700;
 }
@@ -45,14 +45,15 @@
 .my-process-item-logo > img {
   margin-bottom: 8px;
 }
-.sub-top , .sub-bottom{
-  width:16px;
-  height:16px;
-  background-color: #F8FAFC ;
+.sub-top,
+.sub-bottom {
+  width: 16px;
+  height: 16px;
+  background-color: #f8fafc;
   border-radius: 50%;
-  position:absolute;
+  position: absolute;
 }
-.sub-top{
+.sub-top {
   top: -8px;
   left: -8px;
 }
@@ -60,14 +61,29 @@
   bottom: -8px;
   left: -8px;
 }
-.my-process-item-details{
+.my-process-item-details {
   width: 75%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding: 10px;
 }
-.my-process-item-details>div{
+.my-process-item-details > div {
   margin-bottom: 5px;
   width: 95%;
+}
+.my-procces-context-menu {
+  width: 100%;
+}
+.my-procces-context-menu > div{
+  cursor: pointer;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 7px 0;
+  color: #334155;
+}
+.my-procces-context-menu > div > span{
+  margin-right: 10px;
 }

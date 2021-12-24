@@ -29,6 +29,7 @@ import Support from '../../Pages/Dashboard/Support';
 import Ticket from '../../Pages/Dashboard/Ticket';
 import MyProcess from '../../Pages/Dashboard/MyProcess';
 import SelectOrg from '../../Pages/Process/SelectOrg';
+import FillData from '../../Pages/Process/FillData';
 
 
 
@@ -113,6 +114,7 @@ const Dashboard=()=>{
                 <Route path="/dashboard/support" exact component={Support} />
                 <Route path="/dashboard/support/ticket" component={Ticket} />
                 <Route path="/dashboard/process/select" component={SelectOrg} />
+                <Route path="/dashboard/process/fill" component={FillData} />
             </Switch>
         </div>
     )

@@ -1,0 +1,30 @@
+.fill-data-page-title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: #64748b;
+  margin-bottom: 30px;
+}
+.fill-data-page-title > img {
+  width: 40px;
+  margin-left: 10px;
+}
+.filldata-input > div {
+  height: 40px !important;
+  border-radius: 8px !important;
+}
+.fill-data-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fill-data-body > div {
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+}
+.fill-data-input {
+  background-color: white !important;
+  border: 1px solid #d9d9d9 !important;
+}

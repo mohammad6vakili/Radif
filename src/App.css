@@ -144,4 +144,14 @@
 .responsive-calendar {
     font-size: 9px !important;
 }
+.ant-select-selection-search-input,.ant-select-selection-placeholder{
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  vertical-align: middle;
+}
+.ant-select-selection-item{
+  display:flex;
+  align-items: center;
+}
 /* Large screens */

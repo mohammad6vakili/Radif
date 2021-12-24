@@ -18,6 +18,8 @@ const SelectOrg=()=>{
     const history=useHistory();
     const [tab , setTab]=useState(0);
     const [addModal , setAddModal]=useState(false);
+    const array=[1,2,3,4,5,6,7,8,9];
+    const lessArray=[1,2,3];
 
     const addToFav=()=>{
         setAddModal(false);
@@ -40,70 +42,16 @@ const SelectOrg=()=>{
             >
                 <div style={{margin:"10px 0",color:"#64748B",textAlign:"center"}}>افزودن به علاقه مندی ها</div>
                 <div className='select-org-modal-list'>
-                    <div className='select-org-modal-list-item'>
-                        <img src={bankLogo} alt="bank" />
-                        <span style={{marginRight:"10px",color:Colors.secondary,fontSize:"13px"}}>بانک شهر</span>
-                        <div onClick={addToFav}>
-                            <img src={plusGrayIcon} alt="add" />
-                            {/* <img src={checkIcon} alt="checked" /> */}
+                    {array.map((data)=>(
+                        <div className='select-org-modal-list-item'>
+                            <img src={bankLogo} alt="bank" />
+                            <span style={{marginRight:"10px",color:Colors.secondary,fontSize:"13px"}}>بانک شهر</span>
+                            <div onClick={addToFav}>
+                                <img src={plusGrayIcon} alt="add" />
+                                {/* <img src={checkIcon} alt="checked" /> */}
+                            </div>
                         </div>
-                    </div>
-                    <div className='select-org-modal-list-item'>
-                        <img src={bankLogo} alt="bank" />
-                        <span style={{marginRight:"10px",color:Colors.secondary,fontSize:"13px"}}>بانک شهر</span>
-                        <div onClick={addToFav}>
-                            <img src={plusGrayIcon} alt="add" />
-                            {/* <img src={checkIcon} alt="checked" /> */}
-                        </div>
-                    </div>
-                    <div className='select-org-modal-list-item'>
-                        <img src={bankLogo} alt="bank" />
-                        <span style={{marginRight:"10px",color:Colors.secondary,fontSize:"13px"}}>بانک شهر</span>
-                        <div onClick={addToFav}>
-                            <img src={plusGrayIcon} alt="add" />
-                            {/* <img src={checkIcon} alt="checked" /> */}
-                        </div>
-                    </div>
-                    <div className='select-org-modal-list-item'>
-                        <img src={bankLogo} alt="bank" />
-                        <span style={{marginRight:"10px",color:Colors.secondary,fontSize:"13px"}}>بانک شهر</span>
-                        <div onClick={addToFav}>
-                            <img src={plusGrayIcon} alt="add" />
-                            {/* <img src={checkIcon} alt="checked" /> */}
-                        </div>
-                    </div>
-                    <div className='select-org-modal-list-item'>
-                        <img src={bankLogo} alt="bank" />
-                        <span style={{marginRight:"10px",color:Colors.secondary,fontSize:"13px"}}>بانک شهر</span>
-                        <div onClick={addToFav}>
-                            <img src={plusGrayIcon} alt="add" />
-                            {/* <img src={checkIcon} alt="checked" /> */}
-                        </div>
-                    </div>
-                    <div className='select-org-modal-list-item'>
-                        <img src={bankLogo} alt="bank" />
-                        <span style={{marginRight:"10px",color:Colors.secondary,fontSize:"13px"}}>بانک شهر</span>
-                        <div onClick={addToFav}>
-                            <img src={plusGrayIcon} alt="add" />
-                            {/* <img src={checkIcon} alt="checked" /> */}
-                        </div>
-                    </div>
-                    <div className='select-org-modal-list-item'>
-                        <img src={bankLogo} alt="bank" />
-                        <span style={{marginRight:"10px",color:Colors.secondary,fontSize:"13px"}}>بانک شهر</span>
-                        <div onClick={addToFav}>
-                            <img src={plusGrayIcon} alt="add" />
-                            {/* <img src={checkIcon} alt="checked" /> */}
-                        </div>
-                    </div>
-                    <div className='select-org-modal-list-item'>
-                        <img src={bankLogo} alt="bank" />
-                        <span style={{marginRight:"10px",color:Colors.secondary,fontSize:"13px"}}>بانک شهر</span>
-                        <div onClick={addToFav}>
-                            <img src={plusGrayIcon} alt="add" />
-                            {/* <img src={checkIcon} alt="checked" /> */}
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </Modal>
             <div className="dashboard-page-header">
@@ -120,24 +68,14 @@ const SelectOrg=()=>{
                 <span style={{color:"#64748B",marginRight:"7px"}}>بانک های مورد علاقه</span>
             </div>
             <div className='select-org-fav-list'>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
+                {lessArray.map((data)=>(
+                    <div onClick={()=>history.push("/dashboard/process/fill")}>
+                        <div>
+                            <img src={bankLogo} alt="org" />
+                        </div>
+                        <span>بانک شهر</span>
                     </div>
-                    <span>بانک شهر</span>
-                </div>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
-                    </div>
-                    <span>بانک شهر</span>
-                </div>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
-                    </div>
-                    <span>بانک شهر</span>
-                </div>
+                ))}
                 <div onClick={()=>setAddModal(true)}>
                     <div>
                         <img src={plusIcon} alt="add" />
@@ -169,60 +107,14 @@ const SelectOrg=()=>{
                 </Button>
             </div>
             <div className='select-org-org-list'>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
+                {array.map((data)=>(
+                    <div onClick={()=>history.push("/dashboard/process/fill")}>
+                        <div>
+                            <img src={bankLogo} alt="org" />
+                        </div>
+                        <span>بانک شهر</span>
                     </div>
-                    <span>بانک شهر</span>
-                </div>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
-                    </div>
-                    <span>بانک شهر</span>
-                </div>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
-                    </div>
-                    <span>بانک شهر</span>
-                </div>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
-                    </div>
-                    <span>بانک شهر</span>
-                </div>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
-                    </div>
-                    <span>بانک شهر</span>
-                </div>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
-                    </div>
-                    <span>بانک شهر</span>
-                </div>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
-                    </div>
-                    <span>بانک شهر</span>
-                </div>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
-                    </div>
-                    <span>بانک شهر</span>
-                </div>
-                <div>
-                    <div>
-                        <img src={bankLogo} alt="org" />
-                    </div>
-                    <span>بانک شهر</span>
-                </div>
+                ))}
             </div>
         </div>
     )
