@@ -154,4 +154,9 @@
   display:flex;
   align-items: center;
 }
-/* Large screens */
+.ant-slider-track{
+  background-color: #5CBA94 !important;
+}
+.ant-slider-mark-text{
+  font-size: 10px;
+}

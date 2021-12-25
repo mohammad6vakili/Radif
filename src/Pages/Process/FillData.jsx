@@ -9,6 +9,7 @@ import backBtn from "../../Assets/Images/back-btn.svg";
 import homeIcon from "../../Assets/Images/home.svg";
 import calendarIcon from "../../Assets/Images/calandar.svg";
 import bankLogo from "../../Assets/Images/bank-logo.png";
+import locationIcon from "../../Assets/Images/location.svg";
 const {Option}=Select;
 
 
@@ -39,7 +40,6 @@ const FillData=()=>{
                 <img src={bankLogo} alt="bank" />
                 <span>درخواست نوبت از بانک ایران زمین</span>
             </div>
-            <div className='fill-data-body'>
                 <div>
                     <Select
                         ref={submitRef}
@@ -77,6 +77,28 @@ const FillData=()=>{
                         className='edit-profile-input fill-data-input'
                     />
                 </div>
+                <div style={{position:"relative"}}>
+                    <img 
+                        src={locationIcon} 
+                        alt="location"
+                        style={{position:"absolute",left:"5px",width:"20px",top:"25%",zIndex:"99"}} 
+                    />
+                    <Input
+                        // onFocus={()=>{setCalModal(true);submitRef.current.focus();}}
+                        placeholder='انتخاب محدوده مکانی'
+                        value={date}
+                        className='edit-profile-input fill-data-input'
+                    />
+                </div>
+                <div className='bottom-btn-box'>
+                    <Button
+                        className="green-btn submit-btn"
+                        onClick={()=>history.push("/dashboard/process/result")}
+                        ref={submitRef}
+                    >
+                        جستجو
+                    </Button>
+                </div>
                 <Modal 
                     visible={calModal}
                     closable={false}
@@ -103,7 +125,6 @@ const FillData=()=>{
                         تایید
                     </Button>
                 </Modal>
-            </div>
         </div>
     )
 }
