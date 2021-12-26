@@ -83,7 +83,7 @@ const SelectOrg=()=>{
                     <span style={{color:Colors.green}}>افزودن</span>
                 </div>
             </div>
-            <div className='profile-tab-btn' style={{marginTop:"0"}}>
+            <div className='profile-tab-btn profile-tab-btn-tripple' style={{marginTop:"0"}}>
                 <Button
                     style={{backgroundColor:"white",padding:"4px",borderRadius:"0 1000px 1000px 0"}}
                     className={tab===0 && "profile-tab-selected"}
