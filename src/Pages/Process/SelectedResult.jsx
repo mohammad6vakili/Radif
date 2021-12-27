@@ -254,7 +254,7 @@ const SelectedResult=()=>{
             <div className='bottom-btn-box'>
                 <Button
                     className="green-btn submit-btn"
-                    // onClick={()=>history.push("/dashboard/process/result")}
+                    onClick={()=>history.push("/dashboard/process/select-role")}
                     ref={submitRef}
                 >
                     ثبت نوبت

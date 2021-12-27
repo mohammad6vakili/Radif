@@ -22,10 +22,6 @@ const MyProcess=()=>{
 
     const content = (
         <div className='my-procces-context-menu'>
-          {/* <div>
-            <img src={detailIcon} alt="details" />
-            <span>جزئیات</span>
-          </div> */}
           <div style={{borderBottom:"1px solid #CBD5E1"}}>
             <img src={editIcon} alt="edit" />
             <span>ویرایش</span>

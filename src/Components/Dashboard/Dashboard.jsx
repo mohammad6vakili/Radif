@@ -32,7 +32,10 @@ import SelectOrg from '../../Pages/Process/SelectOrg';
 import FillData from '../../Pages/Process/FillData';
 import SearchResult from '../../Pages/Process/SearchResult';
 import SelectedResult from '../../Pages/Process/SelectedResult';
-
+import SelectRole from '../../Pages/Process/SelectRole';
+import Payment from '../../Pages/Process/Payment';
+import FillRole from '../../Pages/Process/FillRole';
+import Success from '../../Pages/Process/Success';
 
 
 
@@ -119,6 +122,10 @@ const Dashboard=()=>{
                 <Route path="/dashboard/process/fill" component={FillData} />
                 <Route path="/dashboard/process/result" component={SearchResult} />
                 <Route path="/dashboard/process/selected-result" component={SelectedResult} />
+                <Route path="/dashboard/process/select-role" component={SelectRole} />
+                <Route path="/dashboard/process/payment" component={Payment} />
+                <Route path="/dashboard/process/fillrole" component={FillRole} />
+                <Route path="/dashboard/process/success" component={Success} />
             </Switch>
         </div>
     )

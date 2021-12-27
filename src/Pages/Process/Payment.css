@@ -1,0 +1,68 @@
+.payment-item-box {
+  width: 100%;
+  height: 70px;
+  padding: 0 10px !important;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  display: flex;
+  margin: 15px 0;
+  align-items: center;
+}
+.payment-item-box > label {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex;
+  align-items: center !important;
+}
+.payment-item-box img {
+  margin-left: 5px;
+}
+.payment-item-box span {
+  font-size: 12px;
+  margin-right: 0 5px;
+}
+.payment-item-box-big {
+  height: 150px;
+  justify-content: flex-start;
+  padding-top: 10px !important;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.payment-bank-items {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.payment-bank-items > div {
+  width: 26%;
+  margin-top: 10px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  box-sizing: border-box;
+  border-radius: 10px;
+  position: relative;
+  height: 70px;
+}
+.payment-bank-items > div > label {
+  margin: 0 !important;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding-bottom: 5px;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center !important;
+}
+.payment-bank-items > div span:nth-child(1) {
+  margin-bottom: -28px;
+  margin-top: 22px;
+  height: 17px;
+}
+.payment-bank-items > div img {
+  width: 45px;
+  margin-left: 0;
+}

@@ -160,3 +160,13 @@
 .ant-slider-mark-text{
   font-size: 10px;
 }
+.ant-radio-checked,.ant-radio-inner{
+  border-color: #5CBA94 !important;
+}
+.ant-radio-checked::after{
+  background-color: #5CBA94 !important;
+}
+.ant-checkbox-inner{
+  background-color: #5CBA94 !important;
+  border-color: #5CBA94 !important;
+}

@@ -1,0 +1,6 @@
+.success{
+    padding-top: 15px;
+}
+.success>img:first-child{
+    height: 40vh;
+}
