@@ -84,7 +84,7 @@ const FillData=()=>{
                         style={{position:"absolute",left:"5px",width:"20px",top:"25%",zIndex:"99"}} 
                     />
                     <Input
-                        // onFocus={()=>{setCalModal(true);submitRef.current.focus();}}
+                        onFocus={()=>history.push("/dashboard/process/map")}
                         placeholder='انتخاب محدوده مکانی'
                         value={date}
                         className='edit-profile-input fill-data-input'

@@ -170,3 +170,6 @@
   background-color: #5CBA94 !important;
   border-color: #5CBA94 !important;
 }
+.mapboxgl-ctrl-logo,.mapboxgl-ctrl,.mapboxgl-ctrl-attrib,.mapboxgl-compact{
+  display: none !important;
+}
