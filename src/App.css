@@ -2,14 +2,14 @@
   font-family: iranSans;
   src: url(/src/Assets/Font/IRANSansWeb.ttf);
 }
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: iranSans;
   direction: rtl;
 }
-.App{
+.App {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -18,13 +18,13 @@
   align-items: center;
   background-color: rgba(0, 128, 128, 0.459);
 }
-.app-container{
+.app-container {
   width: 420px;
   height: 100vh;
-  background-color: #F8FAFC !important;
+  background-color: #f8fafc !important;
   overflow: hidden !important;
 }
-.page-wrap{
+.page-wrap {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -34,7 +34,7 @@
   justify-content: center;
   overflow-y: auto;
 }
-.dashboard-page{
+.dashboard-page {
   width: 100%;
   height: 100vh;
   overflow-y: auto;
@@ -42,14 +42,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding:0 10px;
+  padding: 0 10px;
   overflow-x: hidden;
   scrollbar-width: none !important;
 }
-.dashboard-page::-webkit-scrollbar{
+.dashboard-page::-webkit-scrollbar {
   display: none !important;
 }
-.bottom-btn-box{
+.bottom-btn-box {
   max-width: 410px;
   width: 100% !important;
   display: flex;
@@ -61,115 +61,126 @@
   margin-right: 0 !important;
   margin-left: 0 !important;
 }
-.green-btn{
-  background-color:#5CBA94 !important;
+.green-btn {
+  background-color: #5cba94 !important;
   color: white !important;
-  border: 10px!important;
+  border: 10px !important;
 }
-.border-dark-btn{
-  background-color: #EFF8F4 !important;
+.border-dark-btn {
+  background-color: #eff8f4 !important;
   color: #334155 !important;
-  border: 1px solid #64748B !important;
+  border: 1px solid #64748b !important;
 }
-.submit-btn{
+.submit-btn {
   width: 100%;
   border-radius: 10px !important;
   height: 40px !important;
 }
-.Toastify__toast-icon{
+.Toastify__toast-icon {
   display: none !important;
 }
-.react-code-input{
+.react-code-input {
   direction: ltr;
   text-align: center !important;
   margin: 15px 0 !important;
 }
-.react-code-input>input{
+.react-code-input > input {
   padding: 0 !important;
   text-align: center !important;
   border-radius: 10px !important;
   width: 40px !important;
   height: 45px !important;
 }
-.ant-modal-header , .ant-modal-footer{
+.ant-modal-header,
+.ant-modal-footer {
   display: none;
 }
-.ant-modal-body{
+.ant-modal-body {
   width: 100%;
   padding: 0 !important;
 }
-.ant-modal-content{
+.ant-modal-content {
   width: 100%;
   display: flex;
   justify-content: center;
   background-color: unset !important;
   box-shadow: unset !important;
 }
-.ant-modal{
+.ant-modal {
   max-width: 420px !important;
   width: unset !important;
 }
-.ant-modal-mask{
+.ant-modal-mask {
   width: 100% !important;
 }
-.ant-modal-wrap{
+.ant-modal-wrap {
   width: 100% !important;
   z-index: 999999999999999999;
 }
-.ant-input-textarea{
+.ant-input-textarea {
   position: relative;
 }
-.ant-input-textarea-show-count::after{
-  position:absolute;
+.ant-input-textarea-show-count::after {
+  position: absolute;
   left: 0;
   bottom: -25px;
   direction: ltr;
 }
-.calendar-modal{
+.calendar-modal {
   width: 100% !important;
-  position:absolute !important;
+  position: absolute !important;
   bottom: 0 !important;
   margin: 0 !important;
   margin-top: auto !important;
   height: 380px !important;
   border-radius: 30px 30px 0 0;
 }
-.calendar-wrape-modal{
+.calendar-wrape-modal {
   display: flex;
   justify-content: center;
 }
-.Calendar{
+.Calendar {
   box-shadow: none !important;
 }
 .responsive-calendar {
-    font-size: 9px !important;
+  font-size: 9px !important;
 }
-.ant-select-selection-search-input,.ant-select-selection-placeholder{
+.ant-select-selection-search-input,
+.ant-select-selection-placeholder {
   height: 100% !important;
   display: flex !important;
   align-items: center !important;
   vertical-align: middle;
 }
-.ant-select-selection-item{
-  display:flex;
+.ant-select-selection-item {
+  display: flex;
   align-items: center;
 }
-.ant-slider-track{
-  background-color: #5CBA94 !important;
+.ant-slider-track {
+  background-color: #5cba94 !important;
 }
-.ant-slider-mark-text{
+.ant-slider-mark-text {
   font-size: 10px;
 }
-.ant-radio-checked,.ant-radio-inner{
-  border-color: #5CBA94 !important;
+.ant-radio-checked,
+.ant-radio-inner {
+  border-color: #5cba94 !important;
 }
-.ant-radio-checked::after{
-  background-color: #5CBA94 !important;
+.ant-radio-checked::after {
+  background-color: #5cba94 !important;
 }
-.ant-checkbox-inner{
-  background-color: #5CBA94 !important;
-  border-color: #5CBA94 !important;
+.ant-checkbox-inner {
+  background-color: #5cba94 !important;
+  border-color: #5cba94 !important;
 }
-.mapboxgl-ctrl-logo,.mapboxgl-ctrl,.mapboxgl-ctrl-attrib,.mapboxgl-compact{
+.mapboxgl-ctrl-logo,
+.mapboxgl-ctrl,
+.mapboxgl-ctrl-attrib,
+.mapboxgl-compact {
   display: none !important;
+}
+.ant-select-single:not(.ant-select-customize-input),
+.ant-select-selector {
+  height: 45px !important;
+  border-radius: 10px !important;
 }

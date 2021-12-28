@@ -1,0 +1,28 @@
+.map-page{
+    position: relative;
+}
+.map-page-header{
+    position:absolute;
+    right: 0;
+    width: unset !important;
+    height: unset !important;
+    min-height: unset !important;
+    margin: 0 !important;
+    right: 10px;
+    top: 15px;
+    background-color: unset !important;
+}
+.map-page-bottom-btn-box{
+    position:absolute !important;
+    bottom: 0 !important;
+}
+.map-page-bottom-btn-box>button{
+    width: 90% !important;
+}
+.map-page-auto-complete{
+    position:absolute !important;
+    top: 10vh !important;
+    width: 90% !important;
+    z-index: 999999999;
+    left: 5% !important;
+}

@@ -86,7 +86,6 @@ const FillData=()=>{
                     <Input
                         onFocus={()=>history.push("/dashboard/process/map")}
                         placeholder='انتخاب محدوده مکانی'
-                        value={date}
                         className='edit-profile-input fill-data-input'
                     />
                 </div>

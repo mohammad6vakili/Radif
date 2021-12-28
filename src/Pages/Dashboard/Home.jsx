@@ -36,11 +36,13 @@ const Home=()=>{
                 alt="banks" 
             />
             <img 
+                onClick={()=>history.push("/dashboard/process/select")}
                 style={{width:"100%",cursor:"pointer"}}
                 src={policeBanner}
                 alt="banks" 
             />
             <img 
+                onClick={()=>history.push("/dashboard/process/select")}
                 style={{width:"100%",cursor:"pointer"}}
                 src={pishkhanBanner}
                 alt="banks" 
