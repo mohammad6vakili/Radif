@@ -49,7 +49,7 @@ const Home=()=>{
             />
             <div className="home-turn-title">
                 <span style={{color:"gray"}}>نوبت های من</span>
-                <span style={{color:Colors.green,fontWeight:"900",cursor:"pointer"}}>مشاهده همه نوبت های من <img src={leftArrowGreen} alt="left arrow" /></span>
+                <span onClick={()=>history.push("/dashboard/myProcess")} style={{color:Colors.green,fontWeight:"900",cursor:"pointer"}}>مشاهده همه نوبت های من <img src={leftArrowGreen} alt="left arrow" /></span>
             </div>
             <div className="home-turn-list">
                 <div>

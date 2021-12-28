@@ -9,6 +9,7 @@ import {Button,AutoComplete} from 'antd';
 import backBtn from "../../Assets/Images/back-btn.svg";
 import axios from 'axios';
 import loadingGif from "../../Assets/Animations/loading.gif"; 
+import { toast } from 'react-toastify';
 
 
 const MapPage=()=>{
@@ -32,8 +33,14 @@ const MapPage=()=>{
 
 
     const clickOnMap=(viewport)=>{
-        console.log(viewport);
-        dispatch(setSelectCoord(viewport.features[0].properties.name));
+        console.log(viewport.features);
+        if(viewport.features.length>0){
+            dispatch(setSelectCoord(viewport.features[0].properties.name));
+        }else{
+            toast.warning("آدرس یافت نشد لطفا نام روی نقشه را انتخاب کنید",{
+                position:'bottom-left'
+            })
+        }
         setUserLat(viewport.lngLat[0]);
         setUserLong(viewport.lngLat[1]);
         setShowBtn(true);

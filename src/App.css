@@ -18,6 +18,9 @@
   align-items: center;
   background-color: rgba(0, 128, 128, 0.459);
 }
+.app-bg-is-map{
+  background-image: url(/src/Assets/Images/map-bg.png);
+}
 .app-container {
   width: 420px;
   height: 100vh;
@@ -183,4 +186,7 @@
 .ant-select-selector {
   height: 45px !important;
   border-radius: 10px !important;
+}
+.ant-popover-inner-content{
+  padding:5px 10px 5px 0 !important;
 }

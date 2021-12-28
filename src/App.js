@@ -1,7 +1,7 @@
 import React, { useEffect , useState } from 'react';
 import './App.css';
 import "./Helper/NotifStyle.css"
-import {useHistory , Switch , Route} from "react-router-dom";
+import {useHistory , Switch , Route , useLocation} from "react-router-dom";
 import { toast } from 'react-toastify';
 import Pending from './Pages/Global/Pending';
 import Login from './Components/Auth/Login';
@@ -10,6 +10,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 
 const App=()=>{
   const history=useHistory();
+  const location=useLocation();
   const [loading , setLoading]=useState(false);
 
   useEffect(()=>{
@@ -50,7 +51,7 @@ const App=()=>{
 },[])
 
   return (
-    <div className="App">
+    <div className={`${location.pathname!=="/dashboard/process/map" && "app-bg-is-map"} App`}>
       <div className="app-container">
         {loading===true ?
           <Pending/>
