@@ -99,7 +99,7 @@ const Dashboard=()=>{
                             <img src={iconEight} alt="menu" />
                             <span>تنظیمات</span>
                         </div>
-                        <div>
+                        <div onClick={()=>history.push("/login")}>
                             <img src={iconNine} alt="menu" />
                             <span>خروج از حساب کاربری</span>
                         </div>
