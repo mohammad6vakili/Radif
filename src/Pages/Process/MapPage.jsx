@@ -3,7 +3,7 @@ import "./MapPage.css";
 import ReactMapGL,{Marker} from "react-map-gl";
 import markerIcon from "../../Assets/Images/location-marker.png";
 import { useHistory } from 'react-router-dom';
-import { setSelectCoord } from '../../Store/Action';
+import { setLocName } from '../../Store/Action';
 import { useDispatch , useSelector} from 'react-redux';
 import {Button,AutoComplete} from 'antd';
 import backBtn from "../../Assets/Images/back-btn.svg";
@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 const MapPage=()=>{
     const dispatch=useDispatch();
     const history=useHistory();
-    const selectCoord=useSelector(state=>state.Reducer.selectCoord);
+    const locName=useSelector(state=>state.Reducer.locName);
     const [loading , setLoading]=useState(false);
     const [userLat , setUserLat]=useState(parseFloat(localStorage.getItem("lat")));
     const [userLong , setUserLong]=useState(parseFloat(localStorage.getItem("long")));
@@ -33,9 +33,9 @@ const MapPage=()=>{
 
 
     const clickOnMap=(viewport)=>{
-        console.log(viewport.features);
+        console.log(viewport);
         if(viewport.features.length>0){
-            dispatch(setSelectCoord(viewport.features[0].properties.name));
+            dispatch(setLocName(viewport.features[0].properties.name));
         }else{
             toast.warning("آدرس یافت نشد لطفا نام روی نقشه را انتخاب کنید",{
                 position:'bottom-left'
@@ -59,27 +59,27 @@ const MapPage=()=>{
                 if(response.data.features[4] && response.data.features[3] && response.data.features[2] && response.data.features[1] && response.data.features[0]){
                     setOptions([
                         {
-                            value:response.data.features[0].geometry.coordinates
+                            value:response.data.features[0].place_name
                             ,
                             label:response.data.features[0].place_name
                         },
                         {
-                            value:response.data.features[1].geometry.coordinates
+                            value:response.data.features[1].place_name
                             ,
                             label:response.data.features[1].place_name
                         },
                         {
-                            value:response.data.features[2].geometry.coordinates
+                            value:response.data.features[2].place_name
                             ,
                             label:response.data.features[2].place_name
                         },
                         {
-                            value:response.data.features[3].geometry.coordinates
+                            value:response.data.features[3].place_name
                             ,
                             label:response.data.features[3].place_name
                         },
                         {
-                            value:response.data.features[4].geometry.coordinates
+                            value:response.data.features[4].place_name
                             ,
                             label:response.data.features[4].place_name
                         }
@@ -87,23 +87,23 @@ const MapPage=()=>{
                 }else if(response.data.features[3] && response.data.features[2] && response.data.features[1] && response.data.features[0]){
                     setOptions([
                         {
-                            value:response.data.features[0].geometry.coordinates
+                            value:response.data.features[0].place_name
                             ,
                             label:response.data.features[0].place_name
                         },
                         {
-                            value:response.data.features[1].geometry.coordinates
+                            value:response.data.features[1].place_name
                             ,
                             label:response.data.features[1].place_name
                         },
                         {
 
-                            value:response.data.features[2].geometry.coordinates
+                            value:response.data.features[2].place_name
                             ,
                             label:response.data.features[2].place_name
                         },
                         {
-                            value:response.data.features[3].geometry.coordinates
+                            value:response.data.features[3].place_name
                             ,
                             label:response.data.features[3].place_name
                         }
@@ -111,17 +111,17 @@ const MapPage=()=>{
                 }else if(response.data.features[2] && response.data.features[1] && response.data.features[0]){
                     setOptions([
                         {
-                            value:response.data.features[0].geometry.coordinates
+                            value:response.data.features[0].place_name
                             ,
                             label:response.data.features[0].place_name
                         },
                         {
-                            value:response.data.features[1].geometry.coordinates
+                            value:response.data.features[1].place_name
                             ,
                             label:response.data.features[1].place_name
                         },
                         {
-                            value:response.data.features[2].geometry.coordinates
+                            value:response.data.features[2].place_name
                             ,
                             label:response.data.features[2].place_name
                         }
@@ -129,12 +129,12 @@ const MapPage=()=>{
                 }else if(response.data.features[1] && response.data.features[0]){
                     setOptions([
                         {
-                            value:response.data.features[0].geometry.coordinates
+                            value:response.data.features[0].place_name
                             ,
                             label:response.data.features[0].place_name
                         },
                         {
-                            value:response.data.features[1].geometry.coordinates
+                            value:response.data.features[1].place_name
                             ,
                             label:response.data.features[1].place_name
                         }
@@ -142,7 +142,7 @@ const MapPage=()=>{
                 }else if(response.data.features[0]){
                     setOptions([
                         {
-                            value:response.data.features[0].geometry.coordinates
+                            value:response.data.features[0].place_name
                             ,
                             label:response.data.features[0].place_name
                         }
@@ -155,7 +155,8 @@ const MapPage=()=>{
     }
 
     const onSelect = (data) => {
-        console.log('onSelect', data);
+        dispatch(setLocName(data));
+        setShowBtn(true);
         setOptions([]);
       };
 
@@ -179,7 +180,7 @@ const MapPage=()=>{
                 onSelect={onSelect}
                 onSearch={onSearch}
                 className='map-page-auto-complete'
-                placeholder={selectCoord === null ? "جست و جوی منطقه مورد نظر" : selectCoord}
+                placeholder={locName==="" ? "جست و جوی منطقه مورد نظر" : locName}
             />
             <ReactMapGL 
                 mapboxApiAccessToken="pk.eyJ1IjoibW9oYW1tYWQtdmFhIiwiYSI6ImNrbDkxdWswcTA1aDYycW9vNm52MWQ1ZW0ifQ.9hKrFV_dAPja2Ch6tfH9Sg" 

@@ -1,5 +1,6 @@
 export const HAMBURGER="HAMBURGER";
-export const SELECT_COORD="SELECT_COORD";
+export const LOC_NAME="LOC_NAME";
+export const LOC_COORD="LOC_COORD";
 
 
 export const setHamburger=(data)=>{
@@ -10,10 +11,18 @@ export const setHamburger=(data)=>{
         }
     )
 }
-export const setSelectCoord=(data)=>{
+export const setLocName=(data)=>{
     return(
         {
-            type:SELECT_COORD,
+            type:LOC_NAME,
+            payload:data
+        }
+    )
+}
+export const setLocCoord=(data)=>{
+    return(
+        {
+            type:LOC_COORD,
             payload:data
         }
     )

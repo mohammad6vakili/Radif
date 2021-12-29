@@ -1,6 +1,7 @@
 import React,{useState , useRef} from 'react';
 import "./FillData.css";
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Colors from "../../Helper/Colors";
 import FormatHelper from '../../Helper/FormatHelper';
 import { Select , Modal , Input , Button} from 'antd';
@@ -18,8 +19,9 @@ const FillData=()=>{
     const history=useHistory();
     const [date , setDate]=useState(null);
     const [calDate , setCalDate]=useState(null);
-    const submitRef = useRef();
     const [calModal , setCalModal]=useState(false);
+    const submitRef = useRef();
+    const locName=useSelector(state=>state.Reducer.locName);
 
     const selectDateSubmit=()=>{
         setDate(FormatHelper.toPersianString(calDate.year+"/"+calDate.month+"/"+calDate.day));
@@ -86,6 +88,7 @@ const FillData=()=>{
                     <Input
                         onFocus={()=>history.push("/dashboard/process/map")}
                         placeholder='انتخاب محدوده مکانی'
+                        value={locName}
                         className='edit-profile-input fill-data-input'
                     />
                 </div>
