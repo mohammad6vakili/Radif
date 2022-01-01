@@ -10,6 +10,8 @@ import Colors from "../../Helper/Colors";
 import FormatHelper from "../../Helper/FormatHelper";
 import Countdown from "react-countdown";
 import { toast } from 'react-toastify';
+import Env from "../../Constant/Env.json";
+import axios from 'axios';
 
 
 
@@ -17,11 +19,13 @@ const Login =()=>{
     const history=useHistory();
     const [step , setStep]=useState(0);
     const [mobile , setMobile]=useState("");
+    const [loading , setLoading]=useState(false);
     const [nationalNumber , setNationalNumber]=useState("");
     const [isCount , setIsCount]=useState(false);
+    const [code , setCode]=useState("");
 
 
-    const getCode=()=>{
+    const getCode=async()=>{
         if(mobile===""){
             toast.warning("لطفا شماره موبایل خود را وارد کنید",{
                 position: toast.POSITION.BOTTOM_LEFT
@@ -39,21 +43,61 @@ const Login =()=>{
                 position: toast.POSITION.BOTTOM_LEFT
             });
         }else{
-            toast.success("کد تایید با موفقیت برای شما ارسال شد",{
-                position: toast.POSITION.BOTTOM_LEFT
-            });
-            setStep(1);
-            setIsCount(true);
+            try{
+                setLoading(true);
+                const response = await axios.post(Env.baseUrl + "/accounts/register/",{
+                    username:mobile,
+                    nationalNumber:nationalNumber
+                });
+                if(response.data.success===true){
+                    setStep(1);
+                    toast.success(response.data.message,{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                    setCode(JSON.parse(response.data.test_verify_code).token);
+                    setLoading(false);
+                }else{
+                    toast.error(response.data.message,{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                    setLoading(false);
+                }
+            }catch(err){
+                toast.error("خطا در برقراری ارتباط",{
+                    position: toast.POSITION.BOTTOM_LEFT
+                });
+                setLoading(false);
+                console.log(err);
+            }
         }
     }
 
+    const sendCode=async(e)=>{
+        if(code.length===6){
+            try{
+                const response=await axios.post(Env.baseUrl + "/accounts/verify/",{
+                    username:mobile,
+                    national_code:nationalNumber,
+                    otp_code:code
+                })
+                history.push("/dashboard/home");
+                toast.success(response.data.message,{
+                    position: toast.POSITION.BOTTOM_LEFT
+                });
+                localStorage.setItem("token",response.data.token);
+            }catch({err,response}){
+                console.log(err);
+                if(response.data.message){
+                    toast.warning(response.data.message,{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                }else{
+                    toast.warning("خطا در برقراری ارتباط",{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                }
+            }
 
-    const sendCode=(e)=>{
-        if(e.length===5){
-            history.push("/dashboard/home");
-            toast.success("خوش آمدید",{
-                position: toast.POSITION.BOTTOM_LEFT
-            });
         }
     }
 
@@ -85,7 +129,8 @@ const Login =()=>{
                         />
                     </div>
                     <div className="bottom-btn-box">
-                        <Button 
+                        <Button
+                            loading={loading}
                             onClick={getCode}
                             className="green-btn submit-btn"
                         >
@@ -122,8 +167,9 @@ const Login =()=>{
                     }
                     <ReactCodeInput
                         type='number'
-                        fields={5} 
-                        onChange={(e)=>sendCode(e)}
+                        fields={6}
+                        value={code}
+                        onChange={(e)=>setCode(e)}
                     />
                     <div onClick={()=>setStep(0)} className="correct-number">
                         <img src={penImage} alt="edit" />

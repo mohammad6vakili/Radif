@@ -190,3 +190,6 @@
 .ant-popover-inner-content{
   padding:5px 10px 5px 0 !important;
 }
+.ant-btn-loading-icon{
+  display: none !important;
+}

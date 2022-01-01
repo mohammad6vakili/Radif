@@ -12,11 +12,36 @@ import pishkhanBanner from "../../Assets/Images/pishkhan-banner.svg";
 import leftArrowGreen from "../../Assets/Images/left-arrow-green.svg";
 import bankLogo from "../../Assets/Images/bank-logo.png";
 import leftArrow from "../../Assets/Images/left-arrow.svg";
+import Env from "../../Constant/Env.json";
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 
 const Home=()=>{
     const history=useHistory();
     const dispatch=useDispatch();
+
+    const getUserProfile=async()=>{
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.get(Env.baseUrl + "/accounts/test/",{
+                headers:{
+                    "Authorization":"Basic "+token
+                }
+            })
+            console.log(response.data);
+        }catch({err , response}){
+            toast.error(response.data.detail,{
+                position:"bottom-left"
+            });
+            console.log(err);
+        }
+    }
+
+    useEffect(()=>{
+        getUserProfile();
+    },[])
 
     return(
         <div className="home dashboard-page">

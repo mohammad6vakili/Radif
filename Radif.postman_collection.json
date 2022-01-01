@@ -433,53 +433,152 @@
 			]
 		},
 		{
-			"name": "uesr_turn_list",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "123",
-							"type": "string"
+			"name": "queue",
+			"item": [
+				{
+					"name": "uesr_turn_list",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "09388221501",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "username",
-							"value": "09388221501",
-							"type": "string"
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/rqueue/user-turn-list/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"rqueue",
+								"user-turn-list",
+								""
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"count\" : \"2\"\r\n}"
+				{
+					"name": "turn_service_list",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "09388221501",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"service_id\": 1,\r\n    \"organization_brand_id\":1,\r\n    \"date\":\"2022-01-01\",\r\n    \"lat\":35.733285,\r\n    \"long\":51.445362,\r\n    \"priority\" : 1,\r\n    \"meter\": 15\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/rqueue/turn-service-list/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"rqueue",
+								"turn-service-list",
+								""
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/rqueue/user-turn-list/",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"rqueue",
-						"user-turn-list",
-						""
-					]
+				{
+					"name": "register-turn",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "09388221501",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"turn_id\" : 59,\r\n    \"user_id\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/rqueue/register-turn/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"rqueue",
+								"register-turn",
+								""
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"event": [
