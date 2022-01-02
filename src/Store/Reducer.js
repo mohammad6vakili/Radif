@@ -1,13 +1,15 @@
 import {
     HAMBURGER,
     LOC_NAME,
-    LOC_COORD
+    LOC_COORD,
+    PROFILE
 } from "./Action";
 
 const initialState = {
     hamburger:false,
     locName:"",
-    locCoord:null
+    locCoord:null,
+    profile:null
 };
 
 const Reducer = (state = initialState, action) => {
@@ -18,6 +20,8 @@ const Reducer = (state = initialState, action) => {
       return {...state , locName: action.payload};
     case LOC_COORD:
       return {...state , locCoord: action.payload};
+    case PROFILE:
+      return {...state , profile: action.payload};
     default:
       return state;
   }

@@ -21,7 +21,11 @@ const App=()=>{
             localStorage.setItem("lat",position.coords.latitude.toFixed(6));
             localStorage.setItem("long",position.coords.longitude.toFixed(6));
             setLoading(false);
-            // history.push("/dashboard/home");
+            if(localStorage.getItem("token")){
+              history.push("/dashboard/home");
+            }else{
+              history.push("/login");
+            }
         }
         function handler(error){
             switch(error.code) {

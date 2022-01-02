@@ -21,7 +21,7 @@ const Login =()=>{
     const [mobile , setMobile]=useState("");
     const [loading , setLoading]=useState(false);
     const [nationalNumber , setNationalNumber]=useState("");
-    const [isCount , setIsCount]=useState(false);
+    const [isCount , setIsCount]=useState(true);
     const [code , setCode]=useState("");
 
 
@@ -72,7 +72,7 @@ const Login =()=>{
         }
     }
 
-    const sendCode=async(e)=>{
+    const getToken=async(e)=>{
         if(code.length===6){
             try{
                 const response=await axios.post(Env.baseUrl + "/accounts/verify/",{
@@ -110,7 +110,7 @@ const Login =()=>{
             {step===0 &&
                 <>
                     <img src={vectorOne} alt="login" />
-                    <div>
+                    <div style={loading ? {opacity:".5"} : {opacity:"1"}}>
                         <span>شماره موبایل</span>
                         <Input
                             value={mobile}
@@ -119,7 +119,7 @@ const Login =()=>{
                             placeholder="شماره موبایل باید 11 رقم باشد" 
                         />
                     </div>
-                    <div style={{marginTop:"15px"}}>
+                    <div style={loading ? {opacity:".5",marginTop:"15px"} : {opacity:"1",marginTop:"15px"}}>
                         <span>کد ملی</span>
                         <Input
                             value={nationalNumber}
@@ -177,7 +177,7 @@ const Login =()=>{
                     </div>
                     <div className="bottom-btn-box">
                         <Button 
-                            onClick={sendCode}
+                            onClick={getToken}
                             className="green-btn submit-btn"
                         >
                             ورود به حساب کاربری 

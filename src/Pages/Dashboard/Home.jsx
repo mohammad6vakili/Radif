@@ -1,11 +1,11 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import "./Home.css";
 import Colors from "../../Helper/Colors";
 import hamIcon from "../../Assets/Images/ham-icon.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {setHamburger} from "../../Store/Action";
+import {setHamburger , setProfile} from "../../Store/Action";
 import bankBanner from "../../Assets/Images/bank-banner.svg";
 import policeBanner from "../../Assets/Images/police+10-banner.svg";
 import pishkhanBanner from "../../Assets/Images/pishkhan-banner.svg";
@@ -15,22 +15,23 @@ import leftArrow from "../../Assets/Images/left-arrow.svg";
 import Env from "../../Constant/Env.json";
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useEffect } from 'react';
+import Pending from "../Global/Pending";
 
 
 const Home=()=>{
     const history=useHistory();
     const dispatch=useDispatch();
+    const profile=useSelector(state=>state.Reducer.profile);
 
     const getUserProfile=async()=>{
         const token = localStorage.getItem("token");
         try{
-            const response = await axios.get(Env.baseUrl + "/accounts/test/",{
+            const response = await axios.get(Env.baseUrl + "/accounts/profile/",{
                 headers:{
-                    "Authorization":"Basic "+token
+                    "Authorization":"Token "+token
                 }
             })
-            console.log(response.data);
+            dispatch(setProfile(response.data.ContentData));
         }catch({err , response}){
             toast.error(response.data.detail,{
                 position:"bottom-left"
@@ -44,6 +45,8 @@ const Home=()=>{
     },[])
 
     return(
+        <>
+        {profile ?
         <div className="home dashboard-page">
             <div className="dashboard-page-header" style={{zIndex:"unset"}}>
                 <div onClick={()=>dispatch(setHamburger(true))}>
@@ -124,6 +127,10 @@ const Home=()=>{
                 </div>
             </div>
         </div>
+        :
+            <Pending/>
+        }
+        </>
     )
 }
 export default Home;
