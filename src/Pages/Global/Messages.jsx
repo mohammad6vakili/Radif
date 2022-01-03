@@ -29,11 +29,19 @@ const Messages=()=>{
             setLoading(false);
             setMessages(response.data.ContentData);
         }catch({err , response}){
-            toast.error(response.data.detail,{
-                position:"bottom-left"
-            });
             setLoading(false);
-            console.log(err);
+            if(response.status===401){
+                localStorage.clear();
+                history.push("/login");
+                toast.error("شما از برنامه خارج شده اید",{
+                    position:"bottom-left"
+                });
+            }else{
+                history.push("/dashboard/home");
+                toast.error(response.data.detail,{
+                    position:"bottom-left"
+                });
+            }
         }
     }
 

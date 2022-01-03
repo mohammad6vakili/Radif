@@ -1,9 +1,14 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import "./SelectOrg.css";
 import { useHistory } from 'react-router-dom';
+import { useSelector , useDispatch} from 'react-redux';
+import {setBrand} from "../../Store/Action";
 import {Button,Modal} from 'antd';
 import { toast } from 'react-toastify';
+import axios from 'axios';
+import Env from "../../Constant/Env.json";
 import Colors from "../../Helper/Colors";
+import loadingSvg from "../../Assets/Animations/loading.svg";
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
 import favorIcon from "../../Assets/Images/favor-icon.svg";
@@ -16,8 +21,11 @@ import checkIcon from "../../Assets/Images/check.svg";
 
 const SelectOrg=()=>{
     const history=useHistory();
+    const dispatch=useDispatch();
+    const org=useSelector(state=>state.Reducer.org);
     const [tab , setTab]=useState(0);
     const [addModal , setAddModal]=useState(false);
+    const [brands , setBrands]=useState(null);
     const array=[1,2,3,4,5,6,7,8,9];
     const lessArray=[1,2,3];
 
@@ -27,6 +35,47 @@ const SelectOrg=()=>{
             position: toast.POSITION.BOTTOM_LEFT
         });
     }
+
+    const getBrandList=async()=>{
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.post(Env.baseUrl + "/organization/brand-list/",
+                {
+                    organization_id:org
+                }
+                ,
+                {
+                    headers:{
+                        "Authorization":"Token "+ token
+                    }
+                }
+            );
+            console.log(response.data.ContentData);
+            setBrands(response.data.ContentData);
+        }catch({err , response}){
+            if(response.status===401){
+                localStorage.clear();
+                history.push("/login");
+                toast.error("شما از برنامه خارج شده اید",{
+                    position:"bottom-left"
+                });
+            }else{
+                history.push("/dashboard/home");
+                toast.error(response.data.detail,{
+                    position:"bottom-left"
+                });
+            }
+        }
+    }
+
+    const selectBrand=(id)=>{
+        dispatch(setBrand(id));
+        history.push("/dashboard/process/fill");
+    }
+
+    useEffect(()=>{
+        getBrandList();
+    },[])
 
     return(
         <div className='select-org dashboard-page'>
@@ -107,14 +156,20 @@ const SelectOrg=()=>{
                 </Button>
             </div>
             <div className='select-org-org-list'>
-                {array.map((data)=>(
-                    <div onClick={()=>history.push("/dashboard/process/fill")}>
+                {brands ? brands.map((data)=>(
+                    <div 
+                        key={data.id}
+                        onClick={()=>selectBrand(data.id)}
+                    >
                         <div>
-                            <img src={bankLogo} alt="org" />
+                            <img src={data.logo} alt="org logo" />
                         </div>
-                        <span>بانک شهر</span>
+                        <span>{data.name}</span>
                     </div>
-                ))}
+                ))
+                :
+                    <img style={{width:"50px"}} src={loadingSvg} alt="loading" />
+            }
             </div>
         </div>
     )

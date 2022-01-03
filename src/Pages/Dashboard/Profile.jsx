@@ -4,6 +4,7 @@ import { useDispatch , useSelector} from 'react-redux';
 import { Button , Switch , Modal , Input} from 'antd';
 import { setProfile } from '../../Store/Action';
 import { useHistory } from 'react-router-dom';
+import FormatHelper from "../../Helper/FormatHelper";
 import Colors from "../../Helper/Colors";
 import axios from 'axios';
 import Env from "../../Constant/Env.json";
@@ -146,15 +147,21 @@ const Profile=()=>{
                 <div className='profile-infos'>
                     <div>
                         <span>نام</span>
-                        <span>محمد علی</span>
+                        <span>
+                            {profile.first_name!=="" && profile.first_name!==null ? profile.first_name : "---"}
+                        </span>
                     </div>
                     <div>
                         <span>نام خانوادگی</span>
-                        <span>وکیلی دوست</span>
+                        <span>
+                            {profile.last_name!=="" && profile.last_name!==null ? profile.last_name : "---"}
+                        </span>
                     </div>
                     <div>
                         <span>کدملی</span>
-                        <span>4311320167</span>
+                        <span>
+                            {profile.national_code!=="" && profile.national_code!==null ? FormatHelper.toPersianString(profile.national_code) : "---"}
+                        </span>
                     </div>
                     <div>
                         <span>تاریخ تولد</span>

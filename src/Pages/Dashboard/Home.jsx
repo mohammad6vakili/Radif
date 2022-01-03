@@ -1,11 +1,12 @@
-import React,{useEffect} from 'react';
+import React,{useState,useEffect} from 'react';
 import "./Home.css";
 import Colors from "../../Helper/Colors";
 import hamIcon from "../../Assets/Images/ham-icon.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
-import {useDispatch,useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {setHamburger} from "../../Store/Action";
+import {setHamburger, setOrg} from "../../Store/Action";
+import loadingSvg from "../../Assets/Animations/loading.svg";
 import bankBanner from "../../Assets/Images/bank-banner.svg";
 import policeBanner from "../../Assets/Images/police+10-banner.svg";
 import pishkhanBanner from "../../Assets/Images/pishkhan-banner.svg";
@@ -15,12 +16,47 @@ import leftArrow from "../../Assets/Images/left-arrow.svg";
 import Env from "../../Constant/Env.json";
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Pending from "../Global/Pending";
 
 
 const Home=()=>{
     const history=useHistory();
     const dispatch=useDispatch();
+    const [orgs , setOrgs]=useState(null);
+
+    const selectOrg=(id)=>{
+        dispatch(setOrg(id));
+        history.push("/dashboard/process/select");
+    }
+
+    const getOrgList=async()=>{
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.get(Env.baseUrl + "/organization/list",{
+                headers:{
+                    "Authorization":"Token "+ token
+                }
+            })
+            console.log(response.data.ContentData);
+            setOrgs(response.data.ContentData);
+        }catch({err , response}){
+            if(response.status===401){
+                localStorage.clear();
+                history.push("/login");
+                toast.error("شما از برنامه خارج شده اید",{
+                    position:"bottom-left"
+                });
+            }else{
+                history.push("/dashboard/home");
+                toast.error(response.data.detail,{
+                    position:"bottom-left"
+                });
+            }
+        }
+    }
+
+    useEffect(()=>{
+        getOrgList();
+    },[])
 
     return(
         <div className="home dashboard-page">
@@ -33,24 +69,22 @@ const Home=()=>{
                     <span></span>
                 </div>
             </div>
-            <img 
-                onClick={()=>history.push("/dashboard/process/select")}
-                style={{width:"100%",cursor:"pointer"}}
-                src={bankBanner}
-                alt="banks" 
-            />
-            <img 
-                onClick={()=>history.push("/dashboard/process/select")}
-                style={{width:"100%",cursor:"pointer"}}
-                src={policeBanner}
-                alt="banks" 
-            />
-            <img 
-                onClick={()=>history.push("/dashboard/process/select")}
-                style={{width:"100%",cursor:"pointer"}}
-                src={pishkhanBanner}
-                alt="banks" 
-            />
+            {orgs ? orgs.map((data)=>{
+                if(data.name==="بانک"){
+                    return <img
+                            key={data.id}
+                            onClick={()=>selectOrg(data.id)}
+                            style={{width:"100%",cursor:"pointer"}}
+                            src={bankBanner}
+                            alt="banks" 
+                        />
+                }
+            })
+            :
+                <div className='loading-wrapper'>
+                    <img src={loadingSvg} alt="loading" />
+                </div>
+            }
             <div className="home-turn-title">
                 <span style={{color:"gray"}}>نوبت های من</span>
                 <span onClick={()=>history.push("/dashboard/myProcess")} style={{color:Colors.green,fontWeight:"900",cursor:"pointer"}}>مشاهده همه نوبت های من <img src={leftArrowGreen} alt="left arrow" /></span>

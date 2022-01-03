@@ -2,14 +2,20 @@ import {
     HAMBURGER,
     LOC_NAME,
     LOC_COORD,
-    PROFILE
+    PROFILE,
+    ORG,
+    BRAND,
+    SERVICE
 } from "./Action";
 
 const initialState = {
     hamburger:false,
     locName:"",
     locCoord:null,
-    profile:null
+    profile:null,
+    org:null,
+    brand:null,
+    service:null
 };
 
 const Reducer = (state = initialState, action) => {
@@ -22,6 +28,12 @@ const Reducer = (state = initialState, action) => {
       return {...state , locCoord: action.payload};
     case PROFILE:
       return {...state , profile: action.payload};
+    case ORG:
+      return {...state , org: action.payload};
+    case BRAND:
+      return {...state , brand: action.payload};
+    case SERVICE:
+      return {...state , service: action.payload};
     default:
       return state;
   }
