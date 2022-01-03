@@ -193,3 +193,14 @@
 .ant-btn-loading-icon{
   display: none !important;
 }
+.loading-wrapper{
+  width: 100% !important;
+  height: 100vh !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.loading-wrapper>img{
+  width: 50px;
+}

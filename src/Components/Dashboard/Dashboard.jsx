@@ -1,6 +1,6 @@
-import React from 'react';
+import React,{useState} from 'react';
 import "./Dashboard.css";
-import { Modal} from 'antd';
+import { Modal , Button} from 'antd';
 import { Switch , Route} from 'react-router-dom';
 import { useSelector , useDispatch } from 'react-redux';
 import userAvatar from "../../Assets/Images/user-avatar.png";
@@ -44,9 +44,36 @@ const Dashboard=()=>{
     const history=useHistory();
     const dispatch=useDispatch();
     const hamburger = useSelector(state=>state.Reducer.hamburger);
+    const [logModal , setLogModal]=useState(false);
+
+    const logout=()=>{
+        history.push("/login");
+        localStorage.removeItem("token");
+    }
 
     return(
         <div className="dashboard">
+            <Modal 
+                visible={logModal}
+                closable={false}
+                onOk={()=>setLogModal(false)}
+                wrapClassName="calendar-wrape-modal"
+                className='calendar-modal profile-logout-modal'
+                onCancel={()=>setLogModal(false)}
+                bodyStyle={{display:"flex",flexDirection:"column",alignItems:"center"}}
+                style={{width:"100%",background:"white",display:"flex",justifyContent:"center",padding:"5px",maxWidth:"420px"}}
+                footer={[]}
+            >
+                <div className='get-mail-modal-body'>
+                    <div style={{width:"100%",textAlign:"center",margin:"10px 0 20px 0",fontSize:"12px",color:Colors.secondary}}>
+                        برای خروج از برنامه مطمئن هستید؟
+                    </div>
+                    <div className='profile-log-modal-btns'>
+                        <Button onClick={()=>setLogModal(false)}>بی خیال !</Button>
+                        <Button onClick={logout} className='green-btn'>خروج از حساب کاربری</Button>
+                    </div>
+                </div>
+            </Modal>
             <Modal
                 closable={false}
                 visible={hamburger}
@@ -99,7 +126,7 @@ const Dashboard=()=>{
                             <img src={iconEight} alt="menu" />
                             <span>تنظیمات</span>
                         </div>
-                        <div onClick={()=>{history.push("/login");localStorage.removeItem("token")}}>
+                        <div onClick={()=>{setLogModal(true);dispatch(setHamburger(false))}}>
                             <img src={iconNine} alt="menu" />
                             <span>خروج از حساب کاربری</span>
                         </div>

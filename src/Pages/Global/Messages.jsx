@@ -57,7 +57,9 @@ const Messages=()=>{
             </div>
             <div className='messages-items'>
                 {loading===true ?
-                    <img width={"50px"} src={loadingSvg} alt="loading" />
+                    <div className='loading-wrapper'>
+                        <img src={loadingSvg} alt="loading" />
+                    </div>
                     :
                     array.map((data)=>(
                         <div onClick={()=>history.push("/dashboard/messages/message")}>

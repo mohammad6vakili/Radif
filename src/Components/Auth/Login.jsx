@@ -74,6 +74,7 @@ const Login =()=>{
 
     const getToken=async(e)=>{
         if(code.length===6){
+            setLoading(true);
             try{
                 const response=await axios.post(Env.baseUrl + "/accounts/verify/",{
                     username:mobile,
@@ -84,9 +85,11 @@ const Login =()=>{
                 toast.success(response.data.message,{
                     position: toast.POSITION.BOTTOM_LEFT
                 });
+                setLoading(true);
                 localStorage.setItem("token",response.data.token);
             }catch({err,response}){
                 console.log(err);
+                setLoading(true);
                 if(response.data.message){
                     toast.warning(response.data.message,{
                         position: toast.POSITION.BOTTOM_LEFT
@@ -97,7 +100,6 @@ const Login =()=>{
                     });
                 }
             }
-
         }
     }
 
@@ -167,6 +169,7 @@ const Login =()=>{
                     }
                     <ReactCodeInput
                         type='number'
+                        disabled={loading}
                         fields={6}
                         value={code}
                         onChange={(e)=>setCode(e)}
@@ -176,7 +179,8 @@ const Login =()=>{
                         <span style={{color:Colors.green,marginRight:"5px",paddingTop:"2px"}}>اصلاح شماره همراه</span>
                     </div>
                     <div className="bottom-btn-box">
-                        <Button 
+                        <Button
+                            loading={loading}
                             onClick={getToken}
                             className="green-btn submit-btn"
                         >

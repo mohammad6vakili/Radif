@@ -1,25 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import "./Profile.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector} from 'react-redux';
 import { Button , Switch , Modal , Input} from 'antd';
+import { setProfile } from '../../Store/Action';
 import { useHistory } from 'react-router-dom';
 import Colors from "../../Helper/Colors";
+import axios from 'axios';
+import Env from "../../Constant/Env.json";
+import { toast } from 'react-toastify';
+// import assets
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
 import profileExit from "../../Assets/Images/profile-exit.svg";
 import editIcon from "../../Assets/Images/edit-profile-icon.svg";
+import loadingSvg from "../../Assets/Animations/loading.svg";
 
 
 
 const Profile=()=>{
     const history=useHistory();
     const dispatch=useDispatch();
+    const profile = useSelector(state=>state.Reducer.profile);
     const [tab , setTab]=useState(0);
+    const [loading , setLoading]=useState(false);
     const [getMail , setGetMail]=useState(false);
     const [getNews , setGetNews]=useState(false);
     const [mailModal , setMailModal]=useState(false);
     const [newsModal , setNewsModal]=useState(false);
     const [logModal , setLogModal]=useState(false);
+
+    const getUserProfile=async()=>{
+        const token = localStorage.getItem("token");
+        setLoading(true);
+        try{
+            const response = await axios.get(Env.baseUrl + "/accounts/profile/",{
+                headers:{
+                    "Authorization":"Token "+ token
+                }
+            })
+            setLoading(false);
+            dispatch(setProfile(response.data.ContentData));
+        }catch({err , response}){
+            setLoading(false);
+            if(response.status===401){
+                localStorage.clear();
+                history.push("/login");
+                toast.error("شما از برنامه خارج شده اید",{
+                    position:"bottom-left"
+                });
+            }else{
+                history.push("/dashboard/home");
+                toast.error(response.data.detail,{
+                    position:"bottom-left"
+                });
+            }
+        }
+    }
 
     const changeMail=(e)=>{
         e.preventDefault();
@@ -33,7 +69,22 @@ const Profile=()=>{
         setGetNews(true);
     }
 
+    const logout=()=>{
+        history.push("/login");
+        localStorage.removeItem("token");
+    }
+
+    useEffect(()=>{
+        getUserProfile();
+    },[])
+
     return(
+        <>
+        {loading ?
+        <div className='loading-wrapper'>
+            <img src={loadingSvg} alt="loading" />
+        </div>
+        :
         <div className='profile dashboard-page'>
             <div className="dashboard-page-header">
                 <div onClick={()=>history.push("/dashboard/home")}>
@@ -60,8 +111,8 @@ const Profile=()=>{
                         برای خروج از برنامه مطمئن هستید؟
                     </div>
                     <div className='profile-log-modal-btns'>
-                        <Button>بی خیال !</Button>
-                        <Button onClick={()=>history.push("/login")} className='green-btn'>خروج از حساب کاربری</Button>
+                        <Button onClick={()=>setLogModal(false)}>بی خیال !</Button>
+                        <Button onClick={logout} className='green-btn'>خروج از حساب کاربری</Button>
                     </div>
                 </div>
             </Modal>
@@ -244,6 +295,8 @@ const Profile=()=>{
                 </div>
             }
         </div>
+        }
+        </>
     )
 }
 export default Profile;
