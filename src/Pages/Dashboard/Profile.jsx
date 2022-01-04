@@ -8,6 +8,7 @@ import FormatHelper from "../../Helper/FormatHelper";
 import Colors from "../../Helper/Colors";
 import axios from 'axios';
 import Env from "../../Constant/Env.json";
+import moment from 'jalali-moment'
 import { toast } from 'react-toastify';
 // import assets
 import backBtn from "../../Assets/Images/back-btn.svg";
@@ -43,7 +44,7 @@ const Profile=()=>{
             dispatch(setProfile(response.data.ContentData));
         }catch({err , response}){
             setLoading(false);
-            if(response.status===401){
+            if(response && response.status===401){
                 localStorage.clear();
                 history.push("/login");
                 toast.error("شما از برنامه خارج شده اید",{
@@ -81,7 +82,7 @@ const Profile=()=>{
 
     return(
         <>
-        {loading ?
+        {!profile ?
         <div className='loading-wrapper'>
             <img src={loadingSvg} alt="loading" />
         </div>
@@ -165,23 +166,33 @@ const Profile=()=>{
                     </div>
                     <div>
                         <span>تاریخ تولد</span>
-                        <span>۱۳۴۴/۰۴/۰۴</span>
+                        <span>
+                            {profile.birthday!=="" && profile.birthday!==null ? FormatHelper.toPersianString(moment(profile.birthday.toString()).locale('fa').format('YYYY/M/D')) : "---"}
+                        </span>
                     </div>
                     <div>
                         <span>جنسیت</span>
-                        <span>مرد</span>
+                        <span>
+                            {profile.gender!=="" && profile.gender!==null ? profile.gender : "---"}
+                        </span>
                     </div>
                     <div>
                         <span>شماره همراه</span>
-                        <span>۰۹۳۹۰۶۲۴۰۴۹</span>
+                        <span style={{direction:"ltr",textAlign:"right"}}>
+                            {profile.username!=="" && profile.username!==null ? FormatHelper.toPersianString(profile.username) : "---"}
+                        </span>
                     </div>
                     <div>
                         <span>آدرس ایمیل</span>
-                        <span>mohammad6vakili@gmail.com</span>
+                        <span>
+                            {profile.email!=="" && profile.email!==null ? FormatHelper.toPersianString(profile.email) : "---"}
+                        </span>
                     </div>
                     <div>
                         <span>شماره تماس</span>
-                        <span>۰۲۱-۲۲۳۳۴۴۴۵۵</span>
+                        <span style={{direction:"ltr",textAlign:"right"}}>
+                            {profile.mobile!=="" && profile.mobile!=="None" && profile.mobile!==null ? FormatHelper.toPersianString(profile.mobile) : "---"}
+                        </span>
                     </div>
                 </div>
                 <div className='bottom-btn-box'>

@@ -1,5 +1,6 @@
 import {
     HAMBURGER,
+    MESSAGE,
     LOC_NAME,
     LOC_COORD,
     PROFILE,
@@ -10,6 +11,7 @@ import {
 
 const initialState = {
     hamburger:false,
+    message:null,
     locName:"",
     locCoord:null,
     profile:null,
@@ -22,6 +24,8 @@ const Reducer = (state = initialState, action) => {
   switch (action.type) {
     case HAMBURGER:
       return {...state, hamburger: action.payload};
+    case MESSAGE:
+      return {...state, message: action.payload};
     case LOC_NAME:
       return {...state , locName: action.payload};
     case LOC_COORD:

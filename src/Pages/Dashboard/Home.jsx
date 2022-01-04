@@ -39,7 +39,7 @@ const Home=()=>{
             console.log(response.data.ContentData);
             setOrgs(response.data.ContentData);
         }catch({err , response}){
-            if(response.status===401){
+            if(response && response.status===401){
                 localStorage.clear();
                 history.push("/login");
                 toast.error("شما از برنامه خارج شده اید",{

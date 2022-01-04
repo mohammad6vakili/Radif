@@ -1,4 +1,5 @@
 export const HAMBURGER="HAMBURGER";
+export const MESSAGE="MESSAGE";
 export const LOC_NAME="LOC_NAME";
 export const LOC_COORD="LOC_COORD";
 export const PROFILE="PROFILE";
@@ -12,6 +13,14 @@ export const setHamburger=(data)=>{
     return(
         {
             type:HAMBURGER,
+            payload:data
+        }
+    )
+}
+export const setMessage=(data)=>{
+    return(
+        {
+            type:MESSAGE,
             payload:data
         }
     )

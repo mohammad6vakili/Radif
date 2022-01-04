@@ -1,5 +1,6 @@
 import React from 'react';
 import "./Message.css";
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import backBtn from "../../Assets/Images/back-btn.svg";
 import topBg from "../../Assets/Images/message-top-bg.svg";
@@ -10,6 +11,7 @@ import bankLogo from "../../Assets/Images/bank-logo.png";
 const Message=()=>{
 
     const history=useHistory();
+    const message=useSelector(state=>state.Reducer.message);
 
     return(
         <div className='message dashboard-page'>

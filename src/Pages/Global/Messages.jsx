@@ -1,6 +1,8 @@
 import React, { useState , useEffect } from 'react';
 import "./Messages.css";
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { setMessage } from '../../Store/Action';
 import Colors from '../../Helper/Colors';
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
@@ -12,6 +14,7 @@ import loadingSvg from "../../Assets/Animations/loading.svg";
 
 
 const Messages=()=>{
+    const dispatch=useDispatch();
     const history=useHistory();
     const [loading , setLoading]=useState(false);
     const [messages , setMessages]=useState([]);
@@ -28,9 +31,10 @@ const Messages=()=>{
             })
             setLoading(false);
             setMessages(response.data.ContentData);
+            console.log(response.data.ContentData);
         }catch({err , response}){
             setLoading(false);
-            if(response.status===401){
+            if(response && response.status===401){
                 localStorage.clear();
                 history.push("/login");
                 toast.error("شما از برنامه خارج شده اید",{
@@ -69,16 +73,17 @@ const Messages=()=>{
                         <img src={loadingSvg} alt="loading" />
                     </div>
                     :
-                    array.map((data)=>(
-                        <div onClick={()=>history.push("/dashboard/messages/message")}>
-                            <img style={{width:"40px"}} src={bankLogo} alt="bank logo" />
+                    messages.map((data)=>(
+                        <div onClick={()=>{history.push("/dashboard/messages/message");dispatch(setMessage(data));}}>
+                            <img style={{width:"40px"}} src={data.brand_logo} alt="bank logo" />
                             <div>
                                 <div style={{display:"flex",alignItems:"center"}}>
-                                    <span style={{fontSize:"16px"}}>بانک شهر - شعبه شریعتی</span>
-                                    <div className='messages-items-badge'>۳</div>
-                                    <span style={{color:"rgb(51, 65, 85)"}}>امروز</span>
+                                    <span style={{fontSize:"16px"}}>{data.brand_name} - {data.branch_name}</span>
+                                    {/* <div className='messages-items-badge'>۳</div> */}
+                                    {/* <div></div> */}
+                                    {/* <span style={{color:"rgb(51, 65, 85)",marginRight:"auto"}}>امروز</span> */}
                                 </div>
-                                <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم</div>
+                                <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{data.content}</div>
                             </div>
                         </div>
                     ))
