@@ -6,7 +6,9 @@ import {
     PROFILE,
     ORG,
     BRAND,
-    SERVICE
+    SERVICE,
+    LAT,
+    LNG
 } from "./Action";
 
 const initialState = {
@@ -17,7 +19,9 @@ const initialState = {
     profile:null,
     org:null,
     brand:null,
-    service:null
+    service:null,
+    lat:null,
+    lng:null
 };
 
 const Reducer = (state = initialState, action) => {
@@ -38,6 +42,10 @@ const Reducer = (state = initialState, action) => {
       return {...state , brand: action.payload};
     case SERVICE:
       return {...state , service: action.payload};
+    case LAT:
+      return {...state , lat: action.payload};
+    case LNG:
+      return {...state , lng: action.payload};
     default:
       return state;
   }

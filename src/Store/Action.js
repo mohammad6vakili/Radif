@@ -6,6 +6,8 @@ export const PROFILE="PROFILE";
 export const ORG="ORG";
 export const BRAND="BRAND";
 export const SERVICE="SERVICE";
+export const LAT="LAT";
+export const LNG="LNG";
 
 
 
@@ -69,6 +71,22 @@ export const setService=(data)=>{
     return(
         {
             type:SERVICE,
+            payload:data
+        }
+    )
+}
+export const setLat=(data)=>{
+    return(
+        {
+            type:LAT,
+            payload:data
+        }
+    )
+}
+export const setLng=(data)=>{
+    return(
+        {
+            type:LNG,
             payload:data
         }
     )

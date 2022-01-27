@@ -85,11 +85,11 @@ const Login =()=>{
                 toast.success(response.data.message,{
                     position: toast.POSITION.BOTTOM_LEFT
                 });
-                setLoading(true);
+                setLoading(false);
                 localStorage.setItem("token",response.data.token);
             }catch({err,response}){
                 console.log(err);
-                setLoading(true);
+                setLoading(false);
                 if(response.data.message){
                     toast.warning(response.data.message,{
                         position: toast.POSITION.BOTTOM_LEFT

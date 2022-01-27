@@ -16,7 +16,7 @@
     "react-detect-offline": "^2.4.5",
     "react-dom": "^17.0.2",
     "react-ios-pwa-prompt": "^1.8.4",
-    "react-map-gl": "^6.1.18",
+    "react-map-gl": "^5.2.11",
     "react-modern-calendar-datepicker": "^3.1.6",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.3.0",

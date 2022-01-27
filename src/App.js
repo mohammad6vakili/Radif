@@ -15,44 +15,17 @@ const App=()=>{
 
   useEffect(()=>{
     setLoading(true);
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(setCoord,handler);
-        function setCoord(position){
-            localStorage.setItem("lat",position.coords.latitude.toFixed(6));
-            localStorage.setItem("long",position.coords.longitude.toFixed(6));
+      setTimeout(()=>{
+          if(localStorage.getItem("token")){
+            history.push("/dashboard/home");
             setLoading(false);
-            if(localStorage.getItem("token")){
-              history.push("/dashboard/home");
-            }else{
-              history.push("/login");
-            }
-        }
-        function handler(error){
-            switch(error.code) {
-                case error.PERMISSION_DENIED:
-                    toast.error("برای استفاده از نرم افزار نیاز به دسترسی موقعیت مکانی میباشد.لطفا خارج شوید و دوباره وارد شوید یا صفحه را رفرش کنید",{
-                        position: toast.POSITION.BOTTOM_LEFT
-                    });
-                  break;
-                case error.POSITION_UNAVAILABLE:
-                    toast.error("موقعیت جغرافیایی ناشناس میباشد.",{
-                        position: toast.POSITION.BOTTOM_LEFT
-                    });
-                  break;
-                case error.TIMEOUT:
-                    toast.error("لطفا از برنامه خارج شوید و دوباره امتحان کنید.",{
-                        position: toast.POSITION.BOTTOM_LEFT
-                    });
-                  break;
-                case error.UNKNOWN_ERROR:
-                    toast.error("یک خطای ناشناس رخ داده !",{
-                        position: toast.POSITION.BOTTOM_LEFT
-                    });  
-                  break;
-              }
-        }
-    }
-},[])
+          }else{
+            history.push("/login");
+            setLoading(false);
+          }
+        },1000)
+      }
+    ,[])
 
   return (
     <div className={`${location.pathname!=="/dashboard/process/map" && "app-bg-is-map"} App`}>

@@ -2,7 +2,7 @@ import React,{useState , useEffect , useRef} from 'react';
 import "./FillData.css";
 import { useHistory } from 'react-router-dom';
 import { useSelector , useDispatch} from 'react-redux';
-import { setService } from '../../Store/Action';
+import { setService , setLat , setLng, setLocName} from '../../Store/Action';
 import Colors from "../../Helper/Colors";
 import FormatHelper from '../../Helper/FormatHelper';
 import { Select , Modal , Input , Button} from 'antd';
@@ -31,6 +31,8 @@ const FillData=()=>{
     const locName=useSelector(state=>state.Reducer.locName);
     const brand=useSelector(state=>state.Reducer.brand);
     const service=useSelector(state=>state.Reducer.service);
+    const lat=useSelector(state=>state.Reducer.lat);
+    const lng=useSelector(state=>state.Reducer.lng);
 
     const searchBranch=()=>{
         if(service===null){
@@ -79,6 +81,41 @@ const FillData=()=>{
                 toast.error(response.data.detail,{
                     position:"bottom-left"
                 });
+            }
+        }
+    }
+
+    const openMapPage=()=>{
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(setCoord,handler);
+            function setCoord(position){
+                dispatch(setLat(position.coords.latitude.toFixed(6)));
+                dispatch(setLng(position.coords.longitude.toFixed(6)));
+                history.push("/dashboard/process/map");
+            }
+        }
+        function handler(error){
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    toast.error("برای استفاده از نرم افزار نیاز به دسترسی موقعیت مکانی میباشد.لطفا خارج شوید و دوباره وارد شوید یا صفحه را رفرش کنید",{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                break;
+                case error.POSITION_UNAVAILABLE:
+                    toast.error("موقعیت جغرافیایی ناشناس میباشد.",{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                break;
+                case error.TIMEOUT:
+                    toast.error("لطفا از برنامه خارج شوید و دوباره امتحان کنید.",{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                break;
+                case error.UNKNOWN_ERROR:
+                    toast.error("یک خطای ناشناس رخ داده !",{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });  
+                break;
             }
         }
     }
@@ -146,7 +183,7 @@ const FillData=()=>{
                         style={{position:"absolute",left:"5px",width:"20px",top:"25%",zIndex:"99"}} 
                     />
                     <Input
-                        onFocus={()=>history.push("/dashboard/process/map")}
+                        onFocus={openMapPage}
                         placeholder='انتخاب محدوده مکانی'
                         value={locName}
                         className='edit-profile-input fill-data-input'

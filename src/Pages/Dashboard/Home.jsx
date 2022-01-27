@@ -78,6 +78,14 @@ const Home=()=>{
                             src={bankBanner}
                             alt="banks" 
                         />
+                }else if(data.name==="پست"){
+                    return <img
+                            key={data.id}
+                            onClick={()=>selectOrg(data.id)}
+                            style={{width:"100%",cursor:"pointer"}}
+                            src={pishkhanBanner}
+                            alt="banks" 
+                        />
                 }
             })
             :

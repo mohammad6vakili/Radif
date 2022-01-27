@@ -150,7 +150,7 @@ const EditProfile=()=>{
                         />
                     </div>
                     <div>
-                        <span>شماره ثابت</span>
+                        <span>شماره تماس</span>
                         <Input
                             type="tel"
                             value={phone}
