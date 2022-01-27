@@ -17,7 +17,7 @@ const Messages=()=>{
     const dispatch=useDispatch();
     const history=useHistory();
     const [loading , setLoading]=useState(false);
-    const [messages , setMessages]=useState([]);
+    const [messages , setMessages]=useState(null);
     const array = [1,2,3,4,5,6,7];
 
     const getMessages=async()=>{
@@ -31,7 +31,6 @@ const Messages=()=>{
             })
             setLoading(false);
             setMessages(response.data.ContentData);
-            console.log(response.data.ContentData);
         }catch({err , response}){
             setLoading(false);
             if(response && response.status===401){
@@ -42,7 +41,7 @@ const Messages=()=>{
                 });
             }else{
                 history.push("/dashboard/home");
-                toast.error(response.data.detail,{
+                toast.error(response && response.data.detail,{
                     position:"bottom-left"
                 });
             }
@@ -73,7 +72,7 @@ const Messages=()=>{
                         <img src={loadingSvg} alt="loading" />
                     </div>
                     :
-                    messages.map((data)=>(
+                    array.map((data)=>(
                         <div onClick={()=>{history.push("/dashboard/messages/message");dispatch(setMessage(data));}}>
                             <img style={{width:"40px"}} src={data.brand_logo} alt="bank logo" />
                             <div>
@@ -88,6 +87,7 @@ const Messages=()=>{
                         </div>
                     ))
                 }
+                {messages && messages.length===0 && <div>در حال حاضر شما پیامی ندارید.</div>}
             </div>
         </div>
     )

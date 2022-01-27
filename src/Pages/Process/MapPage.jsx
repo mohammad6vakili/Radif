@@ -5,7 +5,7 @@ import markerIcon from "../../Assets/Images/location-marker.png";
 import { useHistory } from 'react-router-dom';
 import { setLat, setLng, setLocName } from '../../Store/Action';
 import { useDispatch , useSelector} from 'react-redux';
-import {Button,AutoComplete} from 'antd';
+import {Button,AutoComplete, Input} from 'antd';
 import backBtn from "../../Assets/Images/back-btn.svg";
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -51,117 +51,9 @@ const MapPage=()=>{
         }
     }
 
-    const onSearch=async(text)=>{
-        if(text.length<2){
-            setOptions([]);
-        }else if(text.length>2){
-            try{
-                const response=await axios.get(
-                    `https://api.mapbox.com/geocoding/v5/mapbox.places/${text}.json?country=ir&access_token=pk.eyJ1IjoibW9oYW1tYWQtdmFhIiwiYSI6ImNrbDkxdWswcTA1aDYycW9vNm52MWQ1ZW0ifQ.9hKrFV_dAPja2Ch6tfH9Sg`
-                );
-                console.log(response.data.features[0].place_name);
-                if(response.data.features[4] && response.data.features[3] && response.data.features[2] && response.data.features[1] && response.data.features[0]){
-                    setOptions([
-                        {
-                            value:response.data.features[0].place_name
-                            ,
-                            label:response.data.features[0].place_name
-                        },
-                        {
-                            value:response.data.features[1].place_name
-                            ,
-                            label:response.data.features[1].place_name
-                        },
-                        {
-                            value:response.data.features[2].place_name
-                            ,
-                            label:response.data.features[2].place_name
-                        },
-                        {
-                            value:response.data.features[3].place_name
-                            ,
-                            label:response.data.features[3].place_name
-                        },
-                        {
-                            value:response.data.features[4].place_name
-                            ,
-                            label:response.data.features[4].place_name
-                        }
-                    ])
-                }else if(response.data.features[3] && response.data.features[2] && response.data.features[1] && response.data.features[0]){
-                    setOptions([
-                        {
-                            value:response.data.features[0].place_name
-                            ,
-                            label:response.data.features[0].place_name
-                        },
-                        {
-                            value:response.data.features[1].place_name
-                            ,
-                            label:response.data.features[1].place_name
-                        },
-                        {
-
-                            value:response.data.features[2].place_name
-                            ,
-                            label:response.data.features[2].place_name
-                        },
-                        {
-                            value:response.data.features[3].place_name
-                            ,
-                            label:response.data.features[3].place_name
-                        }
-                    ])
-                }else if(response.data.features[2] && response.data.features[1] && response.data.features[0]){
-                    setOptions([
-                        {
-                            value:response.data.features[0].place_name
-                            ,
-                            label:response.data.features[0].place_name
-                        },
-                        {
-                            value:response.data.features[1].place_name
-                            ,
-                            label:response.data.features[1].place_name
-                        },
-                        {
-                            value:response.data.features[2].place_name
-                            ,
-                            label:response.data.features[2].place_name
-                        }
-                    ])
-                }else if(response.data.features[1] && response.data.features[0]){
-                    setOptions([
-                        {
-                            value:response.data.features[0].place_name
-                            ,
-                            label:response.data.features[0].place_name
-                        },
-                        {
-                            value:response.data.features[1].place_name
-                            ,
-                            label:response.data.features[1].place_name
-                        }
-                    ])
-                }else if(response.data.features[0]){
-                    setOptions([
-                        {
-                            value:response.data.features[0].place_name
-                            ,
-                            label:response.data.features[0].place_name
-                        }
-                    ])
-                }
-            }catch(err){
-                console.log(err);
-            }
-        }
-    }
-
     const onSelect = (data) => {
         dispatch(setLocName(data));
         setShowBtn(true);
-        setOptions([]);
       };
 
       useEffect(()=>{
@@ -179,11 +71,10 @@ const MapPage=()=>{
                 </div>
             </div>
             <AutoComplete
-                options={options}
-                onSelect={onSelect}
-                onSearch={onSearch}
+                disabled
+                value={locName}
                 className='map-page-auto-complete'
-                placeholder={locName==="" ? "جست و جوی منطقه مورد نظر" : locName}
+                // placeholder={locName}
             />
             <ReactMapGL 
                 mapboxApiAccessToken="pk.eyJ1IjoibW9oYW1tYWQtdmFhIiwiYSI6ImNrbDkxdWswcTA1aDYycW9vNm52MWQ1ZW0ifQ.9hKrFV_dAPja2Ch6tfH9Sg" 

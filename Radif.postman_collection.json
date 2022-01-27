@@ -35,15 +35,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:8000/organization/list",
-							"protocol": "http",
+							"raw": "{{hostUrl}}/organization/list",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{hostUrl}}"
 							],
-							"port": "8000",
 							"path": [
 								"organization",
 								"list"
@@ -184,18 +179,162 @@
 					"response": []
 				},
 				{
-					"name": "branch comment list",
+					"name": "add favorite brand",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "09388221501",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ob_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{hostUrl}}/organization/brand-service-list/",
+							"raw": "{{hostUrl}}/organization/add-favorite-brand/",
 							"host": [
 								"{{hostUrl}}"
 							],
 							"path": [
 								"organization",
-								"brand-service-list",
+								"add-favorite-brand",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add employee",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "09388221501",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"سپیده\",\r\n    \"last_name\": \"فیاضی\",\r\n    \"username\": \"09362215022\",\r\n    \"national_code\":\"1830198444\",\r\n    \"password\": \"ssf1830198440\",\r\n    \"repeated_password\": \"ssf1830198440\",\r\n    \"role_id\": 1,\r\n    \"obbs_id\":1\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/organization/add-employee/",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"organization",
+								"add-employee",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "branch comment list",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "09388221501",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"obb_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/organization/branch-comment-list/",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"organization",
+								"branch-comment-list",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user favorite brand list",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "09388221501",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/organization/user-favorite-brand-list/",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"organization",
+								"user-favorite-brand-list",
 								""
 							]
 						}
@@ -323,7 +462,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"service_id\": 2\r\n}",
+							"raw": "{\r\n    \"service_id\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -436,7 +575,7 @@
 			"name": "queue",
 			"item": [
 				{
-					"name": "uesr_turn_list",
+					"name": "register-turn",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -461,19 +600,62 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"turn_id\" : 175\r\n}"
+						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/rqueue/user-turn-list/",
-							"protocol": "http",
+							"raw": "{{hostUrl}}/rqueue/register-turn/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{hostUrl}}"
 							],
-							"port": "8000",
 							"path": [
 								"rqueue",
-								"user-turn-list",
+								"register-turn",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancellation-turn",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "09388221501",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"turn_id\" : 175\r\n}"
+						},
+						"url": {
+							"raw": "{{hostUrl}}/rqueue/cancellation-turn/",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"rqueue",
+								"cancellation-turn",
 								""
 							]
 						}
@@ -508,18 +690,13 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"service_id\": 1,\r\n    \"organization_brand_id\":1,\r\n    \"date\":\"2022-01-01\",\r\n    \"lat\":35.733285,\r\n    \"long\":51.445362,\r\n    \"priority\" : 1,\r\n    \"meter\": 15\r\n}"
+							"raw": "{\r\n    \"service_id\": 1,\r\n    \"organization_brand_id\":1,\r\n    \"date\":\"2022-01-10\",\r\n    \"lat\":35.733285,\r\n    \"long\":51.445362,\r\n    \"priority\" : 1,\r\n    \"meter\": 15\r\n}"
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/rqueue/turn-service-list/",
-							"protocol": "http",
+							"raw": "{{hostUrl}}/rqueue/turn-service-list/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{hostUrl}}"
 							],
-							"port": "8000",
 							"path": [
 								"rqueue",
 								"turn-service-list",
@@ -528,9 +705,53 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"item": [
 				{
-					"name": "register-turn",
+					"name": "payment-list",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "09388221501",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/payment/payment-list/",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"payment",
+								"payment-list",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "location",
+			"item": [
+				{
+					"name": "City List",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -548,30 +769,70 @@
 							]
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"turn_id\" : 59,\r\n    \"user_id\": 1\r\n}"
+							"raw": "{\r\n                \"province_id\": 1\r\n                \r\n            }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/rqueue/register-turn/",
-							"protocol": "http",
+							"raw": "{{hostUrl}}/location/city-list/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{hostUrl}}"
 							],
-							"port": "8000",
 							"path": [
-								"rqueue",
-								"register-turn",
+								"location",
+								"city-list",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Province List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "09388221501",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/location/province-list/",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"location",
+								"province-list",
 								""
 							]
 						}
@@ -604,7 +865,7 @@
 	"variable": [
 		{
 			"key": "hostUrl",
-			"value": "http://127.0.0.1:8000"
+			"value": "http://127.0.0.1:8000/v1"
 		}
 	]
 }

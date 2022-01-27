@@ -8,7 +8,7 @@ export const BRAND="BRAND";
 export const SERVICE="SERVICE";
 export const LAT="LAT";
 export const LNG="LNG";
-
+export const TURN="TURN";
 
 
 export const setHamburger=(data)=>{
@@ -87,6 +87,14 @@ export const setLng=(data)=>{
     return(
         {
             type:LNG,
+            payload:data
+        }
+    )
+}
+export const setTurnData=(data)=>{
+    return(
+        {
+            type:TURN,
             payload:data
         }
     )

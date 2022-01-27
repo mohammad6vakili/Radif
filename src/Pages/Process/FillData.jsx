@@ -6,6 +6,7 @@ import { setService , setLat , setLng, setLocName} from '../../Store/Action';
 import Colors from "../../Helper/Colors";
 import FormatHelper from '../../Helper/FormatHelper';
 import { Select , Modal , Input , Button} from 'antd';
+import moment from 'jalali-moment'
 import {Calendar} from "react-modern-calendar-datepicker";
 import axios from 'axios';
 import Env from "../../Constant/Env.json";
@@ -28,21 +29,13 @@ const FillData=()=>{
     const [loading , setLoading]=useState(false);
     const [services , setServices]=useState(null);
     const submitRef = useRef();
+
     const locName=useSelector(state=>state.Reducer.locName);
     const brand=useSelector(state=>state.Reducer.brand);
     const service=useSelector(state=>state.Reducer.service);
     const lat=useSelector(state=>state.Reducer.lat);
     const lng=useSelector(state=>state.Reducer.lng);
 
-    const searchBranch=()=>{
-        if(service===null){
-            toast.warning("لطفا سرویس مورد نظر خود را انتخاب کنید",{
-                position:"bottom-left"
-            });
-        }else{
-            history.push("/dashboard/process/result");
-        }
-    }
 
     const selectDateSubmit=()=>{
         setDate(FormatHelper.toPersianString(calDate.year+"/"+calDate.month+"/"+calDate.day));
@@ -56,7 +49,7 @@ const FillData=()=>{
             setLoading(true);
             const response = await axios.post(Env.baseUrl + "/organization/brand-service-list/",
                 {
-                    organization_brand_id:brand
+                    organization_brand_id:brand.id
                 }
                 ,
                 {
@@ -78,7 +71,7 @@ const FillData=()=>{
                 });
             }else{
                 history.push("/dashboard/home");
-                toast.error(response.data.detail,{
+                toast.error(response && response.data.detail,{
                     position:"bottom-left"
                 });
             }
@@ -97,7 +90,7 @@ const FillData=()=>{
         function handler(error){
             switch(error.code) {
                 case error.PERMISSION_DENIED:
-                    toast.error("برای استفاده از نرم افزار نیاز به دسترسی موقعیت مکانی میباشد.لطفا خارج شوید و دوباره وارد شوید یا صفحه را رفرش کنید",{
+                    toast.error("برای استفاده از نقشه نیاز به دسترسی موقعیت مکانی میباشد.",{
                         position: toast.POSITION.BOTTOM_LEFT
                     });
                 break;
@@ -120,8 +113,52 @@ const FillData=()=>{
         }
     }
 
+
+    const searchTurn=async()=>{
+        const token = localStorage.getItem("token");
+        try{
+            setLoading(true);
+            const response = await axios.post(Env.baseUrl + "/rqueue/turn-service-list/",
+                {
+                    service_id:service,
+                    organization_brand_id:brand.id,
+                    date: moment.from(FormatHelper.toEnglishString(date.replace("/","-").replace("/","-")), 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD'),
+                    lat:lat,
+                    long:lng,
+                    priority:1,
+                    meter:15
+                }
+                ,
+                {
+                    headers:{
+                        "Authorization":"Token "+ token
+                    }
+                }
+            );
+            setLoading(false);
+            console.log(response.data.ContentData);
+        }catch({err , response}){
+            setLoading(false);
+            if(response && response.status===401){
+                localStorage.clear();
+                history.push("/login");
+                toast.error("شما از برنامه خارج شده اید",{
+                    position:"bottom-left"
+                });
+            }else{
+                history.push("/dashboard/home");
+                toast.error(response && response.data.detail,{
+                    position:"bottom-left"
+                });
+            }
+        }
+    }
+
+
     useEffect(()=>{
-        getBrandServices();
+        if(brand){
+            getBrandServices();
+        }
     },[])
 
     return(
@@ -134,16 +171,19 @@ const FillData=()=>{
                     <img src={homeIcon} alt="home"/>
                 </div>
             </div>
-            <div className='fill-data-page-title'>
-                <img src={bankLogo} alt="bank" />
-                <span>درخواست نوبت از بانک ایران زمین</span>
-            </div>
+            {brand && 
+                <div className='fill-data-page-title'>
+                    <img src={brand.logo} alt="logo" />
+                    <span>درخواست نوبت از {brand.name}</span>
+                </div>
+            }
                 <div>
                     <Select
                         ref={submitRef}
                         disabled={loading}
                         showSearch
                         allowClear
+                        value={service}
                         onChange={(value)=>dispatch(setService(value))}
                         className='filldata-input'
                         style={{width:"100%",backgroundColor:"transparent"}}
@@ -171,7 +211,7 @@ const FillData=()=>{
                     />
                     <Input
                         onFocus={()=>{setCalModal(true);submitRef.current.focus();}}
-                        placeholder='تاریخ تولد خود را وارد کنید'
+                        placeholder='انتخاب تاریخ'
                         value={date}
                         className='edit-profile-input fill-data-input'
                     />
@@ -192,7 +232,8 @@ const FillData=()=>{
                 <div className='bottom-btn-box'>
                     <Button
                         className="green-btn submit-btn"
-                        onClick={searchBranch}
+                        onClick={searchTurn}
+                        disabled={loading}
                         ref={submitRef}
                     >
                         جستجو

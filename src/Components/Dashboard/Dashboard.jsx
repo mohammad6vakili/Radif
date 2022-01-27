@@ -37,6 +37,7 @@ import SelectRole from '../../Pages/Process/SelectRole';
 import Payment from '../../Pages/Process/Payment';
 import FillRole from '../../Pages/Process/FillRole';
 import Success from '../../Pages/Process/Success';
+import ViewTurn from '../../Pages/Global/ViewTurn';
 
 
 
@@ -135,6 +136,7 @@ const Dashboard=()=>{
             </Modal>
             <Switch>
                 <Route path="/dashboard/home" component={Home} />
+                <Route path="/dashboard/turn/view" exact component={ViewTurn} />
                 <Route path="/dashboard/messages" exact component={Messages} />
                 <Route path="/dashboard/messages/message" component={Message} />
                 <Route path="/dashboard/myProcess" component={MyProcess} />

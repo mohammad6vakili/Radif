@@ -63,6 +63,10 @@
     justify-content: center;
     align-items: center;
 }
+.select-org-org-list>div img{
+    width: 80% !important;
+    height: 80% !important;
+}
 .select-org-org-list>div>span{
     font-size: 12px;
 }
@@ -77,6 +81,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.select-org-fav-list img{
+    width: 80% !important;
+    width: 80% !important;
 }
 .select-org-fav-list>div:last-child>div{
     border: 2px dotted #5CBA94;
