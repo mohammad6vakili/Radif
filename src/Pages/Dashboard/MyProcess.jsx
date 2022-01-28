@@ -29,6 +29,7 @@ const MyProcess=()=>{
     const dispatch=useDispatch();
     const history=useHistory();
 
+
     const [turn , setTurn]=useState(null);
 
     const cancelTurn=async(turn)=>{
@@ -140,10 +141,24 @@ const MyProcess=()=>{
                         )} trigger="click">
                             <img className='my-process-item-setting-button' src={settingImage} alt="setting" />
                         </Popover>
-                        <div className='my-process-item-setting-label'>
-                            <img src={yellowLabel} alt="label" />
-                            <span>در حال انتظار</span>
-                        </div>
+                        {data.presence_status==="absent" &&
+                            <div className='my-process-item-setting-label'>
+                                <img src={redLabel} alt="label" />
+                                <span>عدم حضور</span>
+                            </div>
+                        }
+                        {data.presence_status==="present" &&
+                            <div className='my-process-item-setting-label'>
+                                <img src={greenLabel} alt="label" />
+                                <span>حضور</span>
+                            </div>
+                        }
+                        {data.presence_status==="pending" &&
+                            <div className='my-process-item-setting-label'>
+                                <img src={yellowLabel} alt="label" />
+                                <span>در حال انتظار</span>
+                            </div>
+                        }
                         <div className='my-process-item-logo'>
                             <div className='sub-top'></div>
                             <div className='sub-bottom'></div>

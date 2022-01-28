@@ -6,7 +6,6 @@ import { setMessage } from '../../Store/Action';
 import Colors from '../../Helper/Colors';
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
-import bankLogo from "../../Assets/Images/bank-logo.png";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Env from "../../Constant/Env.json";
@@ -18,8 +17,8 @@ const Messages=()=>{
     const history=useHistory();
     const [loading , setLoading]=useState(false);
     const [messages , setMessages]=useState(null);
-    const array = [1,2,3,4,5,6,7];
 
+    
     const getMessages=async()=>{
         const token = localStorage.getItem("token");
         try{
@@ -30,7 +29,8 @@ const Messages=()=>{
                 }
             })
             setLoading(false);
-            setMessages(response.data.ContentData);
+            setMessages(response.data.ContentData.notifications);
+            console.log(response.data.ContentData.notifications);
         }catch({err , response}){
             setLoading(false);
             if(response && response.status===401){
@@ -52,6 +52,8 @@ const Messages=()=>{
         getMessages();
     },[])
 
+    
+
     return(
         <div className='messages dashboard-page'>
             <div className="dashboard-page-header">
@@ -72,17 +74,19 @@ const Messages=()=>{
                         <img src={loadingSvg} alt="loading" />
                     </div>
                     :
-                    array.map((data)=>(
+                    messages && messages.map((data)=>(
                         <div onClick={()=>{history.push("/dashboard/messages/message");dispatch(setMessage(data));}}>
                             <img style={{width:"40px"}} src={data.brand_logo} alt="bank logo" />
                             <div>
                                 <div style={{display:"flex",alignItems:"center"}}>
-                                    <span style={{fontSize:"16px"}}>{data.brand_name} - {data.branch_name}</span>
+                                    <span style={{fontSize:"16px"}}>{data.brand_name} - {data.obb_name}</span>
                                     {/* <div className='messages-items-badge'>۳</div> */}
                                     {/* <div></div> */}
                                     {/* <span style={{color:"rgb(51, 65, 85)",marginRight:"auto"}}>امروز</span> */}
                                 </div>
-                                <div style={{color:"rgb(51, 65, 85)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{data.content}</div>
+                                <div style={{color:"rgb(51, 65, 85 , .7)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
+                                    {data.messages[messages.length-1].content}
+                                </div>
                             </div>
                         </div>
                     ))

@@ -21,60 +21,17 @@ const Message=()=>{
                     <img src={backBtn} alt="back"/>
                 </div>
                 <div className="message-username">
-                    <img src={bankLogo} alt="bank logo" />
-                    <div>بانک ایران زمین - شعبه نارون</div>
+                    <img src={message.brand_logo} alt="bank logo" />
+                    <div>{message.brand_name} - {message.obb_name}</div>
                 </div>
             </div>
             <div className='message-items'>
-                <div className='message-item'>
-                    <span>۱۲:۳۰ - ۱۴۰۰/۰۲/۲۹</span>
-                    <div>
-                        متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم
+                {message.messages.map((data)=>(
+                    <div className='message-item'>
+                        <span>۱۲:۳۰ - ۱۴۰۰/۰۲/۲۹</span>
+                        <div>{data.content}</div>
                     </div>
-                </div>
-                <div className='message-item'>
-                    <span>۱۲:۳۰ - ۱۴۰۰/۰۲/۲۹</span>
-                    <div>
-                        متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم
-                    </div>
-                </div>
-                <div className='message-item'>
-                    <span>۱۲:۳۰ - ۱۴۰۰/۰۲/۲۹</span>
-                    <div>
-                        متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم
-                    </div>
-                </div>
-                <div className='message-item'>
-                    <span>۱۲:۳۰ - ۱۴۰۰/۰۲/۲۹</span>
-                    <div>
-                        متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم
-                    </div>
-                </div>
-                <div className='message-item'>
-                    <span>۱۲:۳۰ - ۱۴۰۰/۰۲/۲۹</span>
-                    <div>
-                        متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم
-                    </div>
-                </div>
-
-                <div className='message-item'>
-                    <span>۱۲:۳۰ - ۱۴۰۰/۰۲/۲۹</span>
-                    <div>
-                        متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم
-                    </div>
-                </div>
-                <div className='message-item'>
-                    <span>۱۲:۳۰ - ۱۴۰۰/۰۲/۲۹</span>
-                    <div>
-                        متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم
-                    </div>
-                </div>
-                <div className='message-item'>
-                    <span>۱۲:۳۰ - ۱۴۰۰/۰۲/۲۹</span>
-                    <div>
-                        متاسفانه بخاطر قطعی برق امکان ارائه خدمات وجود ندارد و نمیتوان در محل حضور پیدا کرد پیشاپیش از شما معذرت میخواهیم
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     )

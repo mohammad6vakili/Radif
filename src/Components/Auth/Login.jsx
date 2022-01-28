@@ -90,7 +90,7 @@ const Login =()=>{
             }catch({err,response}){
                 console.log(err);
                 setLoading(false);
-                if(response.data.message){
+                if(response && response.data.message){
                     toast.warning(response.data.message,{
                         position: toast.POSITION.BOTTOM_LEFT
                     });

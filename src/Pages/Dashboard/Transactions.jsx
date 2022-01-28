@@ -67,7 +67,7 @@ const Transactions=()=>{
             <div className='trans-item-wrapper'>
                 {list && list.length===0 && <div style={{width:"100%",textAlign:"center",marginTop:"10vh"}}>موردی یافت نشد.</div>}
                 {list && list.length>0 && list.map((trans)=>(
-                    <div className='trans-inc'>
+                    <div className={trans.for_what==="deposit" ? "trans-inc" : "trans-dec"}>
                         <div style={{textAlign:"right",fontSize:"12px",color:Colors.secondary}}>{trans.name}</div>
                         <div style={{textAlign:"center",fontSize:"28px",fontWeight:"700"}}>{FormatHelper.toPersianString(JSON.parse(trans.amount).toLocaleString())} <span style={{fontSize:"12px"}}>ریال</span></div>
                         <div style={{display:"flex",justifyContent:"space-between"}}>
