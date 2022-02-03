@@ -5,7 +5,7 @@ import { Input , Radio , Button , Modal} from 'antd';
 import backBtn from "../../Assets/Images/back-btn.svg";
 import Colors from "../../Helper/Colors";
 import { toast } from 'react-toastify';
-import {Calendar} from "react-modern-calendar-datepicker";
+import {Calendar , utils} from "react-modern-calendar-datepicker";
 import FormatHelper from '../../Helper/FormatHelper';
 
 
@@ -117,6 +117,7 @@ const FillRole=()=>{
                         value={calDate}
                         onChange={(val)=>setCalDate(val)}
                         shouldHighlightWeekends
+                        minimumDate={utils('fa').getToday()}
                         colorPrimary={Colors.green}
                         locale="fa"
                         calendarClassName="responsive-calendar"

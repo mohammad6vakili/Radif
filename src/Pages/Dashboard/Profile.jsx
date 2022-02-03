@@ -52,7 +52,7 @@ const Profile=()=>{
                 });
             }else{
                 history.push("/dashboard/home");
-                toast.error(response.data.detail,{
+                toast.error(response && response.data.detail,{
                     position:"bottom-left"
                 });
             }
@@ -221,7 +221,15 @@ const Profile=()=>{
                         <span>دریافت ایمیل</span>
                         <Switch 
                             checked={getMail===true} 
-                            onClick={()=>getMail===false ? setMailModal(true) : setGetMail(false)} 
+                            onClick={()=>{
+                                if(getMail===false)
+                                    {
+                                        setMailModal(true);
+                                    }else{
+                                        setGetMail(false)
+                                    }
+                                }
+                            } 
                             size="small" 
                         />
                     </div>

@@ -74,7 +74,6 @@ const MapPage=()=>{
                 disabled
                 value={locName}
                 className='map-page-auto-complete'
-                // placeholder={locName}
             />
             <ReactMapGL 
                 mapboxApiAccessToken="pk.eyJ1IjoibW9oYW1tYWQtdmFhIiwiYSI6ImNrbDkxdWswcTA1aDYycW9vNm52MWQ1ZW0ifQ.9hKrFV_dAPja2Ch6tfH9Sg" 

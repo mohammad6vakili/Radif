@@ -54,7 +54,6 @@ const Login =()=>{
                     toast.success(response.data.message,{
                         position: toast.POSITION.BOTTOM_LEFT
                     });
-                    setCode(JSON.parse(response.data.test_verify_code).token);
                     setLoading(false);
                 }else{
                     toast.error(response.data.message,{

@@ -7,9 +7,14 @@ import {
     ORG,
     BRAND,
     SERVICE,
+    TURN_DATE,
     LAT,
     LNG,
-    TURN
+    TURN,
+    RESULT,
+    SERVICE_NAME,
+    SAF,
+    SELECTED_TURN
 } from "./Action";
 
 const initialState = {
@@ -21,9 +26,14 @@ const initialState = {
     org:null,
     brand:null,
     service:null,
+    turnDate:null,
     lat:null,
     lng:null,
-    turn:null
+    turn:null,
+    result:null,
+    serviceName:null,
+    saf:null,
+    selectedTurn:null
 };
 
 const Reducer = (state = initialState, action) => {
@@ -44,12 +54,22 @@ const Reducer = (state = initialState, action) => {
       return {...state , brand: action.payload};
     case SERVICE:
       return {...state , service: action.payload};
+    case TURN_DATE:
+      return {...state , turnDate: action.payload};
     case LAT:
       return {...state , lat: action.payload};
     case LNG:
       return {...state , lng: action.payload};
     case TURN:
       return {...state , turn: action.payload};
+    case RESULT:
+      return {...state , result: action.payload};
+    case SERVICE_NAME:
+      return {...state , serviceName: action.payload};
+    case SAF:
+      return {...state , saf: action.payload};
+    case SELECTED_TURN:
+      return {...state , selectedTurn: action.payload};
     default:
       return state;
   }

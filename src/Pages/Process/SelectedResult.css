@@ -116,6 +116,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0 10px;
+  scrollbar-width: none !important;
+}
+.select-time-modal-body::-webkit-scrollbar{
+  display: none !important;
 }
 .select-time-modal-body > div {
   width: 30%;

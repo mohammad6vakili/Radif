@@ -4,12 +4,14 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { setMessage } from '../../Store/Action';
 import Colors from '../../Helper/Colors';
+import moment from "jalali-moment";
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Env from "../../Constant/Env.json";
 import loadingSvg from "../../Assets/Animations/loading.svg";
+import FormatHelper from '../../Helper/FormatHelper';
 
 
 const Messages=()=>{
@@ -29,8 +31,11 @@ const Messages=()=>{
                 }
             })
             setLoading(false);
-            setMessages(response.data.ContentData.notifications);
-            console.log(response.data.ContentData.notifications);
+            if(response.data.ContentData.length===0){
+                setMessages([]);
+            }else{
+                setMessages(response.data.ContentData.notifications);
+            }
         }catch({err , response}){
             setLoading(false);
             if(response && response.status===401){
@@ -69,20 +74,28 @@ const Messages=()=>{
                 <span style={{color:Colors.secondary}}>پیام ها</span>
             </div>
             <div className='messages-items'>
-                {loading===true ?
-                    <div className='loading-wrapper'>
-                        <img src={loadingSvg} alt="loading" />
-                    </div>
-                    :
-                    messages && messages.map((data)=>(
-                        <div onClick={()=>{history.push("/dashboard/messages/message");dispatch(setMessage(data));}}>
+                    {messages===null &&
+                        <div className='loading-wrapper'>
+                            <img src={loadingSvg} alt="loading" />
+                        </div>
+                    }
+                    {messages && messages.map((data)=>(
+                        <div 
+                            style={data.messages[messages.length-1].is_read===true ? {opacity:".5"} : {opacity:"1"}}
+                            onClick={()=>{
+                                history.push("/dashboard/messages/message");
+                                dispatch(setMessage(data));
+                            }}
+                        >
                             <img style={{width:"40px"}} src={data.brand_logo} alt="bank logo" />
                             <div>
                                 <div style={{display:"flex",alignItems:"center"}}>
                                     <span style={{fontSize:"16px"}}>{data.brand_name} - {data.obb_name}</span>
                                     {/* <div className='messages-items-badge'>۳</div> */}
                                     {/* <div></div> */}
-                                    {/* <span style={{color:"rgb(51, 65, 85)",marginRight:"auto"}}>امروز</span> */}
+                                    <span style={{color:"rgb(51, 65, 85)",marginRight:"auto"}}>
+                                        {FormatHelper.toPersianString(moment(data.messages[messages.length-1].date).locale('fa').format('jYYYY/jM/jD - HH:mm'))}
+                                    </span>
                                 </div>
                                 <div style={{color:"rgb(51, 65, 85 , .7)",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
                                     {data.messages[messages.length-1].content}

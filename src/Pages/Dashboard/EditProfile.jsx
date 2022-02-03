@@ -25,7 +25,6 @@ const EditProfile=()=>{
     const [calModal , setCalModal]=useState(false);
     const [name , setName]=useState("");
     const [family , setFamily]=useState("");
-    const [nationalCode , setNationalCode]=useState("");
     const [gender , setGender]=useState("");
     const [phone , setPhone]=useState("");
     const [email , setEmail]=useState("");
@@ -41,15 +40,7 @@ const EditProfile=()=>{
     const editUserProfile=async(e)=>{
         e.preventDefault();
         const token = localStorage.getItem("token");
-        if(nationalCode===""){
-            toast.warning("لطفا کد ملی خود را وارد کنید",{
-                position:"bottom-left"
-            });
-        }else if(nationalCode.length!==10){
-            toast.warning("کد ملی وارد شده باید 10 رقم باشد",{
-                position:"bottom-left"
-            });
-        }else if(name===""){
+        if(name===""){
             toast.warning("لطفا نام خود را وارد کنید",{
                 position:"bottom-left"
             });
@@ -64,11 +55,11 @@ const EditProfile=()=>{
                 {
                     "first_name": name,
                     "last_name": family,
-                    "national_code": FormatHelper.toEnglishString(nationalCode),
-                    "birthday": moment.from(FormatHelper.toEnglishString(date.replace("/","-").replace("/","-")), 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD'),
-                    "gender": gender,
-                    "phone": FormatHelper.toEnglishString(phone),
-                    "email": FormatHelper.toEnglishString(email)
+                    "national_code": FormatHelper.toEnglishString(profile.national_code),
+                    "birthday": date===null ? "" : moment.from(FormatHelper.toEnglishString(date.replace("/","-").replace("/","-")), 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD'),
+                    "gender": gender==="" ? "" : gender,
+                    "phone": phone==="" ? "" : FormatHelper.toEnglishString(phone),
+                    "email": email==="" ? "" : FormatHelper.toEnglishString(email)
                 }
                 ,
                 {
@@ -77,14 +68,16 @@ const EditProfile=()=>{
                     }
                 })
                 setLoading(false);
-                if(response.data.Header.Status===200){
+                if(response.data.Header.Status===400){
+                    console.log(response.data.ContentData.message.phone.map((data)=>{
+                        toast.error(data,{
+                            position:"bottom-left"
+                        });
+                    }));
+                }else{
                     history.push("/dashboard/profile");
                     toast.success("تغییرات با موفقیت ذخیره شد",{
                         position: toast.POSITION.BOTTOM_LEFT
-                    });
-                }else{
-                    toast.error("شماره تلفن وارد شده صحیح نیست",{
-                        position:"bottom-left"
                     });
                 }
             }catch({err , response}){
@@ -124,13 +117,12 @@ const EditProfile=()=>{
                             disabled
                         />
                     </div>
-                    <div>
+                    <div style={{opacity:".6"}}>
                         <span>کدملی <span style={{color:"red",fontWeight:"700"}}>*</span></span>
                         <Input
                             className='edit-profile-input'
-                            value={nationalCode}
-                            onChange={(e)=>setNationalCode(e.target.value)}
-                            type="tel"
+                            value={profile && profile.national_code}
+                            disabled
                         />
                     </div>
                     <div>
@@ -208,6 +200,7 @@ const EditProfile=()=>{
                     <Calendar
                         value={calDate}
                         onChange={(val)=>setCalDate(val)}
+                        maximumDate={utils('fa').getToday()}
                         shouldHighlightWeekends
                         colorPrimary={Colors.green}
                         locale="fa"

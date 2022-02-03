@@ -1,9 +1,15 @@
-import React,{useState,useRef} from 'react';
+import React,{useState,useRef,useEffect} from 'react';
 import "./SelectedResult.css";
 import { useHistory } from 'react-router-dom';
+import { useSelector , useDispatch } from 'react-redux';
+import {setSelectedTurn} from "../../Store/Action";
 import { Rate , Button , Modal , Input , Progress} from 'antd';
 import FormatHelper from "../../Helper/FormatHelper";
-import {Calendar} from "react-modern-calendar-datepicker";
+import moment from 'jalali-moment';
+import {Calendar,utils} from "react-modern-calendar-datepicker";
+import axios from 'axios';
+import Env from "../../Constant/Env.json";
+import { toast } from 'react-toastify';
 import Colors from "../../Helper/Colors";
 import backBtn from "../../Assets/Images/back-btn.svg";
 import homeIcon from "../../Assets/Images/home.svg";
@@ -19,14 +25,24 @@ import grayAvatar from "../../Assets/Images/gray-avatar.svg";
 const SelectedResult=()=>{
     const submitRef=useRef();
     const history=useHistory();
+    const dispatch=useDispatch();
+
+    const saf = useSelector(state=>state.Reducer.saf);
+    const locName = useSelector(state=>state.Reducer.locName);
+    const turnDate = useSelector(state=>state.Reducer.turnDate);
+    const service = useSelector(state=>state.Reducer.service);
+    const brand = useSelector(state=>state.Reducer.brand);
+    const serviceName = useSelector(state=>state.Reducer.serviceName);
+    const result = useSelector(state=>state.Reducer.result);
+    const selectedTurn = useSelector(state=>state.Reducer.selectedTurn);
+
     const [tab , setTab]=useState(0);
     const [date , setDate]=useState(null);
-    const [calDate , setCalDate]=useState(null);
+    const [calDate , setCalDate]=useState(turnDate);
     const [calModal , setCalModal]=useState(false);
     const [timeModal , setTimeModal]=useState(false);
     const [timeValue , setTimeValue]=useState("");
 
-    const array=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
     const comments=[1,2,3,4,5];
 
 
@@ -35,9 +51,75 @@ const SelectedResult=()=>{
         setCalModal(false);
     }
 
+    const getReqList=async()=>{
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.post(Env.baseUrl + "/service/service-requirement-list/",
+                {
+                    service_id:service,
+                }
+                ,
+                {
+                    headers:{
+                        "Authorization":"Token "+ token
+                    }
+                }
+            );
+            console.log(response.data.ContentData);
+        }catch({err , response}){
+            if(response && response.status===401){
+                localStorage.clear();
+                history.push("/login");
+                toast.error("شما از برنامه خارج شده اید",{
+                    position:"bottom-left"
+                });
+            }else{
+                console.log(err , response);
+                toast.error(response && response.data.detail,{
+                    position:"bottom-left"
+                });
+            }
+        }
+    }
+
+    const getBranchComment=async()=>{
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.get(Env.baseUrl + `/organization/organization-brand-branch/${brand.id}/`,
+                {
+                    headers:{
+                        "Authorization":"Token "+ token
+                    }
+                }
+            );
+            console.log(response.data.ContentData);
+        }catch({err , response}){
+            if(response && response.status===401){
+                localStorage.clear();
+                history.push("/login");
+                toast.error("شما از برنامه خارج شده اید",{
+                    position:"bottom-left"
+                });
+            }else{
+                console.log(err , response);
+                toast.error(response && response.data.detail,{
+                    position:"bottom-left"
+                });
+            }
+        }
+    }
+
+    useEffect(()=>{
+        if(calDate){
+            setDate(FormatHelper.toPersianString(calDate.year+"/"+calDate.month+"/"+calDate.day));
+        }
+        getReqList();
+        getBranchComment();
+    },[calDate])
+
     return(
         <div className='dashboard-page selected-result' style={{position:"relative"}}>
-            <div className="selected-result-header">
+            <div onClick={()=>console.log(saf)} className="selected-result-header">
                 <div className='selected-result-header-btn' onClick={()=>history.push("/dashboard/process/result")}>
                     <img src={backBtn} alt="back"/>
                 </div>
@@ -46,12 +128,14 @@ const SelectedResult=()=>{
                 </div>
                 <div className='selected-result-header-detail'>
                     <div>
-                        <img src={bankLogo} alt="bank" />
+                        <img src={brand && brand.logo} alt="bank" />
                     </div>
                     <div>
-                        <span style={{color:Colors.secondary}}>شعبه نارمک جنوبی</span>
-                        <span style={{color:Colors.bigGray}}>۱۲۳۴۵۶</span>
-                        <Rate defaultValue={3} style={{direction:"ltr"}} />
+                        <span style={{color:Colors.secondary}}>{saf && saf.branch_name}</span>
+                        <span style={{color:Colors.bigGray}}>{saf && FormatHelper.toPersianString(saf.branch_code)}</span>
+                        {saf && saf.branch_score &&
+                            <Rate defaultValue={saf.branch_score} style={{direction:"ltr"}} />
+                        }
                     </div>
                 </div>
             </div>
@@ -82,61 +166,29 @@ const SelectedResult=()=>{
                 <div className='selected-result-tab'>
                     <div>
                         <span>خدمت انتخاب شده</span>
-                        <span>افتتاح حساب قرض الحسنه در بانک ایران زمین</span>
+                        <span>{serviceName} در {brand && brand.name}</span>
                     </div>
                     <div>
                         <span>آدرس دقیق</span>
-                        <span>تهران , منطقه ۸ , خیابان عباس جعفری , نبش چهارراه تلفنخانه</span>
+                        <span>{saf && saf.branch_address}</span>
                     </div>
                     <div>
                         <span>شماره تماس</span>
-                        <span>۰۲۱-۷۷۲۵ ۷۷۲۵</span>
-                        <span>۰۲۱-۷۷۲۵ ۷۷۲۵</span>
+                        <span>{saf && FormatHelper.toPersianString(saf.branch_phone)}</span>
                     </div>
                     <div>
                         <span>تاریخ مراجعه</span>
-                        <span>چهارشنبه - ۱۴۰۰/۰۴/۲۵</span>
-                        <Button 
-                            onClick={()=>setCalModal(true)}
-                        >
-                            <img src={editIcon} alt="edit" />
-                        </Button>
+                        <span>{saf && saf.date && date}</span>
                     </div>
                     <div style={{marginBottom:"60px"}}>
                         <img src={clockIcon} style={{position:"absolute",left:"5px",top:"10px"}} alt="time" />
                         <Input
                             onFocus={()=>{setTimeModal(true);submitRef.current.focus();}}
                             className='edit-profile-input'
-                            value={timeValue}
+                            value={selectedTurn && FormatHelper.toPersianString(moment(selectedTurn.time.toString()).locale('fa').format('HH:mm'))}
                             placeholder='انتخاب ساعت مراجعه'
                         />
                     </div>
-                    <Modal 
-                        visible={calModal}
-                        closable={false}
-                        onOk={()=>setCalModal(false)}
-                        wrapClassName="calendar-wrape-modal"
-                        className='calendar-modal'
-                        onCancel={()=>setCalModal(false)}
-                        bodyStyle={{display:"flex",flexDirection:"column",alignItems:"center"}}
-                        style={{width:"100%",background:"white",display:"flex",justifyContent:"center",padding:"5px",maxWidth:"420px"}}
-                        footer={[]}
-                    >
-                        <Calendar
-                            value={calDate}
-                            onChange={(val)=>setCalDate(val)}
-                            shouldHighlightWeekends
-                            colorPrimary={Colors.green}
-                            locale="fa"
-                            calendarClassName="responsive-calendar"
-                        />
-                        <Button
-                            onClick={selectDateSubmit}
-                            className="green-btn submit-btn"
-                        >
-                            تایید
-                        </Button>
-                    </Modal>
                     <Modal 
                         visible={timeModal}
                         closable={false}
@@ -149,8 +201,23 @@ const SelectedResult=()=>{
                         footer={[]}
                     >
                         <div className='select-time-modal-body'>
-                            {array.map((data)=>(
-                                <div onClick={()=>{setTimeModal(false);setTimeValue(data);}}>{data}</div>
+                            {saf.turns.map((data,index)=>(
+                                <div
+                                    style={data.status!=="free" ? {opacity:".4"} : {opacity:"1"}}
+                                    key={index}
+                                    onClick={()=>{
+                                        if(data.status!=="free"){
+                                            toast.warning("نوبت انتخاب شده قبلا رزرو شده است",{
+                                                position:"bottom-left"
+                                            });
+                                        }else{
+                                            dispatch(setSelectedTurn(data));
+                                            setTimeModal(false);
+                                        }
+                                    }}
+                                >
+                                    {FormatHelper.toPersianString(moment(data.time.toString()).locale('fa').format('HH:mm'))}
+                                </div>
                             ))}
                         </div>
                     </Modal>
@@ -254,7 +321,15 @@ const SelectedResult=()=>{
             <div className='bottom-btn-box'>
                 <Button
                     className="green-btn submit-btn"
-                    onClick={()=>history.push("/dashboard/process/select-role")}
+                    onClick={()=>{
+                        if(selectedTurn===null){
+                            toast.warning("لطفا ساعت مراجعه را انتخاب کنید",{
+                                position:"bottom-left"
+                            })
+                        }else{
+                            history.push("/dashboard/process/select-role");
+                        }
+                    }}
                     ref={submitRef}
                 >
                     ثبت نوبت

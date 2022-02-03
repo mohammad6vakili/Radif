@@ -2,19 +2,25 @@ import React,{useState , useEffect , useRef} from 'react';
 import "./FillData.css";
 import { useHistory } from 'react-router-dom';
 import { useSelector , useDispatch} from 'react-redux';
-import { setService , setLat , setLng, setLocName} from '../../Store/Action';
+import {
+    setService,
+    setLat,
+    setLng,
+    setTurnDate,
+    setResult,
+    setServiceName
+} from '../../Store/Action';
 import Colors from "../../Helper/Colors";
 import FormatHelper from '../../Helper/FormatHelper';
 import { Select , Modal , Input , Button} from 'antd';
 import moment from 'jalali-moment'
-import {Calendar} from "react-modern-calendar-datepicker";
+import {Calendar,utils} from "react-modern-calendar-datepicker";
 import axios from 'axios';
 import Env from "../../Constant/Env.json";
 import { toast } from 'react-toastify';
 import backBtn from "../../Assets/Images/back-btn.svg";
 import homeIcon from "../../Assets/Images/home.svg";
 import calendarIcon from "../../Assets/Images/calandar.svg";
-import bankLogo from "../../Assets/Images/bank-logo.png";
 import locationIcon from "../../Assets/Images/location.svg";
 const {Option}=Select;
 
@@ -24,7 +30,6 @@ const FillData=()=>{
     const history=useHistory();
     const dispatch=useDispatch();
     const [date , setDate]=useState(null);
-    const [calDate , setCalDate]=useState(null);
     const [calModal , setCalModal]=useState(false);
     const [loading , setLoading]=useState(false);
     const [services , setServices]=useState(null);
@@ -33,15 +38,25 @@ const FillData=()=>{
     const locName=useSelector(state=>state.Reducer.locName);
     const brand=useSelector(state=>state.Reducer.brand);
     const service=useSelector(state=>state.Reducer.service);
+    const turnDate=useSelector(state=>state.Reducer.turnDate);
     const lat=useSelector(state=>state.Reducer.lat);
     const lng=useSelector(state=>state.Reducer.lng);
 
 
     const selectDateSubmit=()=>{
-        setDate(FormatHelper.toPersianString(calDate.year+"/"+calDate.month+"/"+calDate.day));
+        setDate(FormatHelper.toPersianString(turnDate.year+"/"+turnDate.month+"/"+turnDate.day));
         setCalModal(false);
+        submitRef.current.focus();
     }
 
+    const selectService=(value)=>{
+        services.map((data)=>{
+            if(data.id===value){
+                dispatch(setServiceName(data.name));
+            }
+        })
+        dispatch(setService(value));
+    }
 
     const getBrandServices=async()=>{
         const token = localStorage.getItem("token");
@@ -136,7 +151,14 @@ const FillData=()=>{
                 }
             );
             setLoading(false);
-            console.log(response.data.ContentData);
+            if(response.data.ContentData.length===0){
+                toast.warning("متاسفانه صفی در این محدوده مکانی و زمانی پیدا نشد!",{
+                    position:"bottom-left"
+                })
+            }else{
+                history.push("/dashboard/process/result");
+                dispatch(setResult(response.data.ContentData));
+            }
         }catch({err , response}){
             setLoading(false);
             if(response && response.status===401){
@@ -184,7 +206,7 @@ const FillData=()=>{
                         showSearch
                         allowClear
                         value={service}
-                        onChange={(value)=>dispatch(setService(value))}
+                        onChange={(value)=>selectService(value)}
                         className='filldata-input'
                         style={{width:"100%",backgroundColor:"transparent"}}
                         placeholder={loading ? "درحال دریافت لیست خدمات" : "انتخاب خدمت مورد نظر"}
@@ -205,19 +227,6 @@ const FillData=()=>{
                 </div>
                 <div style={{position:"relative"}}>
                     <img 
-                        src={calendarIcon} 
-                        alt="calendar" 
-                        style={{position:"absolute",left:"5px",width:"20px",top:"25%",zIndex:"99"}} 
-                    />
-                    <Input
-                        onFocus={()=>{setCalModal(true);submitRef.current.focus();}}
-                        placeholder='انتخاب تاریخ'
-                        value={date}
-                        className='edit-profile-input fill-data-input'
-                    />
-                </div>
-                <div style={{position:"relative"}}>
-                    <img 
                         src={locationIcon} 
                         alt="location"
                         style={{position:"absolute",left:"5px",width:"20px",top:"25%",zIndex:"99"}} 
@@ -229,12 +238,24 @@ const FillData=()=>{
                         className='edit-profile-input fill-data-input'
                     />
                 </div>
+                <div style={{position:"relative"}}>
+                    <img 
+                        src={calendarIcon} 
+                        alt="calendar" 
+                        style={{position:"absolute",left:"5px",width:"20px",top:"25%",zIndex:"99"}} 
+                    />
+                    <Input
+                        onFocus={()=>{setCalModal(true);submitRef.current.focus();}}
+                        placeholder='انتخاب تاریخ'
+                        value={date}
+                        className='edit-profile-input fill-data-input'
+                    />
+                </div>
                 <div className='bottom-btn-box'>
                     <Button
                         className="green-btn submit-btn"
                         onClick={searchTurn}
                         disabled={loading}
-                        ref={submitRef}
                     >
                         جستجو
                     </Button>
@@ -251,8 +272,9 @@ const FillData=()=>{
                     footer={[]}
                 >
                     <Calendar
-                        value={calDate}
-                        onChange={(val)=>setCalDate(val)}
+                        value={turnDate}
+                        onChange={(val)=>dispatch(setTurnDate(val))}
+                        minimumDate={utils('fa').getToday()}
                         shouldHighlightWeekends
                         colorPrimary={Colors.green}
                         locale="fa"
