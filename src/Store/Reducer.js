@@ -14,7 +14,9 @@ import {
     RESULT,
     SERVICE_NAME,
     SAF,
-    SELECTED_TURN
+    SELECTED_TURN,
+    IS_OTHER,
+    OTHER,
 } from "./Action";
 
 const initialState = {
@@ -33,7 +35,9 @@ const initialState = {
     result:null,
     serviceName:null,
     saf:null,
-    selectedTurn:null
+    selectedTurn:null,
+    isOther:"0",
+    other:{}
 };
 
 const Reducer = (state = initialState, action) => {
@@ -70,6 +74,10 @@ const Reducer = (state = initialState, action) => {
       return {...state , saf: action.payload};
     case SELECTED_TURN:
       return {...state , selectedTurn: action.payload};
+    case IS_OTHER:
+      return {...state , isOther: action.payload};
+    case OTHER:
+      return {...state , other: action.payload};
     default:
       return state;
   }

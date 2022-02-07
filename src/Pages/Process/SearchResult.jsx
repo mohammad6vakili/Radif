@@ -159,11 +159,13 @@ const SearchResult=()=>{
                         <div className='search-result-item-distance'>
                             <div>
                                 <img src={distanceIcon} alt="distance" />
-                                <span style={{color:Colors.bigGray,marginRight:"5px",fontSize:"11px"}}>۲.۸ کیلومتر</span>
-                            </div>
-                            {data.branch_score && 
-                                <Rate style={{direction:"ltr",marginRight:"auto"}}  defaultValue={parseInt(data.branch_score)} />
-                            }
+                                {/* <span style={{color:Colors.bigGray,marginRight:"5px",fontSize:"11px"}}>۲.۸ کیلومتر</span> */}
+                            </div> 
+                            <Rate 
+                                disabled
+                                style={{direction:"ltr",marginRight:"auto"}}  
+                                defaultValue={data.branch_score===null ? 0 : data.branch_score} 
+                            />
                         </div>
                     </div>
                 ))}

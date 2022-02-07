@@ -14,6 +14,8 @@ export const RESULT="RESULT";
 export const SERVICE_NAME="SERVICE_NAME";
 export const SAF="SAF";
 export const SELECTED_TURN="SELECTED_TURN";
+export const IS_OTHER="IS_OTHER";
+export const OTHER="OTHER";
 
 
 export const setHamburger=(data)=>{
@@ -140,6 +142,22 @@ export const setSelectedTurn=(data)=>{
     return(
         {
             type:SELECTED_TURN,
+            payload:data
+        }
+    )
+}
+export const setIsOther=(data)=>{
+    return(
+        {
+            type:IS_OTHER,
+            payload:data
+        }
+    )
+}
+export const setOther=(data)=>{
+    return(
+        {
+            type:OTHER,
             payload:data
         }
     )

@@ -4,21 +4,69 @@ import { useHistory } from 'react-router-dom';
 import { Input , Radio , Button , Modal} from 'antd';
 import backBtn from "../../Assets/Images/back-btn.svg";
 import Colors from "../../Helper/Colors";
+import { useSelector , useDispatch } from 'react-redux';
+import { setOther } from '../../Store/Action';
 import { toast } from 'react-toastify';
 import {Calendar , utils} from "react-modern-calendar-datepicker";
 import FormatHelper from '../../Helper/FormatHelper';
 
 
 const FillRole=()=>{
-    
+
     const history=useHistory();
+    const dispatch=useDispatch();
+
+    const [firstName , setFirstName]=useState("");
+    const [lastName , setLastName]=useState("");
+    const [nationalCode , setNationalCode]=useState("");
+    const [mobile , setMobile]=useState("");
+    const [phone , setPhone]=useState("");
+    const [gender , setGender]=useState("");
+    const [email , setEmail]=useState("");
+    
     const [date , setDate]=useState(null);
     const [calDate , setCalDate]=useState(null);
     const submitRef = useRef();
     const [calModal , setCalModal]=useState(false);
 
     const goToSelectRole=()=>{
-        history.push("/dashboard/process/select-role")
+        if(firstName===""){
+            toast.warning("لطفا نام را وارد کنید",{
+                position:"bottom-left"
+            })
+        }else if(lastName===""){
+            toast.warning("لطفا نام خانوادگی را وارد کنید",{
+                position:"bottom-left"
+            })
+        }else if(nationalCode===""){
+            toast.warning("لطفا کد ملی را وارد کنید",{
+                position:"bottom-left"
+            })
+        }else if(nationalCode.length!==10){
+            toast.warning("کد ملی باید 10 رقم باشد",{
+                position:"bottom-left"
+            })
+        }else if(mobile===""){
+            toast.warning("لطفا شماره همراه را وارد کنید",{
+                position:"bottom-left"
+            })
+        }else if(mobile.length!==11){
+            toast.warning("شماره همراه باید 11 رقم باشد",{
+                position:"bottom-left"
+            })
+        }else{
+            dispatch(setOther({
+                first_name:firstName,
+                last_name:lastName,
+                national_code:nationalCode,
+                mobile:mobile,
+                phone:phone,
+                gender:gender,
+                date:date,
+                email:email
+            }));
+            history.push("/dashboard/process/select-role");
+        }
     }
 
 
@@ -38,27 +86,37 @@ const FillRole=()=>{
                 ورود اطلاعات نوبت گیرنده
             </div>
             <div className='profile-infos'>
-                    <div style={{opacity:".6"}}>
+                    <div>
                         <span>نام <span style={{color:"red",fontWeight:"700"}}>*</span></span>
-                        <Input 
+                        <Input
+                            value={firstName}
+                            onChange={(e)=>setFirstName(e.target.value)}
                             className='edit-profile-input'
                         />
                     </div>
-                    <div style={{opacity:".6"}}>
+                    <div>
                         <span>نام خانوادگی <span style={{color:"red",fontWeight:"700"}}>*</span></span>
-                        <Input 
+                        <Input
+                            value={lastName}
+                            onChange={(e)=>setLastName(e.target.value)}
                             className='edit-profile-input'
                         />
                     </div>
-                    <div style={{opacity:".6"}}>
+                    <div>
                         <span>کدملی <span style={{color:"red",fontWeight:"700"}}>*</span></span>
-                        <Input 
+                        <Input
+                            type={"tel"}
+                            value={nationalCode}
+                            onChange={(e)=>setNationalCode(e.target.value)}
                             className='edit-profile-input'
                         />
                     </div>
-                    <div style={{opacity:".6"}}>
+                    <div>
                         <span>شماره همراه <span style={{color:"red",fontWeight:"700"}}>*</span></span>
-                        <Input 
+                        <Input
+                            type={"tel"}
+                            value={mobile}
+                            onChange={(e)=>setMobile(e.target.value)}
                             className='edit-profile-input'
                         />
                     </div>
@@ -66,12 +124,17 @@ const FillRole=()=>{
                         <span>شماره ثابت</span>
                         <Input
                             type="tel"
+                            value={phone}
+                            onChange={(e)=>setPhone(e.target.value)}
                             className='edit-profile-input'
                         />
                     </div>
                     <div style={{flexDirection:"row",justifyContent:"space-between"}}>
                         <span>جنسیت</span>
-                        <Radio.Group>
+                        <Radio.Group 
+                            value={gender}
+                            onChange={(e)=>setGender(e.target.value)}
+                        >
                             <Radio value={"مرد"}>مرد</Radio>
                             <Radio value={"زن"}>زن</Radio>
                         </Radio.Group>
@@ -87,7 +150,9 @@ const FillRole=()=>{
                     </div>
                     <div>
                         <span>آدرس ایمیل</span>
-                        <Input 
+                        <Input
+                            value={email}
+                            onChange={(e)=>setEmail(e.target.value)}
                             className='edit-profile-input'
                             type="email"
                         />
@@ -117,7 +182,7 @@ const FillRole=()=>{
                         value={calDate}
                         onChange={(val)=>setCalDate(val)}
                         shouldHighlightWeekends
-                        minimumDate={utils('fa').getToday()}
+                        maximumDate={utils('fa').getToday()}
                         colorPrimary={Colors.green}
                         locale="fa"
                         calendarClassName="responsive-calendar"

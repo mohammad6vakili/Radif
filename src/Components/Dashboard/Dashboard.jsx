@@ -38,6 +38,7 @@ import Payment from '../../Pages/Process/Payment';
 import FillRole from '../../Pages/Process/FillRole';
 import Success from '../../Pages/Process/Success';
 import ViewTurn from '../../Pages/Global/ViewTurn';
+import SubmitRate from '../../Pages/Process/SubmitRate';
 
 
 
@@ -157,6 +158,7 @@ const Dashboard=()=>{
                 <Route path="/dashboard/process/payment" component={Payment} />
                 <Route path="/dashboard/process/fillrole" component={FillRole} />
                 <Route path="/dashboard/process/success" component={Success} />
+                <Route path="/dashboard/process/submit-rate" component={SubmitRate} />
             </Switch>
         </div>
     )

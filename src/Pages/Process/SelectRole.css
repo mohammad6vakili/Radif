@@ -1,0 +1,13 @@
+.other-info{
+    width: 100%;
+    border: 2px dotted gray;
+    padding: 5px 0;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.other-info>div{
+    margin-bottom: 2px;
+    color: #64748B;
+    font-size: 11px;
+}

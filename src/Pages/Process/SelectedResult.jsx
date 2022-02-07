@@ -41,15 +41,11 @@ const SelectedResult=()=>{
     const [calDate , setCalDate]=useState(turnDate);
     const [calModal , setCalModal]=useState(false);
     const [timeModal , setTimeModal]=useState(false);
-    const [timeValue , setTimeValue]=useState("");
+    const [reqList , setReqList]=useState(null);
+    const [fileList , setFileList]=useState(null);
+    const [comments , setComments]=useState(null);
 
-    const comments=[1,2,3,4,5];
 
-
-    const selectDateSubmit=()=>{
-        setDate(FormatHelper.toPersianString(calDate.year+"/"+calDate.month+"/"+calDate.day));
-        setCalModal(false);
-    }
 
     const getReqList=async()=>{
         const token = localStorage.getItem("token");
@@ -65,7 +61,8 @@ const SelectedResult=()=>{
                     }
                 }
             );
-            console.log(response.data.ContentData);
+            setReqList(response.data.ContentData.requirements[0].contents);
+            setFileList(response.data.ContentData.files);
         }catch({err , response}){
             if(response && response.status===401){
                 localStorage.clear();
@@ -85,14 +82,16 @@ const SelectedResult=()=>{
     const getBranchComment=async()=>{
         const token = localStorage.getItem("token");
         try{
-            const response = await axios.get(Env.baseUrl + `/organization/organization-brand-branch/${brand.id}/`,
+            const response = await axios.post(Env.baseUrl + `/organization/branch-comment-list/`,{
+                obb_id:saf.brand_id
+            },
                 {
                     headers:{
                         "Authorization":"Token "+ token
                     }
                 }
             );
-            console.log(response.data.ContentData);
+            setComments(response.data.ContentData);
         }catch({err , response}){
             if(response && response.status===401){
                 localStorage.clear();
@@ -119,7 +118,7 @@ const SelectedResult=()=>{
 
     return(
         <div className='dashboard-page selected-result' style={{position:"relative"}}>
-            <div onClick={()=>console.log(saf)} className="selected-result-header">
+            <div onClick={()=>console.log(fileList , reqList)} className="selected-result-header">
                 <div className='selected-result-header-btn' onClick={()=>history.push("/dashboard/process/result")}>
                     <img src={backBtn} alt="back"/>
                 </div>
@@ -201,7 +200,7 @@ const SelectedResult=()=>{
                         footer={[]}
                     >
                         <div className='select-time-modal-body'>
-                            {saf.turns.map((data,index)=>(
+                            {saf && saf.turns.map((data,index)=>(
                                 <div
                                     style={data.status!=="free" ? {opacity:".4"} : {opacity:"1"}}
                                     key={index}
@@ -226,92 +225,90 @@ const SelectedResult=()=>{
             {tab===1 &&
                 <div className='selected-result-tab-one'>
                     <div className='selected-result-tab-one-steps'>
-                        <div>
-                            <div>۱</div>
-                            <span>اصل کارت ملی و شناسنامه</span>
-                        </div>
-                        <div>
-                            <div>۲</div>
-                            <span>اصل کارت ملی و شناسنامه</span>
-                        </div>
-                        <div>
-                            <div>۳</div>
-                            <span>اصل کارت ملی و شناسنامه</span>
-                        </div>
-                        <div>
-                            <div>۴</div>
-                            <span>اصل کارت ملی و شناسنامه</span>
-                        </div>
-                        <div>
-                            <div>۵</div>
-                            <span>اصل کارت ملی و شناسنامه</span>
-                        </div>
+                        {reqList && reqList.length>0 && reqList.map((data , index)=>(
+                            <div key={index}>
+                                <div>{FormatHelper.toPersianString(index + 1)}</div>
+                                <span>{data.content}</span>
+                            </div>    
+                        ))}
                     </div>
                     <div style={{marginBottom:"30px"}}>
                         <span style={{color:Colors.bigGray,fontSize:"12px"}}>فایل های قابل دانلود</span>
-                        <div className='selected-result-tab-one-file'>
-                            <img src={pdfImage} alt="file type" />
-                            <span style={{fontSize:"12px",marginRight:"10px"}}>فرم مشخصات فردی</span>
-                            <img style={{marginRight:"auto"}} src={downloadImage} alt="download" />
-                        </div>
-                        <div className='selected-result-tab-one-file'>
-                            <img src={pdfImage} alt="file type" />
-                            <span style={{fontSize:"12px",marginRight:"10px"}}>فرم مشخصات فردی</span>
-                            <img style={{marginRight:"auto"}} src={downloadImage} alt="download" />
-                        </div>
+                        {fileList && fileList.length>0 && fileList.map((file,index)=>(
+                            <a 
+                                target={'_blank'}
+                                href={"https://learnwithexample.com" + file.file} 
+                                className='selected-result-tab-one-file'
+                            >
+                                <img src={pdfImage} alt="file type" />
+                                <span style={{fontSize:"12px",marginRight:"10px"}}>فرم مشخصات فردی</span>
+                                <img style={{marginRight:"auto"}} src={downloadImage} alt="download" />
+                            </a>
+                        ))}
                     </div>
                 </div>
             }
-            {tab===2 &&
+            {tab===2 && comments &&
                 <div className='selected-result-tab-two'>
                     <div className='selected-result-tab-two-rate'>
                         <div>
-                            <span style={{fontSize:"24px",fontWeight:"700"}}>۴.۵</span>
-                            <span style={{fontSize:"12px",color:Colors.bigGray}}>۲۴ نظر</span>
+                            <span style={{fontSize:"24px",fontWeight:"700"}}>
+                                {FormatHelper.toPersianString(comments.avg_score)}
+                            </span>
+                            <span style={{fontSize:"12px",color:Colors.bigGray}}>
+                                {FormatHelper.toPersianString(comments.total_count)} نظر
+                            </span>
                         </div>
                         <div className='selected-result-tab-two-progress'>
                             <div>
                                 <span>۱</span>
                                 <img src={grayStar} alt="rate" />
-                                <Progress trailColor='#D9DBE9' strokeColor="#4E4B66" showInfo={false} percent={10} />
+                                <Progress trailColor='#D9DBE9' strokeColor="#4E4B66" showInfo={false} percent={comments.score_1 * 20} />
                             </div>
                             <div>
                                 <span>۲</span>
                                 <img src={grayStar} alt="rate" />
-                                <Progress trailColor='#D9DBE9' strokeColor="#4E4B66" showInfo={false} percent={50} />
+                                <Progress trailColor='#D9DBE9' strokeColor="#4E4B66" showInfo={false} percent={comments.score_2 * 20} />
                             </div>
                             <div>
                                 <span>۳</span>
                                 <img src={grayStar} alt="rate" />
-                                <Progress trailColor='#D9DBE9' strokeColor="#4E4B66" showInfo={false} percent={80} />
+                                <Progress trailColor='#D9DBE9' strokeColor="#4E4B66" showInfo={false} percent={comments.score_3 * 20} />
                             </div>
                             <div>
                                 <span>۴</span>
                                 <img src={grayStar} alt="rate" />
-                                <Progress trailColor='#D9DBE9' strokeColor="#4E4B66" showInfo={false} percent={35} />
+                                <Progress trailColor='#D9DBE9' strokeColor="#4E4B66" showInfo={false} percent={comments.score_4 * 20} />
                             </div>
                             <div>
                                 <span>۵</span>
                                 <img src={grayStar} alt="rate" />
-                                <Progress trailColor='#D9DBE9' strokeColor="#4E4B66" showInfo={false} percent={100} />
+                                <Progress trailColor='#D9DBE9' strokeColor="#4E4B66" showInfo={false} percent={comments.score_5 * 20} />
                             </div>
                         </div>
                     </div>
                     <div className='selected-result-tab-two-comments'>
-                        {comments.map((data)=>(
-                            <div className='selected-result-tab-two-comment'>
+                        {comments.comments.map((data,index)=>(
+                            <div key={index} className='selected-result-tab-two-comment'>
                                 <div>
                                     <div>
                                         <img src={grayAvatar} alt="avatar" />
                                         <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",marginRight:"7px"}}>
-                                            <span style={{color:Colors.bigGray,fontSize:"12px"}}>عباس جعفری</span>
-                                            <span style={{color:Colors.bigGray,opacity:".5",fontSize:"10px"}}>۱۴۰۰/۰۳/۲۵</span>
+                                            <span style={{color:Colors.bigGray,fontSize:"12px"}}>
+                                                {data.first_name} {data.last_name}
+                                            </span>
+                                            <span style={{color:Colors.bigGray,opacity:".5",fontSize:"10px"}}>
+                                                {FormatHelper.toPersianString(moment(data.date.toString()).locale('fa').format('YYYY/M/DD'))}
+                                            </span>
                                         </div>
                                     </div>
-                                    <Rate defaultValue={3} style={{direction:"ltr"}} />
+                                    <Rate 
+                                        defaultValue={data.score===null || data.score==="" ? 0 : data.score} 
+                                        style={{direction:"ltr"}} 
+                                    />
                                 </div>
                                 <div>
-                                    سرویس دهی بسیار عالی و اینکه دقیقا سر نوبت رسیدم و بسیار خوب بود.ممنون از برنامه خوب صف.
+                                    {data.content}
                                 </div>
                             </div>
                         ))}
