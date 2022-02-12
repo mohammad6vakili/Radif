@@ -16,6 +16,7 @@ export const SAF="SAF";
 export const SELECTED_TURN="SELECTED_TURN";
 export const IS_OTHER="IS_OTHER";
 export const OTHER="OTHER";
+export const DATE="DATE";
 
 
 export const setHamburger=(data)=>{
@@ -158,6 +159,14 @@ export const setOther=(data)=>{
     return(
         {
             type:OTHER,
+            payload:data
+        }
+    )
+}
+export const setDate=(data)=>{
+    return(
+        {
+            type:DATE,
             payload:data
         }
     )

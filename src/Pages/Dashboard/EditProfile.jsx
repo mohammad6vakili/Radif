@@ -31,6 +31,8 @@ const EditProfile=()=>{
 
     const profile=useSelector(state=>state.Reducer.profile);
 
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 
     const selectDateSubmit=()=>{
         setDate(FormatHelper.toPersianString(calDate.year+"/"+calDate.month+"/"+calDate.day));
@@ -40,6 +42,24 @@ const EditProfile=()=>{
     const editUserProfile=async(e)=>{
         e.preventDefault();
         const token = localStorage.getItem("token");
+        
+        let postData = {};
+        postData.first_name = name;
+        postData.last_name = family;
+        postData.national_code = FormatHelper.toEnglishString(profile.national_code);
+        if(date!==null){
+            postData.birthday = moment.from(FormatHelper.toEnglishString(date.replace("/","-").replace("/","-")), 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD');
+        }
+        if(gender!==""){
+            postData.gender = gender;
+        }
+        if(phone!==""){
+            postData.phone = FormatHelper.toEnglishString(phone);
+        }
+        if(email!==""){
+            postData.email = FormatHelper.toEnglishString(email);
+        }
+
         if(name===""){
             toast.warning("لطفا نام خود را وارد کنید",{
                 position:"bottom-left"
@@ -48,20 +68,50 @@ const EditProfile=()=>{
             toast.warning("لطفا نام خانوادگی خود را وارد کنید",{
                 position:"bottom-left"
             });
+        }else if(email.length>0 && email.match(validRegex)){
+            try{
+                setLoading(true);
+                const response = await axios.post(Env.baseUrl + "/accounts/profile/",postData,
+                {
+                    headers:{
+                        "Authorization":"Token "+ token
+                    }
+                })
+                setLoading(false);
+                if(response.data.Header.Status===400){
+                    console.log(response.data.ContentData.message.phone.map((data)=>{
+                        toast.error(data,{
+                            position:"bottom-left"
+                        });
+                    }));
+                }else{
+                    history.push("/dashboard/profile");
+                    toast.success("تغییرات با موفقیت ذخیره شد",{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                }
+            }catch({err , response}){
+                setLoading(false);
+                if(response && response.status===401){
+                    localStorage.clear();
+                    history.push("/login");
+                    toast.error("شما از برنامه خارج شده اید",{
+                        position:"bottom-left"
+                    });
+                }else{
+                    toast.error("خطا در برقراری ارتباط",{
+                        position:"bottom-left"
+                    });
+                }
+            }
+        }else if(email.length>0){
+            toast.warning("فرمت ایمیل وارد شده اشتباه است",{
+                position:"bottom-left"
+            });
         }else{
             try{
                 setLoading(true);
-                const response = await axios.post(Env.baseUrl + "/accounts/profile/",
-                {
-                    "first_name": name,
-                    "last_name": family,
-                    "national_code": FormatHelper.toEnglishString(profile.national_code),
-                    "birthday": date===null ? "" : moment.from(FormatHelper.toEnglishString(date.replace("/","-").replace("/","-")), 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD'),
-                    "gender": gender==="" ? "" : gender,
-                    "phone": phone==="" ? "" : FormatHelper.toEnglishString(phone),
-                    "email": email==="" ? "" : FormatHelper.toEnglishString(email)
-                }
-                ,
+                const response = await axios.post(Env.baseUrl + "/accounts/profile/",postData,
                 {
                     headers:{
                         "Authorization":"Token "+ token
@@ -169,9 +219,8 @@ const EditProfile=()=>{
                     <div>
                         <span>آدرس ایمیل</span>
                         <Input
-                            required
                             className='edit-profile-input'
-                            type="email"
+                            type={"text"}
                             value={email}
                             onChange={(e)=>setEmail(e.target.value)}
                         />

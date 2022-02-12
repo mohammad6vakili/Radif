@@ -8,7 +8,8 @@ import {
     setLng,
     setTurnDate,
     setResult,
-    setServiceName
+    setServiceName,
+    setDate
 } from '../../Store/Action';
 import Colors from "../../Helper/Colors";
 import FormatHelper from '../../Helper/FormatHelper';
@@ -29,7 +30,6 @@ const FillData=()=>{
     
     const history=useHistory();
     const dispatch=useDispatch();
-    const [date , setDate]=useState(null);
     const [calModal , setCalModal]=useState(false);
     const [loading , setLoading]=useState(false);
     const [services , setServices]=useState(null);
@@ -41,10 +41,11 @@ const FillData=()=>{
     const turnDate=useSelector(state=>state.Reducer.turnDate);
     const lat=useSelector(state=>state.Reducer.lat);
     const lng=useSelector(state=>state.Reducer.lng);
+    const date=useSelector(state=>state.Reducer.date);
 
 
     const selectDateSubmit=()=>{
-        setDate(FormatHelper.toPersianString(turnDate.year+"/"+turnDate.month+"/"+turnDate.day));
+        dispatch(setDate(FormatHelper.toPersianString(turnDate.year+"/"+turnDate.month+"/"+turnDate.day)));
         setCalModal(false);
         submitRef.current.focus();
     }
@@ -131,49 +132,63 @@ const FillData=()=>{
 
     const searchTurn=async()=>{
         const token = localStorage.getItem("token");
-        try{
-            setLoading(true);
-            const response = await axios.post(Env.baseUrl + "/rqueue/turn-service-list/",
-                {
-                    service_id:service,
-                    organization_brand_id:brand.id,
-                    date: moment.from(FormatHelper.toEnglishString(date.replace("/","-").replace("/","-")), 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD'),
-                    lat:lat,
-                    long:lng,
-                    priority:1,
-                    meter:15
-                }
-                ,
-                {
-                    headers:{
-                        "Authorization":"Token "+ token
+        if(service===null){
+            toast.warning("لطفا سرویس مورد نظر خود را انتخاب کنید",{
+                position:"bottom-left"
+            });
+        }else if(lat===null || lng===null){
+            toast.warning("لطفا موقعیت مکانی خود را انتخاب کنید",{
+                position:"bottom-left"
+            });
+        }else if(date===null){
+            toast.warning("لطفا تاریخ مورد خود را انتخاب کنید",{
+                position:"bottom-left"
+            });
+        }else{
+            try{
+                setLoading(true);
+                const response = await axios.post(Env.baseUrl + "/rqueue/turn-service-list/",
+                    {
+                        service_id:service,
+                        organization_brand_id:brand.id,
+                        date: moment.from(FormatHelper.toEnglishString(date.replace("/","-").replace("/","-")), 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD'),
+                        lat:lat,
+                        long:lng,
+                        priority:1,
+                        meter:15
                     }
+                    ,
+                    {
+                        headers:{
+                            "Authorization":"Token "+ token
+                        }
+                    }
+                );
+                setLoading(false);
+                if(response.data.ContentData.length===0){
+                    toast.warning("متاسفانه صفی در این محدوده مکانی و زمانی پیدا نشد!",{
+                        position:"bottom-left"
+                    })
+                }else{
+                    history.push("/dashboard/process/result");
+                    dispatch(setResult(response.data.ContentData));
                 }
-            );
-            setLoading(false);
-            if(response.data.ContentData.length===0){
-                toast.warning("متاسفانه صفی در این محدوده مکانی و زمانی پیدا نشد!",{
-                    position:"bottom-left"
-                })
-            }else{
-                history.push("/dashboard/process/result");
-                dispatch(setResult(response.data.ContentData));
+            }catch({err , response}){
+                setLoading(false);
+                if(response && response.status===401){
+                    localStorage.clear();
+                    history.push("/login");
+                    toast.error("شما از برنامه خارج شده اید",{
+                        position:"bottom-left"
+                    });
+                }else{
+                    history.push("/dashboard/home");
+                    toast.error(response && response.data.detail,{
+                        position:"bottom-left"
+                    });
+                }
             }
-        }catch({err , response}){
-            setLoading(false);
-            if(response && response.status===401){
-                localStorage.clear();
-                history.push("/login");
-                toast.error("شما از برنامه خارج شده اید",{
-                    position:"bottom-left"
-                });
-            }else{
-                history.push("/dashboard/home");
-                toast.error(response && response.data.detail,{
-                    position:"bottom-left"
-                });
-            }
-        }
+        }   
     }
 
 
@@ -229,12 +244,13 @@ const FillData=()=>{
                     <img 
                         src={locationIcon} 
                         alt="location"
-                        style={{position:"absolute",left:"5px",width:"20px",top:"25%",zIndex:"99"}} 
+                        style={{position:"absolute",left:"5px",width:"20px",top:"25%",zIndex:"9999999999"}} 
                     />
                     <Input
                         onFocus={openMapPage}
                         placeholder='انتخاب محدوده مکانی'
                         value={locName}
+                        style={{paddingLeft:"35px",textOverflow:"ellipsis",direction:"rtl"}}
                         className='edit-profile-input fill-data-input'
                     />
                 </div>

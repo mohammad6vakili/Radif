@@ -30,6 +30,9 @@ const Profile=()=>{
     const [mailModal , setMailModal]=useState(false);
     const [newsModal , setNewsModal]=useState(false);
     const [logModal , setLogModal]=useState(false);
+    const [email , setEmail]=useState("");
+    
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     const getUserProfile=async()=>{
         const token = localStorage.getItem("token");
@@ -61,14 +64,26 @@ const Profile=()=>{
 
     const changeMail=(e)=>{
         e.preventDefault();
-        setMailModal(false)
-        setGetMail(true);
+        if (email.match(validRegex)) {
+            setMailModal(false);
+            setGetMail(true);
+        }else{        
+            toast.warning("فرمت ایمیل وارد شده اشتباه است",{
+                position:"bottom-left"
+            });
+        }
     }
 
     const changeNews=(e)=>{
         e.preventDefault();
-        setNewsModal(false)
-        setGetNews(true);
+        if (email.match(validRegex)) {
+            setNewsModal(false);
+            setGetNews(true);
+        }else{        
+            toast.warning("فرمت ایمیل وارد شده اشتباه است",{
+                position:"bottom-left"
+            });
+        }
     }
 
     const logout=()=>{
@@ -222,12 +237,18 @@ const Profile=()=>{
                         <Switch 
                             checked={getMail===true} 
                             onClick={()=>{
-                                if(getMail===false)
+                                if(profile.email.length>0 && getMail===false){
+                                    setGetMail(true);
+                                }else if(profile.email.length>0 && getMail===true){
+                                    setGetMail(false);
+                                }else{
+                                    if(getMail===false)
                                     {
                                         setMailModal(true);
                                     }else{
                                         setGetMail(false)
                                     }
+                                }
                                 }
                             } 
                             size="small" 
@@ -237,7 +258,19 @@ const Profile=()=>{
                         <span>دریافت خبرنامه</span>
                         <Switch 
                             checked={getNews===true} 
-                            onClick={()=>getNews===false ? setNewsModal(true) : setGetNews(false)} 
+                            onClick={()=>{
+                                if(profile.email.length>0 && getNews===false){
+                                    setGetNews(true);
+                                }else if(profile.email.length>0 && getNews===true){
+                                    setGetNews(false);
+                                }else{
+                                    if(getNews===false){
+                                        setNewsModal(true);
+                                    }else{
+                                        setGetNews(false);
+                                    }
+                                }    
+                            }} 
                             size="small" 
                         />
                     </div>
@@ -272,8 +305,9 @@ const Profile=()=>{
                                 <Input 
                                     placeHolder="test@gmail.com"
                                     className='edit-profile-input'
-                                    required
-                                    type={"email"}
+                                    value={email}
+                                    onChange={(e)=>setEmail(e.target.value)}
+                                    type={"text"}
                                     style={{textAlign:"left",marginBottom:"20px"}}
                                 />
                                 <Button
@@ -304,9 +338,10 @@ const Profile=()=>{
                             <form onSubmit={changeNews}>
                                 <Input 
                                     placeHolder="test@gmail.com"
-                                    required
+                                    value={email}
+                                    onChange={(e)=>setEmail(e.target.value)}
                                     className='edit-profile-input'
-                                    type={"email"}
+                                    type={"text"}
                                     style={{textAlign:"left",marginBottom:"20px"}}
                                 />
                                 <Button

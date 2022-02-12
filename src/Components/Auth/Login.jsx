@@ -43,11 +43,12 @@ const Login =()=>{
                 position: toast.POSITION.BOTTOM_LEFT
             });
         }else{
+            setCode("");
             try{
                 setLoading(true);
                 const response = await axios.post(Env.baseUrl + "/accounts/register/",{
-                    username:mobile,
-                    nationalNumber:nationalNumber
+                    username:FormatHelper.toEnglishString(mobile),
+                    nationalNumber:FormatHelper.toEnglishString(nationalNumber)
                 });
                 if(response.data.success===true){
                     setStep(1);
@@ -61,12 +62,17 @@ const Login =()=>{
                     });
                     setLoading(false);
                 }
-            }catch(err){
-                toast.error("خطا در برقراری ارتباط",{
-                    position: toast.POSITION.BOTTOM_LEFT
-                });
+            }catch({err,response}){
                 setLoading(false);
-                console.log(err);
+                if(response && response.status===400){
+                    toast.error(response.data.errors.username[0],{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                }else{
+                    toast.error("خطا در برقراری ارتباط",{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                }
             }
         }
     }
@@ -76,9 +82,9 @@ const Login =()=>{
             setLoading(true);
             try{
                 const response=await axios.post(Env.baseUrl + "/accounts/verify/",{
-                    username:mobile,
-                    national_code:nationalNumber,
-                    otp_code:code
+                    username:FormatHelper.toEnglishString(mobile),
+                    national_code:FormatHelper.toEnglishString(nationalNumber),
+                    otp_code:FormatHelper.toEnglishString(code)
                 })
                 history.push("/dashboard/home");
                 toast.success(response.data.message,{
@@ -90,15 +96,23 @@ const Login =()=>{
                 console.log(err);
                 setLoading(false);
                 if(response && response.data.message){
-                    toast.warning(response.data.message,{
+                    toast.error(response.data.message,{
                         position: toast.POSITION.BOTTOM_LEFT
                     });
                 }else{
-                    toast.warning("خطا در برقراری ارتباط",{
+                    toast.error("خطا در برقراری ارتباط",{
                         position: toast.POSITION.BOTTOM_LEFT
                     });
                 }
             }
+        }else if(code.length===0){
+            toast.warning("لطفا کد تایید را وارد کنید",{
+                position: toast.POSITION.BOTTOM_LEFT
+            });
+        }else{
+            toast.warning("لطفا کد تایید را به صورت صحیح وارد کنید",{
+                position: toast.POSITION.BOTTOM_LEFT
+            });
         }
     }
 

@@ -13,10 +13,15 @@ const Gift=()=>{
     const history=useHistory();
 
     const handleSharing = async () => {
-        if (navigator.share) {
+      let shareData = {
+        title: 'پیام دعوت',
+        text: 'دعوت به اپلیکیشن ردیف',
+        url: 'https://panel.radif.app',
+      }        
+      if (navigator.share) {
           try {
             await navigator
-              .share("this is share link")
+              .share(shareData)
               .then(() =>
                 toast.success("با موفقیت به اشتراک گذاشته شد",{
                     position: toast.POSITION.BOTTOM_LEFT
@@ -26,6 +31,7 @@ const Gift=()=>{
             toast.error("ظاهرا خطایی رخ داده است !",{
                 position: toast.POSITION.BOTTOM_LEFT
             })
+            console.log(error);
           }
         } else {
           toast.error("اشتراک گذاری در این مرورگر پشتیبانی نمیشود",{
