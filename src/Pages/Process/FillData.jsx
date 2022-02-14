@@ -19,6 +19,7 @@ import {Calendar,utils} from "react-modern-calendar-datepicker";
 import axios from 'axios';
 import Env from "../../Constant/Env.json";
 import { toast } from 'react-toastify';
+import loadingLine from "../../Assets/Animations/loading.svg";
 import backBtn from "../../Assets/Images/back-btn.svg";
 import homeIcon from "../../Assets/Images/home.svg";
 import calendarIcon from "../../Assets/Images/calandar.svg";
@@ -244,7 +245,7 @@ const FillData=()=>{
                     <img 
                         src={locationIcon} 
                         alt="location"
-                        style={{position:"absolute",left:"5px",width:"20px",top:"25%",zIndex:"9999999999"}} 
+                        style={{position:"absolute",left:"5px",width:"20px",top:"25%",zIndex:"999"}} 
                     />
                     <Input
                         onFocus={openMapPage}
@@ -268,13 +269,18 @@ const FillData=()=>{
                     />
                 </div>
                 <div className='bottom-btn-box'>
-                    <Button
-                        className="green-btn submit-btn"
-                        onClick={searchTurn}
-                        disabled={loading}
-                    >
-                        جستجو
-                    </Button>
+                    {loading ?
+                        <img style={{width:"60px"}} src={loadingLine} alt="loading" />
+                    :
+                        <Button
+                            loading={loading}
+                            className="green-btn submit-btn"
+                            onClick={searchTurn}
+                            disabled={loading}
+                        >
+                            جستجو
+                        </Button>
+                    }
                 </div>
                 <Modal 
                     visible={calModal}

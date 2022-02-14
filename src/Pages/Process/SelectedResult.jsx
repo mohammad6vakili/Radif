@@ -253,7 +253,7 @@ const SelectedResult=()=>{
                     <div className='selected-result-tab-two-rate'>
                         <div>
                             <span style={{fontSize:"24px",fontWeight:"700"}}>
-                                {FormatHelper.toPersianString(comments.avg_score)}
+                                {FormatHelper.toPersianString(comments.avg_score.toFixed(0))}
                             </span>
                             <span style={{fontSize:"12px",color:Colors.bigGray}}>
                                 {FormatHelper.toPersianString(comments.total_count)} نظر
@@ -307,7 +307,7 @@ const SelectedResult=()=>{
                                         style={{direction:"ltr"}} 
                                     />
                                 </div>
-                                <div>
+                                <div className='comment-text-wrap'>
                                     {data.content}
                                 </div>
                             </div>

@@ -5,7 +5,7 @@ import hamIcon from "../../Assets/Images/ham-icon.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
 import {useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {setTurnData , setHamburger, setOrg} from "../../Store/Action";
+import {setTurnData , setHamburger, setOrg , setProfile} from "../../Store/Action";
 import loadingSvg from "../../Assets/Animations/loading.svg";
 import bankBanner from "../../Assets/Images/bank-banner.svg";
 import policeBanner from "../../Assets/Images/police+10-banner.svg";
@@ -24,6 +24,7 @@ const Home=()=>{
     const dispatch=useDispatch();
     const [orgs , setOrgs]=useState(null);
     const [turn , setTurn]=useState(null);
+    const [loading , setLoading]=useState(false);
 
     const selectOrg=(id)=>{
         dispatch(setOrg(id));
@@ -90,9 +91,38 @@ const Home=()=>{
         }
     }
 
+    const getUserProfile=async()=>{
+        const token = localStorage.getItem("token");
+        setLoading(true);
+        try{
+            const response = await axios.get(Env.baseUrl + "/accounts/profile/",{
+                headers:{
+                    "Authorization":"Token "+ token
+                }
+            })
+            setLoading(false);
+            dispatch(setProfile(response.data.ContentData));
+        }catch({err , response}){
+            setLoading(false);
+            if(response && response.status===401){
+                localStorage.clear();
+                history.push("/login");
+                toast.error("شما از برنامه خارج شده اید",{
+                    position:"bottom-left"
+                });
+            }else{
+                history.push("/dashboard/home");
+                toast.error(response && response.data.detail,{
+                    position:"bottom-left"
+                });
+            }
+        }
+    }
+
     useEffect(()=>{
         getOrgList();
         getUserTurn();
+        getUserProfile();
     },[])
 
     return(
@@ -121,6 +151,14 @@ const Home=()=>{
                             onClick={()=>selectOrg(data.id)}
                             style={{width:"100%",cursor:"pointer"}}
                             src={pishkhanBanner}
+                            alt="banks" 
+                        />
+                }else if(data.name==="پیشخوان دولت"){
+                    return <img
+                            key={data.id}
+                            onClick={()=>selectOrg(data.id)}
+                            style={{width:"100%",cursor:"pointer"}}
+                            src={policeBanner}
                             alt="banks" 
                         />
                 }

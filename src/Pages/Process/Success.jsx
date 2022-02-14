@@ -2,38 +2,51 @@ import React from 'react';
 import "./Success.css";
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
+import { useSelector } from 'react-redux';
 import successVector from "../../Assets/Images/success-vector.svg";
 import Colors from "../../Helper/Colors";
 import shareIcon from "../../Assets/Images/share.svg";
 import bankLogo from "../../Assets/Images/bank-logo.svg";
 import { toast } from 'react-toastify';
+import FormatHelper from '../../Helper/FormatHelper';
+import moment from 'jalali-moment';
 
 
 const Success=()=>{
 
     const history=useHistory();
+    const getTurn=useSelector(state=>state.Reducer.getTurn);
+    const brand=useSelector(state=>state.Reducer.brand);
+    const saf=useSelector(state=>state.Reducer.saf);
+
 
     const handleSharing = async () => {
+        let shareData = {
+          title: 'پیام دعوت',
+          text: 'دعوت به اپلیکیشن ردیف',
+          url: 'https://panel.radif.app',
+        }        
         if (navigator.share) {
-          try {
-            await navigator
-              .share("this is share link")
-              .then(() =>
-                toast.success("با موفقیت به اشتراک گذاشته شد",{
-                    position: toast.POSITION.BOTTOM_LEFT
-                })
-              );
-          } catch (error) {
-            toast.error("ظاهرا خطایی رخ داده است !",{
-                position: toast.POSITION.BOTTOM_LEFT
-            })
+            try {
+              await navigator
+                .share(shareData)
+                .then(() =>
+                  toast.success("با موفقیت به اشتراک گذاشته شد",{
+                      position: toast.POSITION.BOTTOM_LEFT
+                  })
+                );
+            } catch (error) {
+              toast.error("ظاهرا خطایی رخ داده است !",{
+                  position: toast.POSITION.BOTTOM_LEFT
+              })
+              console.log(error);
+            }
+          } else {
+            toast.error("اشتراک گذاری در این مرورگر پشتیبانی نمیشود",{
+              position: toast.POSITION.BOTTOM_LEFT
+          })
           }
-        } else {
-          toast.error("اشتراک گذاری در این مرورگر پشتیبانی نمیشود",{
-            position: toast.POSITION.BOTTOM_LEFT
-        })
-        }
-      };
+        };
 
 
     return(
@@ -50,12 +63,12 @@ const Success=()=>{
                     <span style={{fontSize:"12px"}}>بانک</span>
                     <span style={{fontWeight:"700",fontSize:"13px"}}>ایران زمین</span>
                 </div>
-                <div className='my-process-item-details' style={{fontSize:"11px"}}>
-                    <div>افتتاح حساب قرض الحسنه در بانک شهر</div>
-                    <div>شعبه نارمک جنوبی - ۱۲۳۴۵</div>
-                    <div>چهارشنبه - ۱۴۰۰/۰۴/۲۵</div>
-                    <div>ساعت ۱۲</div>
-                    <div>کد رهگیری : <span style={{fontWeight:"700",fontSize:"14px"}}>۲۷۸۳۹۳۰</span></div>
+                <div onClick={()=>console.log(saf)} className='my-process-item-details' style={{fontSize:"11px"}}>
+                    <div>{getTurn && getTurn.service_name} در {brand && brand.name}</div>
+                    <div>{saf.branch_name} - {FormatHelper.toPersianString(saf.branch_code)}</div>
+                    <div>{FormatHelper.toPersianString(moment(getTurn.time).locale('fa').format('jYYYY/jM/jD'))}</div>
+                    <div>ساعت : {FormatHelper.toPersianString(moment(getTurn.time).locale('fa').format('HH:mm'))}</div>
+                    <div>کد رهگیری : <span style={{fontWeight:"700",fontSize:"14px"}}>{FormatHelper.toPersianString(getTurn.track_code)}</span></div>
                 </div>
             </div>
             <div 

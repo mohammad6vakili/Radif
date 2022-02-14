@@ -17,6 +17,7 @@ export const SELECTED_TURN="SELECTED_TURN";
 export const IS_OTHER="IS_OTHER";
 export const OTHER="OTHER";
 export const DATE="DATE";
+export const GET_TURN="GET_TURN";
 
 
 export const setHamburger=(data)=>{
@@ -167,6 +168,14 @@ export const setDate=(data)=>{
     return(
         {
             type:DATE,
+            payload:data
+        }
+    )
+}
+export const setGetTurn=(data)=>{
+    return(
+        {
+            type:GET_TURN,
             payload:data
         }
     )

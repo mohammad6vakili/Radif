@@ -13,6 +13,7 @@ import Colors from "../../Helper/Colors";
 import {toast} from "react-toastify";
 import axios from 'axios';
 import Env from "../../Constant/Env.json";
+import { useEffect } from 'react';
 
 
 const EditProfile=()=>{
@@ -147,6 +148,16 @@ const EditProfile=()=>{
         }
     }
 
+    useEffect(()=>{
+        if(profile){
+            setName(profile.first_name);
+            setFamily(profile.last_name);
+            setGender(profile.gender);
+            setDate(FormatHelper.toPersianString(moment(profile.birthday.toString()).locale('fa').format('YYYY/M/DD')));
+            setEmail(profile.email);
+        }
+    },[])
+
     return(
         <div className='edit-profile dashboard-page'>
             <div className="dashboard-page-header">
@@ -202,7 +213,7 @@ const EditProfile=()=>{
                     </div>
                     <div style={{flexDirection:"row",justifyContent:"space-between"}}>
                         <span>جنسیت</span>
-                        <Radio.Group onChange={(e)=>setGender(e.target.value)}>
+                        <Radio.Group value={gender} onChange={(e)=>setGender(e.target.value)}>
                             <Radio value={"مرد"}>مرد</Radio>
                             <Radio value={"زن"}>زن</Radio>
                         </Radio.Group>

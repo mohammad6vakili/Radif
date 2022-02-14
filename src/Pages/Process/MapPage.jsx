@@ -48,9 +48,6 @@ const MapPage=()=>{
             dispatch(setLocName(response.data.formatted_address));
         }catch(err){
             console.log(err);
-            toast.error("خطا در برقراری ارتباط",{
-                position:"bottom-left"
-            });
         }
     }
 
@@ -65,9 +62,7 @@ const MapPage=()=>{
                 })
                 setAreas(response.data.items);
             }catch(err){
-                toast.error("خطا در برقراری ارتباط",{
-                    position:"bottom-left"
-                });
+                console.log(err);
             }
         }
     }

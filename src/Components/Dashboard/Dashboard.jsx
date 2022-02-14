@@ -47,6 +47,7 @@ const Dashboard=()=>{
     const dispatch=useDispatch();
     const hamburger = useSelector(state=>state.Reducer.hamburger);
     const [logModal , setLogModal]=useState(false);
+    const profile=useSelector(state=>state.Reducer.profile);
 
     const logout=()=>{
         history.push("/login");
@@ -88,7 +89,9 @@ const Dashboard=()=>{
                     <div className="hamburger-header">
                         <img src={userAvatar} alt="user avatar" />
                         <div>
-                            <span style={{fontWeight:"700"}}>محمدعلی وکیلی دوست</span>
+                            <span style={{fontWeight:"700"}}>
+                                {profile && profile.first_name} {" "} {profile && profile.last_name}
+                            </span>
                             <span style={{color:Colors.black,fontSize:"12px"}}>حساب کاربری</span>
                         </div>
                     </div>
@@ -100,13 +103,13 @@ const Dashboard=()=>{
                         <div onClick={()=>{history.push("/dashboard/wallet");dispatch(setHamburger(false))}}>
                             <img src={iconTwo} alt="menu" />
                             <span>کیف پول</span>
-                            <span className="hamburger-links-badge">(۱۲۰,۰۰۰ ریال موجودی)</span>
+                            {/* <span className="hamburger-links-badge">(۱۲۰,۰۰۰ ریال موجودی)</span> */}
                         </div>
                         <div onClick={()=>{history.push("/dashboard/messages");dispatch(setHamburger(false))}}>
                             <img src={iconThree} alt="menu" />
                             <span>پیام ها</span>
                             <div></div>
-                            <span className="hamburger-links-badge">(۲ پیام جدید)</span>
+                            {/* <span className="hamburger-links-badge">(۲ پیام جدید)</span> */}
                         </div>
                         <div onClick={()=>{history.push("/dashboard/transactions");dispatch(setHamburger(false))}}>
                             <img src={iconFour} alt="menu" />

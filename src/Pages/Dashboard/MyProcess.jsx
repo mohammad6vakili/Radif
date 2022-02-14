@@ -141,19 +141,19 @@ const MyProcess=()=>{
                         )} trigger="click">
                             <img className='my-process-item-setting-button' src={settingImage} alt="setting" />
                         </Popover>
-                        {data.presence_status==="absent" &&
+                        {data.presence_status==="Absent" &&
                             <div className='my-process-item-setting-label'>
                                 <img src={redLabel} alt="label" />
                                 <span>عدم حضور</span>
                             </div>
                         }
-                        {data.presence_status==="present" &&
+                        {data.presence_status==="Present" &&
                             <div className='my-process-item-setting-label'>
                                 <img src={greenLabel} alt="label" />
                                 <span>حضور</span>
                             </div>
                         }
-                        {data.presence_status==="pending" &&
+                        {data.presence_status==="Pending" &&
                             <div className='my-process-item-setting-label'>
                                 <img src={yellowLabel} alt="label" />
                                 <span>در حال انتظار</span>
@@ -166,7 +166,7 @@ const MyProcess=()=>{
                             <span style={{fontWeight:"700"}}>{data.brand_name}</span>
                         </div>
                         <div className='my-process-item-details'>
-                            <div>افتتاح حساب قرض الحسنه در بانک شهر</div>
+                            <div>{data.service_name} در {data.brand_name}</div>
                             <div>{data.branch_name} - {FormatHelper.toPersianString(data.branch_code)}</div>
                             <div>{data.date!=="" && data.date!==null ? FormatHelper.toPersianString(moment(data.date.toString()).locale('fa').format('YYYY/M/DD')) : "---"}</div>
                             <div>ساعت {data.time && FormatHelper.toPersianString(data.time)}</div>

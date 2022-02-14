@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import "./SelectRole.css";
 import { useSelector , useDispatch} from 'react-redux';
-import { setIsOther } from '../../Store/Action';
+import { setIsOther , setGetTurn} from '../../Store/Action';
 import { useHistory } from 'react-router-dom';
 import { Radio , Button} from 'antd';
 import { toast } from 'react-toastify';
@@ -58,9 +58,9 @@ const SelectRole=()=>{
                 toast.success("نوبت با موفقیت ثبت شد",{
                     position:"bottom-left"
                 })
-                history.push("/dashboard/process/submit-rate");
+                history.push("/dashboard/process/success");
             }
-            console.log(response.data);
+            dispatch(setGetTurn(response.data.ContentData));
         }catch({err , response}){
             setLoading(false);
             if(response && response.status===401){

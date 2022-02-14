@@ -178,7 +178,7 @@
 .selected-result-tab-two,
 .selected-result-tab-one,
 .selected-result-tab {
-  height: unset !important;
+  height: 100% !important;
 }
 .selected-result-tab-two-rate {
   width: 100%;
@@ -224,13 +224,19 @@
 }
 .selected-result-tab-two-comments {
   width: 100%;
+  height: 80%;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
+  scrollbar-width: none !important;
+}
+.selected-result-tab-two-comments::-webkit-scrollbar {
+  display: none !important;
 }
 .selected-result-tab-two-comment {
   width: 100%;
-  height: 100px;
+  min-height: 100px;
   border: 1px solid #eff0f6;
   background-color: white;
   margin-bottom: 10px;
@@ -255,6 +261,17 @@
 .selected-result-tab-two-comment > div:nth-child(2) {
   font-size: 12px;
   color: #4e4b66;
+}
+.comment-text-wrap{
+  width: 100%;
+  text-align: right;
+  overflow: hidden;
+  word-wrap: break-word;
+  overflow-y: auto;
+  scrollbar-width: none !important;
+}
+.comment-text-wrap::-webkit-scrollbar{
+  display: none !important;
 }
 @media only screen and (min-height: 680px) {
   .selected-result-header-detail {

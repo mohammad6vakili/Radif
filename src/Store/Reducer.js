@@ -17,7 +17,8 @@ import {
     SELECTED_TURN,
     IS_OTHER,
     OTHER,
-    DATE
+    DATE,
+    GET_TURN
 } from "./Action";
 
 const initialState = {
@@ -39,7 +40,8 @@ const initialState = {
     selectedTurn:null,
     isOther:"0",
     other:{},
-    date:null
+    date:null,
+    getTurn:null
 };
 
 const Reducer = (state = initialState, action) => {
@@ -82,6 +84,8 @@ const Reducer = (state = initialState, action) => {
       return {...state , other: action.payload};
     case DATE:
       return {...state , date: action.payload};
+    case GET_TURN:
+      return {...state , getTurn: action.payload};
     default:
       return state;
   }
