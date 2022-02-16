@@ -176,7 +176,7 @@ const Home=()=>{
                 {turn && turn.length>0 &&
                     turn.map((data,index)=>(
                         <div onClick={()=>viewTurn(data)} key={index}>
-                            <img src={data.logo} alt="logo" />
+                            <img style={{width:"50px"}} src={Env.imageBaseUrl + data.logo} alt="logo" />
                             <div>
                                 <span style={{fontWeight:"700"}}>{data.brand_name}  - {data.branch_name}</span>
                                 <span style={{fontSize:"11px",color:Colors.secondary}}>{data.branch_address && data.branch_address}</span>

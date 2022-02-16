@@ -102,8 +102,8 @@ const SelectRole=()=>{
             </div>
             <div style={{color:Colors.secondary}} className='search-result-step'>
                 <img src={lineVector} alt="line" />
-                <div>
-                    <img src={saf && saf.brand_logo} alt="bank" />
+                <div onClick={()=>console.log(saf)}>
+                    <img src={saf && Env.imageBaseUrl + saf.brand_logo} alt="bank" />
                 </div>
                 <span>{serviceName} در {saf && saf.brand_name}</span>
             </div>
@@ -113,7 +113,8 @@ const SelectRole=()=>{
                     <img src={calendarIcon} alt="calendar" />
                 </div>
                 <span>
-                    {selectedTurn && FormatHelper.toPersianString(moment(selectedTurn.time.toString()).locale('fa').format('jYYYY/jM/jD'))}
+                    {selectedTurn && FormatHelper.toPersianString(moment(saf.date.toString()).locale('fa').format('YYYY/M/DD'))}
+                    {/* {selectedTurn && moment.from(FormatHelper.toPersianString((saf.date).replace("/","-").replace("/","-"), 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD'))} */}
                 </span>
             </div>
             <div style={{color:Colors.secondary}} className='search-result-step'>
@@ -127,7 +128,7 @@ const SelectRole=()=>{
                 <div>
                     <img src={greenClock} alt="time" />
                 </div>
-                <span>{selectedTurn && FormatHelper.toPersianString(moment(selectedTurn.time.toString()).locale('fa').format('HH:mm'))}</span>
+                <span>{selectedTurn && FormatHelper.toPersianString(selectedTurn.time)}</span>
             </div>
             <div style={{width:"100%",height:"1px",background:"#CBD5E1",margin:"10px 0"}}></div>
             <Radio.Group 

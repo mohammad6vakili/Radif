@@ -162,7 +162,7 @@ const MyProcess=()=>{
                         <div className='my-process-item-logo'>
                             <div className='sub-top'></div>
                             <div className='sub-bottom'></div>
-                            <img src={data.logo} alt="logo" />
+                            <img style={{width:"75px"}} src={Env.imageBaseUrl + data.logo} alt="logo" />
                             <span style={{fontWeight:"700"}}>{data.brand_name}</span>
                         </div>
                         <div className='my-process-item-details'>

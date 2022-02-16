@@ -66,9 +66,9 @@ const Success=()=>{
                 <div onClick={()=>console.log(saf)} className='my-process-item-details' style={{fontSize:"11px"}}>
                     <div>{getTurn && getTurn.service_name} در {brand && brand.name}</div>
                     <div>{saf.branch_name} - {FormatHelper.toPersianString(saf.branch_code)}</div>
-                    <div>{FormatHelper.toPersianString(moment(getTurn.time).locale('fa').format('jYYYY/jM/jD'))}</div>
-                    <div>ساعت : {FormatHelper.toPersianString(moment(getTurn.time).locale('fa').format('HH:mm'))}</div>
-                    <div>کد رهگیری : <span style={{fontWeight:"700",fontSize:"14px"}}>{FormatHelper.toPersianString(getTurn.track_code)}</span></div>
+                    <div>{getTurn && FormatHelper.toPersianString(moment(getTurn.time).locale('fa').format('jYYYY/jM/jD'))}</div>
+                    <div>ساعت : {getTurn && FormatHelper.toPersianString(moment(getTurn.time).locale('fa').format('HH:mm'))}</div>
+                    <div>کد رهگیری : <span style={{fontWeight:"700",fontSize:"14px"}}>{getTurn && FormatHelper.toPersianString(getTurn.track_code)}</span></div>
                 </div>
             </div>
             <div 

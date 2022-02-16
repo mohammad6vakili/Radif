@@ -1,6 +1,7 @@
 .dashboard-page-header {
-  width: 100%;
+  width: calc(100% + 20px);
   min-height: 10vh;
+  padding: 0 10px;
   margin-bottom: 2vh;
   position:sticky;
   top:0;

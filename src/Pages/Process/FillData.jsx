@@ -211,7 +211,7 @@ const FillData=()=>{
             </div>
             {brand && 
                 <div className='fill-data-page-title'>
-                    <img src={brand.logo} alt="logo" />
+                    <img src={Env.imageBaseUrl + brand.logo} alt="logo" />
                     <span>درخواست نوبت از {brand.name}</span>
                 </div>
             }

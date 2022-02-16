@@ -62,11 +62,13 @@ const Profile=()=>{
         }
     }
 
+
     const changeMail=(e)=>{
         e.preventDefault();
         if (email.match(validRegex)) {
             setMailModal(false);
             setGetMail(true);
+            localStorage.setItem("getMail",true);
         }else{        
             toast.warning("فرمت ایمیل وارد شده اشتباه است",{
                 position:"bottom-left"
@@ -79,6 +81,7 @@ const Profile=()=>{
         if (email.match(validRegex)) {
             setNewsModal(false);
             setGetNews(true);
+            localStorage.setItem("getNews",true);
         }else{        
             toast.warning("فرمت ایمیل وارد شده اشتباه است",{
                 position:"bottom-left"
@@ -92,6 +95,12 @@ const Profile=()=>{
     }
 
     useEffect(()=>{
+        if(localStorage.getItem("getMail")){
+            setGetMail(true);
+        }
+        if(localStorage.getItem("getNews")){
+            setGetNews(true);
+        }
         getUserProfile();
     },[])
 
@@ -239,14 +248,17 @@ const Profile=()=>{
                             onClick={()=>{
                                 if(profile.email.length>0 && getMail===false){
                                     setGetMail(true);
+                                    localStorage.setItem("getMail",true);
                                 }else if(profile.email.length>0 && getMail===true){
                                     setGetMail(false);
+                                    localStorage.removeItem("getMail");
                                 }else{
                                     if(getMail===false)
                                     {
                                         setMailModal(true);
                                     }else{
-                                        setGetMail(false)
+                                        setGetMail(false);
+                                        localStorage.removeItem("getMail");
                                     }
                                 }
                                 }
@@ -261,13 +273,16 @@ const Profile=()=>{
                             onClick={()=>{
                                 if(profile.email.length>0 && getNews===false){
                                     setGetNews(true);
+                                    localStorage.setItem("getNews",true);
                                 }else if(profile.email.length>0 && getNews===true){
                                     setGetNews(false);
+                                    localStorage.removeItem("getNews");
                                 }else{
                                     if(getNews===false){
                                         setNewsModal(true);
                                     }else{
                                         setGetNews(false);
+                                        localStorage.removeItem("getNews");
                                     }
                                 }    
                             }} 

@@ -127,7 +127,7 @@ const SelectedResult=()=>{
                 </div>
                 <div className='selected-result-header-detail'>
                     <div>
-                        <img src={brand && brand.logo} alt="bank" />
+                        <img src={brand && Env.imageBaseUrl + brand.logo} alt="bank" />
                     </div>
                     <div>
                         <span style={{color:Colors.secondary}}>{saf && saf.branch_name}</span>
@@ -184,7 +184,7 @@ const SelectedResult=()=>{
                         <Input
                             onFocus={()=>{setTimeModal(true);submitRef.current.focus();}}
                             className='edit-profile-input'
-                            value={selectedTurn && FormatHelper.toPersianString(moment(selectedTurn.time.toString()).locale('fa').format('HH:mm'))}
+                            value={selectedTurn && FormatHelper.toPersianString(selectedTurn.time)}
                             placeholder='انتخاب ساعت مراجعه'
                         />
                     </div>
@@ -215,7 +215,7 @@ const SelectedResult=()=>{
                                         }
                                     }}
                                 >
-                                    {FormatHelper.toPersianString(moment(data.time.toString()).locale('fa').format('HH:mm'))}
+                                    {FormatHelper.toPersianString(data.time)}
                                 </div>
                             ))}
                         </div>

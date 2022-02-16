@@ -100,7 +100,7 @@ const SearchResult=()=>{
             <div style={{color:Colors.secondary}} className='search-result-step'>
                 <img src={lineVector} alt="line" />
                 <div>
-                    <img src={brand && brand.logo} alt="bank" />
+                    <img src={brand && Env.imageBaseUrl + brand.logo} alt="bank" />
                 </div>
                 <span>{serviceName} در {brand && brand.name}</span>
             </div>

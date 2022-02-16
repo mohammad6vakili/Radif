@@ -198,7 +198,7 @@ const SelectOrg=()=>{
                 <div className='select-org-modal-list'>
                     {brands && brands.map((data,index)=>(
                         <div key={index} className='select-org-modal-list-item'>
-                            <img src={data.logo} alt="bank" />
+                            <img src={Env.imageBaseUrl + data.logo} alt="bank" />
                             <span style={{marginRight:"10px",color:Colors.secondary,fontSize:"13px"}}>{data.name}</span>
                             <div>
                                 {
@@ -232,7 +232,7 @@ const SelectOrg=()=>{
                         history.push("/dashboard/process/fill");
                     }}>
                         <div>
-                            <img src={data.logo} alt="org" />
+                            <img src={Env.imageBaseUrl + data.logo} alt="org" />
                         </div>
                         <span>{data.brand_name}</span>
                     </div>
@@ -278,7 +278,7 @@ const SelectOrg=()=>{
                         onClick={()=>selectBrand(data)}
                     >
                         <div>
-                            <img src={data.logo} alt="org logo" />
+                            <img src={Env.imageBaseUrl + data.logo} alt="org logo" />
                         </div>
                         <span>{data.name}</span>
                     </div>
@@ -290,7 +290,7 @@ const SelectOrg=()=>{
                         onClick={()=>selectBrand(data)}
                     >
                         <div>
-                            <img src={data.logo} alt="org logo" />
+                            <img src={Env.imageBaseUrl + data.logo} alt="org logo" />
                         </div>
                         <span>{data.name}</span>
                     </div>
@@ -302,7 +302,7 @@ const SelectOrg=()=>{
                         onClick={()=>selectBrand(data)}
                     >
                         <div>
-                            <img src={data.logo} alt="org logo" />
+                            <img src={Env.imageBaseUrl + data.logo} alt="org logo" />
                         </div>
                         <span>{data.name}</span>
                     </div>
