@@ -7,7 +7,7 @@ import Colors from "../../Helper/Colors";
 import { useSelector , useDispatch } from 'react-redux';
 import { setOther } from '../../Store/Action';
 import { toast } from 'react-toastify';
-import {Calendar , utils} from "react-modern-calendar-datepicker";
+import {Calendar , utils} from "@hassanmojab/react-modern-calendar-datepicker";
 import FormatHelper from '../../Helper/FormatHelper';
 
 

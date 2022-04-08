@@ -1,5 +1,6 @@
 .map-page{
     position: relative;
+    height: 100vh !important;
 }
 .map-page-header{
     position:absolute;

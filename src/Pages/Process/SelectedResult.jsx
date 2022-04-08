@@ -6,7 +6,7 @@ import {setSelectedTurn} from "../../Store/Action";
 import { Rate , Button , Modal , Input , Progress} from 'antd';
 import FormatHelper from "../../Helper/FormatHelper";
 import moment from 'jalali-moment';
-import {Calendar,utils} from "react-modern-calendar-datepicker";
+import {Calendar,utils} from "@hassanmojab/react-modern-calendar-datepicker";
 import axios from 'axios';
 import Env from "../../Constant/Env.json";
 import { toast } from 'react-toastify';

@@ -6,7 +6,8 @@ import moment from 'jalali-moment'
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import {Calendar,utils} from "react-modern-calendar-datepicker";
+import '@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css';
+import {Calendar,utils} from "@hassanmojab/react-modern-calendar-datepicker";
 import FormatHelper from "../../Helper/FormatHelper";
 import {Button,Input,Radio,Modal} from 'antd';
 import Colors from "../../Helper/Colors";
@@ -153,7 +154,9 @@ const EditProfile=()=>{
             setName(profile.first_name);
             setFamily(profile.last_name);
             setGender(profile.gender);
-            setDate(FormatHelper.toPersianString(moment(profile.birthday.toString()).locale('fa').format('YYYY/M/DD')));
+            if(profile.birthday){
+                setDate(FormatHelper.toPersianString(moment(profile.birthday.toString()).locale('fa').format('YYYY/M/DD')));
+            }
             setEmail(profile.email);
         }
     },[])
@@ -182,7 +185,7 @@ const EditProfile=()=>{
                         <span>کدملی <span style={{color:"red",fontWeight:"700"}}>*</span></span>
                         <Input
                             className='edit-profile-input'
-                            value={profile && profile.national_code}
+                            value={profile && FormatHelper.toPersianString(profile.national_code)}
                             disabled
                         />
                     </div>

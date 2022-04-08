@@ -48,7 +48,7 @@ const Login =()=>{
                 setLoading(true);
                 const response = await axios.post(Env.baseUrl + "/accounts/register/",{
                     username:FormatHelper.toEnglishString(mobile),
-                    nationalNumber:FormatHelper.toEnglishString(nationalNumber)
+                    national_code:FormatHelper.toEnglishString(nationalNumber)
                 });
                 if(response.data.success===true){
                     setStep(1);

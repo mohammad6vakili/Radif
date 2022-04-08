@@ -15,7 +15,7 @@ import Colors from "../../Helper/Colors";
 import FormatHelper from '../../Helper/FormatHelper';
 import { Select , Modal , Input , Button} from 'antd';
 import moment from 'jalali-moment'
-import {Calendar,utils} from "react-modern-calendar-datepicker";
+import {Calendar,utils} from "@hassanmojab/react-modern-calendar-datepicker";
 import axios from 'axios';
 import Env from "../../Constant/Env.json";
 import { toast } from 'react-toastify';
