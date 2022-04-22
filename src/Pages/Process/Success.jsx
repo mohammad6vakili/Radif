@@ -3,7 +3,7 @@ import "./Success.css";
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 import { useSelector } from 'react-redux';
-import successVector from "../../Assets/Images/success-vector.svg";
+import successVector from "../../Assets/Images/new-vectors/done.svg";
 import Colors from "../../Helper/Colors";
 import shareIcon from "../../Assets/Images/share.svg";
 import bankLogo from "../../Assets/Images/bank-logo.svg";

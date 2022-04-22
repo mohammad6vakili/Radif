@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import "./Login.css";
 import { useHistory } from 'react-router';
 import ReactCodeInput from "react-code-input";
-import vectorOne from "../../Assets/Images/login-vector-one.svg";
-import vectorTwo from "../../Assets/Images/login-vector-two.svg";
+import vectorOne from "../../Assets/Images/new-vectors/login.svg";
+import vectorTwo from "../../Assets/Images/new-vectors/login-2.svg";
 import penImage from "../../Assets/Images/pen-green.svg";
 import { Button, Input } from 'antd';
 import Colors from "../../Helper/Colors";
@@ -21,6 +21,7 @@ const Login =()=>{
     const [mobile , setMobile]=useState("");
     const [loading , setLoading]=useState(false);
     const [nationalNumber , setNationalNumber]=useState("");
+    const [now , setNow]=useState(Date.now() + 120000)
     const [isCount , setIsCount]=useState(true);
     const [code , setCode]=useState("");
 
@@ -55,6 +56,8 @@ const Login =()=>{
                     toast.success(response.data.message,{
                         position: toast.POSITION.BOTTOM_LEFT
                     });
+                    setNow(Date.now() + 120000)
+                    setIsCount(true)
                     setLoading(false);
                 }else{
                     toast.error(response.data.message,{
@@ -166,7 +169,7 @@ const Login =()=>{
                             </span>
                             <div className="timer">
                                 <Countdown 
-                                    date={Date.now() + 120000}
+                                    date={now}
                                     autoStart={true} 
                                     zeroPadTime={2}
                                     renderer={renderer}

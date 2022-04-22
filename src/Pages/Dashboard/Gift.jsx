@@ -3,7 +3,7 @@ import Colors from "../../Helper/Colors";
 import { useHistory } from 'react-router-dom';
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
-import giftVector from "../../Assets/Images/gift-vector.svg";
+import giftVector from "../../Assets/Images/new-vectors/friends.svg";
 import shareIcon from "../../Assets/Images/share.svg";
 import { toast } from 'react-toastify';
 

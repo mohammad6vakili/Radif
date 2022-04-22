@@ -3,7 +3,7 @@ import "./Wallet.css";
 import Colors from "../../Helper/Colors";
 import { useHistory } from 'react-router-dom';
 import backBtn from "../../Assets/Images/back-btn.svg";
-import walletVector from "../../Assets/Images/wallet.svg";
+import walletVector from "../../Assets/Images/new-vectors/wallet.svg";
 import FormatHelper from "../../Helper/FormatHelper"; 
 import {Input,Button} from 'antd';
 import { toast } from 'react-toastify';

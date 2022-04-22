@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom';
 import Colors from "../../Helper/Colors";
 import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
-import supportVector from "../../Assets/Images/support-vector.svg";
+// import supportVector from "../../Assets/Images/support-vector.svg";
+import supportVector from "../../Assets/Images/new-vectors/support.svg";
 import mailIcon from "../../Assets/Images/mail.svg";
 import phoneIcon from "../../Assets/Images/phone-number.svg";
 

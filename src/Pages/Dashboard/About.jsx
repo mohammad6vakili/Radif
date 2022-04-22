@@ -5,7 +5,6 @@ import backBtn from "../../Assets/Images/back-btn.svg";
 import notifIcon from "../../Assets/Images/notification.svg";
 import aboutVector from "../../Assets/Images/about-vector.svg";
 
-
 const About=()=>{
 
     const history=useHistory();
